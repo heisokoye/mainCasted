@@ -2,7 +2,7 @@ import React from "react";
 
 const Blog =()=>{
     return(
-        <div> Blog</div>
+        <div className="mb-[20rem] mx-auto w-[80%]"> Blog</div>
     )
 }
 

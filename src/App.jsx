@@ -5,15 +5,18 @@ import Blog from "./pages/blog/Blog"
 import Admin from "./pages/admin/Admin"
 import Contact from "./pages/contact/Contact"
 import Navbar from "./components/navbar/Navbar"
+import About from "./pages/about/About"
 
 const App=()=>{
   return (
     <BrowserRouter> 
-      <Navbar>
-        <div> 
+      
+      <Navbar >
+        <div>
           <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/blog" element={<Blog/>} />
+              <Route path="/about" element={<About/>} />
               <Route path="/contact" element={<Contact/>} />
               <Route path="/admin" element={<Admin/>} />
           </Routes>

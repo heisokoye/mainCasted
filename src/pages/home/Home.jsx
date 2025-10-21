@@ -1,12 +1,16 @@
 import React from "react"
 import Hero from "./components/hero/Hero" // default export
-import blogPreview from "./components/blogPreview/blogPreview"
+import BlogPreview from "./components/blogPreview/blogPreview"
+import Cta from "./components/cta/Cta"
+import Team from "./components/team/Team"
+
 
 const Home = () => {
     return (
-        <div className= "mx-auto w-[90%]">
+        <div>
             <Hero className="flex justify-center items-center"/>
-            <blogPreview/>
+           <Cta className=""/>
+           <Team className="pt-[20rem]"/>
         </div>
     )
 }

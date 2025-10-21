@@ -1,9 +1,13 @@
-import React from "react"
+import React from 'react'
 
-const blogPreview =()=>{
-    return (
-        <div className=" relative z-10"> blog Preview </div>
-    )
+const blogPreview = () => {
+  return (
+    <div>
+        <section>
+            blogPreview
+        </section>
+    </div>
+  )
 }
 
 export default blogPreview
