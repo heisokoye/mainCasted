@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <div>
         <section className='bg-[url("/room.jpg")] bg-cover w-full h-[80vh] '>
-            <div className='inset-0 absolute bg-black/60'></div>
+            <div className='inset-0 absolute bg-black/70'></div>
             <div className='flex  items-center align-left h-full relative z-10 mx-auto w-[80%]'>
                 <div>
                     <h1 className='w-[20rem]  text-xl md:text-2xl md:w-[25rem] lg:text-4xl lg:w-[35rem] text-white font-md '>

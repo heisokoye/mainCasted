@@ -6,6 +6,7 @@ import Admin from "./pages/admin/Admin"
 import Contact from "./pages/contact/Contact"
 import Navbar from "./components/navbar/Navbar"
 import About from "./pages/about/About"
+import Dashboard from "./pages/admin/adminDashboard/Dashboard"
 
 const App=()=>{
   return (
@@ -19,6 +20,7 @@ const App=()=>{
               <Route path="/about" element={<About/>} />
               <Route path="/contact" element={<Contact/>} />
               <Route path="/admin" element={<Admin/>} />
+              <Route path="/dashboard" element={<Dashboard/>} />
           </Routes>
         </div>
       </Navbar>

@@ -1,15 +1,28 @@
-import React, {useState} from 'react'
-import { Link } from 'react-router-dom'
-import { FaTimes, FaBars } from 'react-icons/fa';
+import React, {useEffect, useState} from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { FaTimes, FaSun, FaMoon, FaBars } from 'react-icons/fa';
 const Navbar = ({children}) => {
     const [isOpen, setIsOpen] = useState(false);
+    const[isHome, setIsHome] = useState(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        setIsHome(location.pathname === "/");
+    }, [location]);
+
+   
+
+    
+
+
+    
   return (
     <div >
-        <nav className='w-full bg-transparent z-50 text-white fixed top-0 left-0'>
+        <nav className={`${isHome? "text-white": "text-white" } w-full  bg-transparent z-50 text-white fixed top-0 left-0`}>
            <div className=' mx-auto w-[90%] p-2 justify-between flex items-center'>
                 <div> {/* Logo Section */}
                     <Link to={"/"}>
-                        <img src="./whiteLogo.png" alt="Casted Logo" 
+                        <img src= "./whiteLogo.png" alt="Casted Logo" 
                         className='h-20 mt-2 mb-2 '
                         />
                     </Link>
@@ -17,7 +30,7 @@ const Navbar = ({children}) => {
 
                     {/* Mobile nav */}
                 <div className='hidden md:flex lg:flex'>
-                    <ul className='flex gap-[1rem] '>
+                    <ul className= {`${isHome ? "text-white" : "text-white"} flex gap-[1rem]`}>
                         <li> <Link to={"/"}>Home</Link></li>
                         <li> <Link to={"/blog"}>Blog</Link> </li>
                         <li><Link to={"/about"}> About</Link></li>
@@ -29,7 +42,11 @@ const Navbar = ({children}) => {
                 {/* Hamburger Menu */}
                 <div className='md:hidden lg:hidden relative z-50 '>
                     <button  className="cursor-pointer" onClick ={()=> setIsOpen(!isOpen)}>
-                        {isOpen ? (<FaTimes size={20} color='black'/>) : (<FaBars size={20} />)}
+                        {isOpen ? (
+                            <FaTimes size={20} className={isHome ? 'text-white' : 'text-orange-500'} />
+                        ) : (
+                            <FaBars size={20} className={isHome ? 'text-white' : 'text-white'} />
+                        )}
                     </button>
                 </div>
 
@@ -43,6 +60,8 @@ const Navbar = ({children}) => {
                         <li className='font-medium'><Link to={"/admin"} onClick={ ()=> setIsOpen(false)}> Admin</Link></li>
                     </ul>
                 </div>
+
+                
            </div>
         </nav>
 
