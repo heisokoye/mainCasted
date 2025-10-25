@@ -38,10 +38,10 @@ const Admin = () => {
   };
 
   return (
-    <div className='pt-16  bg-[url("/casted_bg.png")] bg-cover bg-no-repeat h-[100vh] w-full' >
+    <div className='pt-16   h-[100vh] w-full' >
         <section className='mx-auto w-[80%]'>
           <div className='mx-auto flex justify-center  h-[85vh] items-center'>
-            <form action="" onSubmit={handleLogin} className='flex flex-col  items-center justify-center rounded-lg  shadow-2xl border h-[25rem] w-[20rem] md:h-[35rem] md:w-[30rem] p-2' >
+            <form action="" onSubmit={handleLogin} className='flex flex-col border-none items-center justify-center rounded-lg  backdrop-blur-lg bg-white/60 shadow-2xl border h-[25rem] w-[20rem] md:h-[30rem] md:w-[25rem] p-2' >
                 <div className='flex   flex-col p-4'>
                   <h1>Email</h1>
                   <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)}  required placeholder='' className='md:w-[20rem] border p-1 focus:outline-none' />

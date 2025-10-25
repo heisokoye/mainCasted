@@ -18,23 +18,22 @@ const Navbar = ({children}) => {
     
   return (
     <div >
-        <nav className={`${isHome? "text-white": "text-white" } w-full  bg-transparent z-50 text-white fixed top-0 left-0`}>
+        <nav className={`${isHome? "text-orange-500": "" } w-full  z-50  h-[6rem]  fixed  top-0 left-0`}>
            <div className=' mx-auto w-[90%] p-2 justify-between flex items-center'>
                 <div> {/* Logo Section */}
                     <Link to={"/"}>
-                        <img src= "./whiteLogo.png" alt="Casted Logo" 
-                        className='h-20 mt-2 mb-2 '
+                        <img src= "./orangeLogo.png" alt="Casted Logo" 
+                        className=' h-15 md:h-20 mt-2 mb-2 '
                         />
                     </Link>
                 </div>
 
                     {/* Mobile nav */}
                 <div className='hidden md:flex lg:flex'>
-                    <ul className= {`${isHome ? "text-white" : "text-white"} flex gap-[1rem]`}>
+                    <ul className= {`${isHome ? "text-orange-400" : "text-orange-400"} flex gap-[1rem]`}>
                         <li> <Link to={"/"}>Home</Link></li>
                         <li> <Link to={"/blog"}>Blog</Link> </li>
                         <li><Link to={"/about"}> About</Link></li>
-                         <li><Link to={"/contact"}> Contact</Link></li>
                         <li><Link to={"/admin"}> Admin</Link></li>
                     </ul>
                 </div>
@@ -43,9 +42,9 @@ const Navbar = ({children}) => {
                 <div className='md:hidden lg:hidden relative z-50 '>
                     <button  className="cursor-pointer" onClick ={()=> setIsOpen(!isOpen)}>
                         {isOpen ? (
-                            <FaTimes size={20} className={isHome ? 'text-white' : 'text-orange-500'} />
+                            <FaTimes size={20} className={isHome ? 'text-orange-500' : 'text-orange-500'} />
                         ) : (
-                            <FaBars size={20} className={isHome ? 'text-white' : 'text-white'} />
+                            <FaBars size={20} className={isHome ? 'text-orange-500' : 'text-orange-500'} />
                         )}
                     </button>
                 </div>
