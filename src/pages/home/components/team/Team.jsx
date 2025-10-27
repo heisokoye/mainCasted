@@ -4,7 +4,7 @@ const Team = () => {
 
   const team = [
       {
-          avatar: "https://api.uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
+          avatar: "/iskeel7.png",
           name: "Iskeel Atolagbe",
           title: "Executive Director",
           linkedin: "javascript:void(0)",
@@ -18,7 +18,7 @@ const Team = () => {
         twitter: "javascript:void(0)",
       },
         {
-            avatar: "https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ",
+            avatar: "/seyi5.png",
             name: "Oluwaseyifunmi Dosunmu",
             title: "Director Emeritus",
             linkedin: "javascript:void(0)",
@@ -61,10 +61,10 @@ const Team = () => {
               {
                 team.map((item, idx) => (
                   <li key={idx}>
-                    <div className="w-24 h-24 mx-auto">
+                    <div className="w-30 h-30 mx-auto">
                       <img
                         src={item.avatar}
-                        className="w-full h-full rounded-full"
+                        className="w-full h-full rounded-full object-cover"
                         alt=""
                       />
                     </div>

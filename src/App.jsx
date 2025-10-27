@@ -8,7 +8,9 @@ import Footer from "./components/footer/Footer"
 import About from "./pages/about/About"
 import Dashboard from "./pages/admin/adminDashboard/Dashboard"
 
+
 const App=()=>{
+  
   return (
     <BrowserRouter> 
       
