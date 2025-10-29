@@ -97,7 +97,7 @@ const Hero = () => {
             <div className='inset-0 absolute bg-black/70'></div>
             <div ref={heroRef} className='flex md:justify-between items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
                 <div>
-                    <motion.h1 className='hero-text w-[25rem]  text-[2.1rem] md:text-4xl md:w-[30rem] lg:text-5xl lg:w-[35rem] text-white font-medium  ' 
+                    <motion.h1 className='hero-text w-[20rem]  text-xl md:text-4xl md:w-[30rem] lg:text-5xl lg:w-[35rem] text-white font-medium  ' 
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1.5, ease: 'easeInOut' }}>
