@@ -97,22 +97,22 @@ const Hero = () => {
             <div className='inset-0 absolute bg-black/70'></div>
             <div ref={heroRef} className='flex md:justify-between items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
                 <div>
-                    <motion.h1 className='hero-text w-[20rem]  text-2xl md:text-4xl md:w-[30rem] lg:text-5xl lg:w-[35rem] text-white font-medium  ' 
+                    <motion.h1 className='hero-text w-[20rem]  text-3xl md:text-4xl md:w-[30rem] lg:text-5xl lg:w-[35rem] text-white font-medium  ' 
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1.5, ease: 'easeInOut' }}>
                         Discover the latest social events, gossips and more
                     </motion.h1>
-                    <motion.button 
+                    <motion.button
                         className='hero-text mt-4 bg-white text-amber-600 px-4 py-2 cursor-pointer rounded-lg shadow-lg flex items-center gap-2'
-                        initial="rest"
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1.5, ease: 'easeInOut' }}
                         whileHover="hover"
-                        animate="rest"
                         variants={{
-                            rest: { scale: 1 },
-                            hover: { scale: 1.05 }
+                            // This variant is implicitly used for the hover state
+                            hover: { scale: 1.05, transition: { type: 'spring', stiffness: 400, damping: 15 } }
                         }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 15 }}
                     >
                         <a href="https://whatsapp.com/channel/0029Vb56767I1rckrGeYrs1E" target='_blank' rel="noopener noreferrer" className='font-medium'>Subscribe</a>
                         <motion.div variants={arrowVariants}><BsArrowRight /></motion.div>

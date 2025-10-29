@@ -18,19 +18,19 @@ const Navbar = ({children}) => {
     
   return (
     <div >
-        <nav className={`${isHome? "text-orange-500": "" } w-full   z-50  h-[5rem]  fixed  top-0 left-0`}>
+        <nav className={`${isHome? "text-orange-400": "" } w-full bg-white  z-50  h-[3.5rem]  fixed  top-0 left-0`}>
            <div className=' mx-auto md:w-[90%] lg:w-[90%] p-2 justify-between flex items-center'>
                 <div> {/* Logo Section */}
                     <Link to={"/"}>
                         <img src= "./orangeLogo.png" alt="Casted Logo" 
-                        className=' h-10  w-20 md:w-30 md:h-15 mt-2 mb-2 '
+                        className=' h-10  w-25 md:w-30 md:h-15 mt-2 mb-2 '
                         />
                     </Link>
                 </div>
 
                     {/* Mobile nav */}
                 <div className='hidden md:flex lg:flex'>
-                    <ul className= {`${isHome ? "text-orange-500" : "text-orange-500"} font-medium flex gap-[1rem]`}>
+                    <ul className= {`${isHome ? "text-orange-400" : "text-orange-400"} font-medium flex gap-[1rem]`}>
                         <li className='transform transition-transform duration-300 hover:scale-103'> <Link to={"/"}>Home</Link></li>
                         <li className='transform transition-transform duration-300 hover:scale-103'> <Link to={"/blog"}>Blog</Link> </li>
                         <li className='transform transition-transform duration-300 hover:scale-103'><Link to={"/about"}> About</Link></li>
@@ -43,9 +43,9 @@ const Navbar = ({children}) => {
                 <div className='md:hidden lg:hidden relative z-50 '>
                     <button  className="cursor-pointer" onClick ={()=> setIsOpen(!isOpen)}>
                         {isOpen ? (
-                            <FaTimes size={20} className={isHome ? 'text-orange-500' : 'text-orange-500'} />
+                            <FaTimes size={20} className={isHome ? 'text-orange-400' : 'text-orange-400'} />
                         ) : (
-                            <FaBars size={20} className={isHome ? 'text-orange-500' : 'text-orange-500'} />
+                            <FaBars size={20} className={isHome ? 'text-orange-400' : 'text-orange-400'} />
                         )}
                     </button>
                 </div>
