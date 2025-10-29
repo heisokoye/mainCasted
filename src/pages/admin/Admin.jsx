@@ -44,7 +44,7 @@ const Admin = () => {
   return (
     <div className='pt-16   h-[100vh] w-full' >
         <section className='mx-auto w-[80%]'>
-          <div className='mx-auto flex justify-center  h-[85vh] items-center'>
+          <div className='mx-auto flex justify-center  h-[85vh] md:h-[85vh]  lg:h-[85vh] items-center'>
             <form action="" onSubmit={handleLogin} className='flex flex-col border-none items-center justify-center rounded-lg  backdrop-blur-lg bg-white/60 shadow-2xl border h-[25rem] w-[20rem] md:h-[30rem] md:w-[25rem] p-2' >
                 <div className='flex   flex-col p-4'>
                   <h1>Email</h1>

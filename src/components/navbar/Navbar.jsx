@@ -18,7 +18,7 @@ const Navbar = ({children}) => {
     
   return (
     <div >
-        <nav className={`${isHome? "text-orange-400": "" } w-full bg-white  z-50  h-[3.5rem]  fixed  top-0 left-0`}>
+        <nav className={`${isHome? "text-orange-400": "" } w-full bg-white  z-50  h-[3.5rem] md:h-[4.5rem] lg:h-[4.5rem] fixed  top-0 left-0`}>
            <div className=' mx-auto md:w-[90%] lg:w-[90%] p-2 justify-between flex items-center'>
                 <div> {/* Logo Section */}
                     <Link to={"/"}>

@@ -177,7 +177,7 @@ const Dashboard = () => {
         {/* Conditional rendering of the modal based on the isOpen state */}
         {isOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg w-[80%] md:w-[50%] lg:w-[40%] max-h-[90vh] overflow-y-auto">
+            <div className="bg-white p-6 rounded-lg w-[80%] md:w-[50%] lg:w-[40%] max-h-[80vh] overflow-y-auto">
               <h2 className="text-xl mb-4">{editingPost ? 'Edit Post' : 'Add New Post'}</h2>
               <form onSubmit={handleFormSubmit}>
                 <div className="mb-4">
@@ -223,9 +223,9 @@ const Dashboard = () => {
 
                 <div className="flex justify-end">
                   {/* Button to close the modal */}
-                  <button type="button" onClick={resetAndCloseModal} disabled={isUploading} className="mr-2 mt-2 px-4 py-2 bg-gray-300 cursor-pointer text-black rounded-lg disabled:opacity-50">Cancel</button>
+                  <button type="button" onClick={resetAndCloseModal} disabled={isUploading} className="mr-2 mt-20 px-4 py-2 bg-gray-300 cursor-pointer md:mt-2 lg:mt-2 text-black rounded-lg disabled:opacity-50">Cancel</button>
                   {/* Button to submit the new post */}
-                  <button type="submit" disabled={isUploading} className="px-4 py-2 bg-blue-500 mt-2 text-white cursor-pointer rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed">{isUploading ? 'Uploading...' : (editingPost ? 'Update Post' : 'Add Post')}</button>
+                  <button type="submit" disabled={isUploading} className="px-4 py-2 bg-blue-500 mt-20 md:mt-2 lg:mt-2 text-white cursor-pointer rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed">{isUploading ? 'Uploading...' : (editingPost ? 'Update Post' : 'Add Post')}</button>
                 </div>
               </form>
             </div>
