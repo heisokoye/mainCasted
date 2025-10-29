@@ -19,11 +19,11 @@ const Navbar = ({children}) => {
   return (
     <div >
         <nav className={`${isHome? "text-orange-400": "" } w-full bg-white  z-50  h-[3.5rem] md:h-[4.5rem] lg:h-[4.5rem] fixed  top-0 left-0`}>
-           <div className=' mx-auto md:w-[90%] lg:w-[90%] p-2 justify-between flex items-center'>
+           <div className=' mx-auto w-[90%] md:w-[90%] lg:w-[90%] p-2 justify-between flex items-center'>
                 <div> {/* Logo Section */}
                     <Link to={"/"}>
                         <img src= "./orangeLogo.png" alt="Casted Logo" 
-                        className=' h-10  w-25 md:w-30 md:h-15 mt-2 mb-2 '
+                        className=' h-10  w-25 md:w-35 lg:w-35 md:h-15 mt-2 mb-2 '
                         />
                     </Link>
                 </div>
@@ -51,7 +51,7 @@ const Navbar = ({children}) => {
                 </div>
 
                 {/* Mobile Menu Items */}
-                <div className={` ${isOpen ? "flex" : "hidden"}  absolute bg-white top-[0] left-0 w-full h-screen  md:hidden lg:hidden `}>
+                <div className={` ${isOpen ? "flex" : "hidden"}  absolute text-orange-400 bg-white top-[0] left-0 w-full h-screen  md:hidden lg:hidden `}>
                     <ul className='flex flex-col w-full  mx-auto items-center space-y-20 py-40 px-6  '>
                         <li className='font-medium transform transition-transform duration-300 hover:scale-103'> <Link to={"/"} onClick={()=> setIsOpen(false)}>Home</Link></li>
                         <li className='font-medium transform transition-transform duration-300 hover:scale-103'> <Link to={"/blog"} onClick={()=> setIsOpen(false)}>Blog</Link> </li>
