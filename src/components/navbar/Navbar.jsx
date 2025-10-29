@@ -23,7 +23,7 @@ const Navbar = ({children}) => {
                 <div> {/* Logo Section */}
                     <Link to={"/"}>
                         <img src= "./orangeLogo.png" alt="Casted Logo" 
-                        className=' h-15 md:h-15 mt-2 mb-2 '
+                        className=' h-10  w-20 md:w-30 md:h-15 mt-2 mb-2 '
                         />
                     </Link>
                 </div>
