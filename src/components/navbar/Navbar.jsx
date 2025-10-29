@@ -43,9 +43,9 @@ const Navbar = ({children}) => {
                 <div className='md:hidden lg:hidden relative z-50 '>
                     <button  className="cursor-pointer" onClick ={()=> setIsOpen(!isOpen)}>
                         {isOpen ? (
-                            <FaTimes size={20} className={isHome ? 'text-orange-400' : 'text-orange-400'} />
+                            <FaTimes size={17} className={isHome ? 'text-orange-400' : 'text-orange-400'} />
                         ) : (
-                            <FaBars size={20} className={isHome ? 'text-orange-400' : 'text-orange-400'} />
+                            <FaBars size={17} className={isHome ? 'text-orange-400' : 'text-orange-400'} />
                         )}
                     </button>
                 </div>
