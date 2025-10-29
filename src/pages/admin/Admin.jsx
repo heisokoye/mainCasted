@@ -2,7 +2,8 @@ import React,{useState} from 'react'
 import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
 import { app } from '../../Firebase'
 import { useNavigate } from 'react-router-dom'
-import { BsArrowRight } from 'react-icons/bs'
+import { BsArrowRight } from 'react-icons/bs' 
+import Loader from '../../components/loader/Loader'
 
 
 const Admin = () => {
@@ -11,15 +12,18 @@ const Admin = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const auth = getAuth(app);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMsg("");
+    setLoading(true);
 
     try{
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/dashboard")
     } catch(error){
+      setLoading(false);
       switch(error.code){
         case "auth/invalid-email":
           setErrorMsg("Invalid Email");
@@ -51,8 +55,13 @@ const Admin = () => {
                   <input type="password" required placeholder='' value={password} onChange ={(e)=> setPassword(e.target.value)} className='md:w-[20rem] border p-1 focus:outline-none '  />
                 </div>
                 {errorMsg && <p className='text-red-500 text-sm mb-2'>{errorMsg}</p>}
-                <button className='mt-4  border text-amber-600 px-3 py-2 cursor-pointer rounded-lg hover:bg-amber-600 hover:text-white hover:transition-transform hover:duration-300 '>
-                    <h1> Login <BsArrowRight className='inline hover:translate-x-2 hover:transition-transform hover:text-white hover:duration-300 '/></h1> 
+                <button type="submit" disabled={loading} className='mt-4 flex justify-center items-center w-32 border text-amber-600 px-3 py-2 cursor-pointer rounded-lg hover:bg-amber-600 hover:text-white hover:transition-transform hover:duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed'
+                >
+                    {loading ? <Loader /> : (
+                      <h1>
+                        Login <BsArrowRight className='inline hover:translate-x-2 hover:transition-transform hover:text-white hover:duration-300 '/>
+                      </h1> 
+                    )}
                 </button>
             </form>
           </div>

@@ -5,6 +5,7 @@ import Cta from "./components/cta/Cta"
 import Team from "./components/team/Team"
 
 
+
 const Home = () => {
     return (
         <div>

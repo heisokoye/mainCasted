@@ -1,5 +1,19 @@
 import React from 'react'
 import { FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.3, delayChildren: 0.2 },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 100 } },
+};
 
 const Cta = () => {
   const contactMethods = [
@@ -37,21 +51,27 @@ const Cta = () => {
 
   return (
     <div className='bg-white relative z-10 border-b-gray-200 border-b'>
-      <section className='mx-auto w-[80%]  text-black max-w-full py-[4rem] lg:flex'>
+      <motion.section 
+        className='mx-auto w-[80%]  text-black max-w-full py-[4rem] lg:flex'
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={containerVariants}
+      >
         <div className="max-w-screen-2xl mx-auto px-4 w-full text-gray-600 gap-12 md:px-10 lg:flex">
-          <div className="max-w-md">
+          <motion.div className="max-w-md" variants={itemVariants}>
               <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
                   Let’s connect
               </h3>
               <p className="mt-3">
                  Connect to enjoy latest updates, event coverages, interviews and a lot more.
               </p>
-          </div>
+          </motion.div>
             <div>
               <ul className="mt-12 gap-y-6 gap-x-12 items-center md:flex lg:gap-x-0 lg:mt-0">
                 {
                   contactMethods.map((item, idx) => (
-                    <li key={idx} className="space-y-3  py-6 md:max-w-sm md:py-0  lg:px-12 lg:max-w-none">
+                    <motion.li key={idx} className="space-y-3  py-6 md:max-w-sm md:py-0  lg:px-12 lg:max-w-none" variants={itemVariants}>
                       <div className="w-12 h-12 rounded-full border flex items-center justify-center text-gray-700">
                           {item.icon}
                       </div>
@@ -67,13 +87,13 @@ const Cta = () => {
                               <path fillRule="evenodd" d="M5 10a.75.75 0 01.75-.75h6.638L10.23 7.29a.75.75 0 111.04-1.08l3.5 3.25a.75.75 0 010 1.08l-3.5 3.25a.75.75 0 11-1.04-1.08l2.158-1.96H5.75A.75.75 0 015 10z" clipRule="evenodd" />
                           </svg>
                       </a>
-                    </li>
+                    </motion.li>
                   ))
                 }
               </ul>
             </div>
         </div>
-      </section>
+      </motion.section>
   </div>
   )
 }
