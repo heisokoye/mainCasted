@@ -19,7 +19,7 @@ const Navbar = ({children}) => {
   return (
     <div >
         <nav className={`${isHome? "text-orange-500": "" } w-full     z-50  h-[5rem]  fixed  top-0 left-0`}>
-           <div className=' mx-auto w-[90%] p-2 justify-between flex items-center'>
+           <div className=' mx-auto w-[80%] p-2 md:justify-between lg:justify-between flex items-center'>
                 <div> {/* Logo Section */}
                     <Link to={"/"}>
                         <img src= "./orangeLogo.png" alt="Casted Logo" 
