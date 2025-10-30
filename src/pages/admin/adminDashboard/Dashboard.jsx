@@ -1,21 +1,21 @@
 import React, {useState, useEffect} from "react"
-import ReactQuill from 'react-quill-new';
+import ReactQuill from 'react-quill-new'; // rich text editor used for post content
 import 'react-quill-new/dist/quill.snow.css';
-import {addDoc, collection} from "firebase/firestore";
-import { db, storage } from "../../../Firebase";
-import {listenToPosts} from "./firestoreListen"
-import {doc, updateDoc, deleteDoc} from "firebase/firestore";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import Loader from "../../../components/loader/Loader";
+import {addDoc, collection} from "firebase/firestore"; // used to add new documents
+import { db, storage } from "../../../Firebase"; // firebase exports (Firestore + Storage)
+import {listenToPosts} from "./firestoreListen" // helper that listens to posts collection changes
+import {doc, updateDoc, deleteDoc} from "firebase/firestore"; // CRUD helpers for Firestore
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // storage upload helpers
+import Loader from "../../../components/loader/Loader"; // spinner component shown while loading data
 
 // Configuration for the ReactQuill editor's toolbar
 const modules = {
   toolbar: [
-    [{ 'header': [1, 2, false] }],
-    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-    [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
-    ['link', 'image', 'video'],
-    ['clean']
+    [{ 'header': [1, 2, false] }], // header dropdown (H1, H2, normal)
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'], // inline styles
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }], // lists/indent
+    ['link', 'image', 'video'], // media / link
+    ['clean'] // remove formatting
   ],
 };
 
@@ -24,7 +24,7 @@ const modules = {
 
 
 
-// Allowed formats for the ReactQuill editor
+// Allowed formats for the ReactQuill editor (keeps editor content predictable)
 const formats = [
   'header',
   'bold', 'italic', 'underline', 'strike', 'blockquote',
@@ -34,89 +34,106 @@ const formats = [
 
 // The main Dashboard component for the admin panel
 const Dashboard = () => {
-  // State to manage the visibility of the "Add Post" modal
+  // Controls whether the "Add / Edit Post" modal is visible
   const [isOpen, setIsOpen] = useState(false);
-  // removed stray setLoading(true);
 
-  // loading state (used to show Loader while posts are fetched)
+  // loading state: true while we fetch posts from Firestore
   const [loading, setLoading] = useState(true);
 
-  // State for file upload
-  const [file, setFile] = useState(null);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [isUploading, setIsUploading] = useState(false);
-  // State to track the post being edited. null if in "add" mode.
+  // File upload state
+  const [file, setFile] = useState(null); // selected file object (image/video)
+  const [uploadProgress, setUploadProgress] = useState(0); // percentage during upload
+  const [isUploading, setIsUploading] = useState(false); // disables form buttons during upload
+
+  // Editing state: when editing an existing post, this holds the post object
+  // null => adding a new post
   const [editingPost, setEditingPost] = useState(null);
 
-  // Function to toggle the modal's visibility
+  // Title / content of the post form
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState(''); 
+
+  // Local cached posts fetched from Firestore
+  const [posts, setPosts] = useState([]);
+
+  // Open the modal. If a post is supplied we populate the form for editing.
   const openModal = (post = null) => {
     if (post) {
+      // entering "edit" mode: populate fields with post's data
       setEditingPost(post);
       setTitle(post.title);
       setContent(post.content);
     } else {
+      // entering "add" mode: reset fields
       setEditingPost(null);
       setTitle('');
       setContent('');
       setFile(null);
     }
+    // toggle modal visibility
     setIsOpen(!isOpen);
   };
 
-  // State to hold the title of the post
-  const [title, setTitle] = useState('');
-  // State to hold the content of the rich text editor
-  const [content, setContent] = useState(''); 
-  // Function to handle changes in the editor's content
+  // Handler for editor content change
   const handleChange = (value) => {
     setContent(value);
   };
 
+  // File input change handler
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
-  const [posts, setPosts] = useState([]);
-
-  // Effect hook to set up a listener for Firestore posts on component mount
+  // on mount: subscribe to posts collection via listenToPosts helper
+  // listenToPosts should call the provided callback with an array of posts
+  // and return an unsubscribe function.
   useEffect(() => {
     const unsubscribe = listenToPosts((fetchedPosts) => {
       setPosts(fetchedPosts);
-      setLoading(false);
+      setLoading(false); // data received -> stop showing loader
     });
-    return () => unsubscribe();
+    return () => unsubscribe(); // cleanup listener on unmount
   }, []);
-  
-  // Function to handle form submission for both adding and editing posts
+
+  // Form submit handler used for both adding new posts and updating existing ones
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    // Basic validation: title required
     if (!title.trim()) {
       alert("Title cannot be empty.");
       return;
     }
 
-    setIsUploading(true);
+    setIsUploading(true); // disable controls & show upload progress if file exists
 
+    // default to values from the editing post if present
     let fileUrl = editingPost ? editingPost.fileUrl : '';
     let fileType = editingPost ? editingPost.fileType : '';
 
+    // If user selected a new file, upload it to Firebase Storage
     if (file) {
+      // create a storage ref with a timestamp to avoid name collisions
       const storageRef = ref(storage, `posts/${Date.now()}_${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
+      // wait for upload to complete using a Promise that resolves in the 'complete' callback
       await new Promise((resolve, reject) => {
         uploadTask.on('state_changed',
           (snapshot) => {
+            // update local progress state as upload proceeds
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             setUploadProgress(progress);
           },
           (error) => {
+            // upload error handling
             console.error("Upload failed:", error);
             alert("File upload failed. Please try again.");
             setIsUploading(false);
             reject(error);
           },
           async () => {
+            // upload successful -> get download URL and determine file type (image/video)
             fileUrl = await getDownloadURL(uploadTask.snapshot.ref);
             fileType = file.type.startsWith('image/') ? 'image' : 'video';
             resolve();
@@ -125,6 +142,7 @@ const Dashboard = () => {
       });
     }
 
+    // Build the post object that will be saved to Firestore
     const postData = {
       title,
       content,
@@ -134,28 +152,32 @@ const Dashboard = () => {
 
     try {
       if (editingPost) {
-        // Update existing post
+        // Update existing document: use the post's id to get a doc ref, then update it
         const postRef = doc(db, "posts", editingPost.id);
         await updateDoc(postRef, postData);
         alert("Post updated successfully!");
       } else {
-        // Add new post
+        // Add a new document to the "posts" collection with createdAt timestamp
         await addDoc(collection(db, "posts"), {
           ...postData,
           createdAt: new Date()
         });
         alert("Post added successfully!");
       }
+      // Reset form and close modal on success
       resetAndCloseModal();
     } catch (error) {
+      // If an error occurs while saving, stop any loading indicators and log it
       setLoading(false);
       console.error("Error saving document: ", error);
       alert("Error saving post. Check the console for details.");
     } finally {
+      // always turn off uploading flag (enable UI again)
       setIsUploading(false);
     }
   };
 
+  // Helper to reset form state and close the modal
   const resetAndCloseModal = () => {
     setTitle('');
     setContent('');
@@ -164,6 +186,7 @@ const Dashboard = () => {
     setIsOpen(false);
   };
 
+  // Delete a post by ID
   const handleDelete = async(id)=>{
     try{
       await deleteDoc(doc(db, "posts", id));
@@ -174,11 +197,13 @@ const Dashboard = () => {
     }
   }
 
+  // Render the dashboard UI
   return (
     // Main container for the dashboard page
     <div className="pt-16  h-[100vh] w-full ">
       <div className='mx-auto w-[80%]'>
         <h1 className="text-2xl mt-10"> Admin Dashboard</h1>
+
         {/* Button to open the modal for adding a new post */}
         <button
           className="mt-4 p-2 bg-blue-500 text-white rounded-lg cursor-pointer "
@@ -186,12 +211,15 @@ const Dashboard = () => {
         >
           Add Posts
         </button>
-        {/* Conditional rendering of the modal based on the isOpen state */}
+
+        {/* Modal for adding/editing posts - conditionally rendered */}
         {isOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-opacity-50">
             <div className="bg-white p-6 rounded-lg w-[80%] md:w-[50%] lg:w-[40%] max-h-[80vh] overflow-y-auto">
+              {/* Modal title changes depending on add vs edit mode */}
               <h2 className="text-xl mb-4">{editingPost ? 'Edit Post' : 'Add New Post'}</h2>
               <form onSubmit={handleFormSubmit}>
+                {/* Title input */}
                 <div className="mb-4">
                   <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">Title</label>
                   <input
@@ -203,6 +231,8 @@ const Dashboard = () => {
                     required
                   />
                 </div>
+
+                {/* File input for optional image/video */}
                 <div className="mb-4">
                   <label htmlFor="file" className="block text-sm font-medium text-gray-700 mb-1">Image/Video</label>
                   <input
@@ -213,38 +243,45 @@ const Dashboard = () => {
                     className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                   />
                 </div>
+
+                {/* Rich text editor for post content */}
                 <div className="mb-4">
-                  {/* The rich text editor component */}
                   <ReactQuill 
                     theme="snow" 
                     value={content} 
                     onChange={handleChange} 
                     modules={modules} 
                     formats={formats}
-                    // Use Tailwind CSS classes to style the editor container (for height)
                     className="h-96 mb-16" 
-                    
                   />
                 </div>
 
+                {/* Upload progress bar - only shown while a file is uploading */}
                 {isUploading && (
                   <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
                     <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${uploadProgress}%` }}></div>
                   </div>
                 )}
 
+                {/* Modal actions */}
                 <div className="flex justify-end">
-                  {/* Button to close the modal */}
+                  {/* Cancel button resets the form and closes modal; disabled during upload */}
                   <button type="button" onClick={resetAndCloseModal} disabled={isUploading} className="mr-2 mt-20 px-4 py-2 bg-gray-300 cursor-pointer md:mt-2 lg:mt-2 text-black rounded-lg disabled:opacity-50">Cancel</button>
-                  {/* Button to submit the new post */}
-                  <button type="submit" disabled={isUploading} className="px-4 py-2 bg-blue-500 mt-20 md:mt-2 lg:mt-2 text-white cursor-pointer rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed">{isUploading ? 'Uploading...' : (editingPost ? 'Update Post' : 'Add Post')}</button>
+
+                  {/* Submit button text changes for add vs update; disabled during upload */}
+                  <button type="submit" disabled={isUploading} className="px-4 py-2 bg-blue-500 mt-20 md:mt-2 lg:mt-2 text-white cursor-pointer rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed">
+                    {isUploading ? 'Uploading...' : (editingPost ? 'Update Post' : 'Add Post')}
+                  </button>
                 </div>
               </form>
             </div>
           </div>
         )}
 
-        {/* fetching the posts */}
+        {/* Posts listing section:
+            - While loading: show Loader centered
+            - After loading: map over posts to display cards
+        */}
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <Loader />
@@ -254,13 +291,18 @@ const Dashboard = () => {
             <div className="md:grid md:grid-cols-3 lg:grid lg:grid-cols-4 gap-4 mt-6">
               {posts.map((post) => (
                 <div key={post.id} className="border p-4 my-4 rounded-lg shadow-lg border-gray-300">
+                  {/* Conditionally render image or video if fileUrl exists */}
                   {post.fileUrl && post.fileType === 'image' && (
                     <img src={post.fileUrl} alt={post.title} className="w-full h-48 object-cover rounded-md mb-2" />
                   )}
                   {post.fileUrl && post.fileType === 'video' && (
                     <video src={post.fileUrl} controls className="w-full h-48 object-cover rounded-md mb-2" />
                   )}
+
+                  {/* Post title */}
                   <h2 className="font-normal">{post.title}</h2>
+
+                  {/* Actions: Edit opens the modal in edit mode; Delete removes the doc */}
                   <div>
                     <button className="bg-amber-300 px-4 py-2 mt-2 rounded-lg cursor-pointer" onClick={()=> openModal(post)}>Edit </button>
                     <button className="bg-red-500 px-4 py-2 mt-2 ml-2 rounded-lg cursor-pointer text-white" onClick={() => handleDelete(post.id)}>Delete</button>
