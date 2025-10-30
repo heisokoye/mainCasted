@@ -58,7 +58,7 @@ const Cta = () => {
         viewport={{ once: true, amount: 0.3 }}
         variants={containerVariants}
       >
-        <div className="max-w-screen-2xl mx-auto px-4 w-full text-gray-600 gap-12 md:px-10 lg:flex">
+        <div className="px-4 w-full text-gray-600 gap-12 md:px-10 lg:flex">
           <motion.div className="max-w-md" variants={itemVariants}>
               <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
                   Let’s connect

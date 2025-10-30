@@ -94,10 +94,10 @@ const Hero = () => {
   return (
     <div className="w-full border-b border-gray-300">
         <section className='bg-white bg-cover w-full h-[50vh] md:h-[70vh] lg:h-[70vh] '>
-            <div className=''></div>
-            <div ref={heroRef} className='flex md:justify-between items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
+            <div ref={heroRef} className='flex lg:justify-between  md:justify-center md:items-center items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
+                {/* Hero Text and Subscribe Button */}
                 <div>
-                    <motion.h1 className='hero-text w-[20rem]  text-3xl md:text-4xl md:w-[30rem] lg:text-5xl lg:w-[35rem] text-orange-400 font-medium  ' 
+                    <motion.h1 className='hero-text   text-3xl md:text-4xl md:w-full lg:text-5xl lg:w-[35rem] text-orange-400 font-medium  ' 
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1.5, ease: 'easeInOut' }}>
@@ -120,7 +120,7 @@ const Hero = () => {
                 </div>
 
                     {/*Slider for blogs preview */}
-                <div className='hidden lg:flex items-center justify-center'>
+                <div className='hidden  md:flex lg:flex items-center justify-center'>
                     <div ref={sliderRef} className="relative xl:w-[50rem] h-[30rem] rounded-lg shadow-2xl overflow-hidden">
                         <AnimatePresence initial={false} custom={direction}>
                             <motion.div

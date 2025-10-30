@@ -75,7 +75,7 @@ const Team = () => {
     return (
     <section className="py-14 border-b  border-b-gray-200">
       <div className="mx-auto w-[90%] ">
-        <div className="max-w-screen-3xl mx-auto  px-4 text-center md:px-8">
+        <div className="px-4 text-center md:px-8">
           <div className="max-w-xl mx-auto">
             <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl">
                 Meet our <span className="text-orange-500">team</span>
