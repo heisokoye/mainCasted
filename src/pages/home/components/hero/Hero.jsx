@@ -92,19 +92,19 @@ const Hero = () => {
     }, [currentSlide]);
 
   return (
-    <div className="w-full">
-        <section className='bg-[url("/ro.jpg")] bg-cover w-full h-[50vh] md:h-[70vh] lg:h-[70vh] '>
-            <div className='inset-0 absolute bg-black/70'></div>
+    <div className="w-full border-b border-gray-300">
+        <section className='bg-white bg-cover w-full h-[50vh] md:h-[70vh] lg:h-[70vh] '>
+            <div className=''></div>
             <div ref={heroRef} className='flex md:justify-between items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
                 <div>
-                    <motion.h1 className='hero-text w-[20rem]  text-3xl md:text-4xl md:w-[30rem] lg:text-5xl lg:w-[35rem] text-white font-medium  ' 
+                    <motion.h1 className='hero-text w-[20rem]  text-3xl md:text-4xl md:w-[30rem] lg:text-5xl lg:w-[35rem] text-orange-400 font-medium  ' 
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1.5, ease: 'easeInOut' }}>
                         Discover the latest social events, gossips and more
                     </motion.h1>
                     <motion.button
-                        className='hero-text mt-4 bg-white text-amber-600 px-4 py-2 cursor-pointer rounded-lg shadow-lg flex items-center gap-2'
+                        className='hero-text mt-4 bg-white border text-amber-600 px-4 py-2 cursor-pointer rounded-lg shadow-lg flex items-center gap-2'
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.5, ease: 'easeInOut' }}
