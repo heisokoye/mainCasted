@@ -93,15 +93,24 @@ const Hero = () => {
 
   return (
     <div className="w-full border-b border-gray-300">
+        {/* 
+          SEO Tip: Page metadata should be moved to the parent page component (e.g., Home.jsx).
+          This keeps components reusable and follows best practices.
+          
+          Example for your Home page:
+          <title>Casted! Publications - Student Media, News, and Stories</title>
+          <meta name="description" content="The official source for student stories, campus news, and social events from Casted! Publications. Discover the latest articles and amplify your voice." />
+          <link rel="canonical" href="https://yourwebsite.com/" />
+        */}
         <section className='bg-white bg-cover w-full h-[50vh] md:h-[70vh] lg:h-[70vh] '>
             <div ref={heroRef} className='flex lg:justify-between  md:justify-center md:items-center items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
                 {/* Hero Text and Subscribe Button */}
                 <div>
-                    <motion.h1 className='hero-text   text-3xl md:text-4xl md:w-full lg:text-5xl lg:w-[35rem] text-orange-400 font-medium  ' 
+                    <motion.h1 className='hero-text   text-3xl md:text-4xl md:w-full lg:text-5xl lg:w-[35rem] text-orange-400 font-medium  '
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1.5, ease: 'easeInOut' }}>
-                        Discover the latest social events, gossips and more
+                        Casted! Publications: Student Stories, Campus News, and Social Events
                     </motion.h1>
                     <motion.button
                         className='hero-text mt-4 bg-white border text-amber-600 px-4 py-2 cursor-pointer rounded-lg shadow-lg flex items-center gap-2'

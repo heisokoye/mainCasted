@@ -13,6 +13,11 @@ const Home = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
         >
+            <title>Casted! Publications - Student Media, News, and Stories</title>
+            <meta name="description" content="The official source for student stories, campus news, and social events from Casted! Publications. Discover the latest articles and amplify your voice." />
+            <meta name="keywords" content="students media publications, Bells University Media, Casted! Publications, castedpub" />
+            <meta name="author" content="Bells University Media, Casted! Publications" />
+            <link rel="canonical" href="https://castedpub.vercel.app/" />
             {/* Hero section with a gentle fade-in and slide-down effect on load */}
             <motion.div
                 initial={{ opacity: 0, y: -50 }}

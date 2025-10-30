@@ -30,7 +30,7 @@ const Navbar = ({children}) => {
            <div className=' mx-auto pr-5  md:w-[90%] lg:w-[95%] p-2 justify-between flex items-center'>
                 <div> {/* Logo Section */}
                     <Link to={"/"}>
-                        <img src= "./orangeLogo.png" alt="Casted Logo" 
+                        <img src= "./orangeLogo.png" alt="Casted! Publications Logo" 
                         className=' h-10  w-25 md:w-35 lg:w-40 lg:h-auto md:h-15  '
                         />
                     </Link>

@@ -1,5 +1,6 @@
 import React from "react"
 
+
 const About =()=>{
     return(
         <div className="pt-20 h-screen  mx-auto w-[80%]"> 
