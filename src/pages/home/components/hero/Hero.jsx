@@ -93,7 +93,7 @@ const Hero = () => {
 
   return (
     <div className="w-full">
-        <section className='bg-[url("/room.jpg")] bg-cover w-full h-[50vh] md:h-[70vh] lg:h-[70vh] '>
+        <section className='bg-[url("/ro.jpg")] bg-cover w-full h-[50vh] md:h-[70vh] lg:h-[70vh] '>
             <div className='inset-0 absolute bg-black/70'></div>
             <div ref={heroRef} className='flex md:justify-between items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
                 <div>
