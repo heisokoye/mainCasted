@@ -11,12 +11,12 @@ const Hero = () => {
     const sliderRef = useRef(null);
 
     // Your existing preview data
+    // {
+    //     pictures: "/101.jpg",
+    //     titles: "Did you Know?",
+    //     excerpt: "Casted! Publications began in the most unexpected way — a debate over a sex film sparked its creation. ",
+    // },
     const preview = [
-        {
-            pictures: "/101.jpg",
-            titles: "Did you Know?",
-            excerpt: "Casted! Publications began in the most unexpected way — a debate over a sex film sparked its creation. ",
-        },
         {
             pictures: "/2.jpeg ",
             titles: "Blog Post 2",
