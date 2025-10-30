@@ -6,6 +6,7 @@ import { db, storage } from "../../../Firebase";
 import {listenToPosts} from "./firestoreListen"
 import {doc, updateDoc, deleteDoc} from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import Loader from "../../../components/loader/Loader";
 
 // Configuration for the ReactQuill editor's toolbar
 const modules = {
@@ -17,6 +18,9 @@ const modules = {
     ['clean']
   ],
 };
+
+
+
 
 
 
@@ -32,6 +36,10 @@ const formats = [
 const Dashboard = () => {
   // State to manage the visibility of the "Add Post" modal
   const [isOpen, setIsOpen] = useState(false);
+  // removed stray setLoading(true);
+
+  // loading state (used to show Loader while posts are fetched)
+  const [loading, setLoading] = useState(true);
 
   // State for file upload
   const [file, setFile] = useState(null);
@@ -72,7 +80,10 @@ const Dashboard = () => {
 
   // Effect hook to set up a listener for Firestore posts on component mount
   useEffect(() => {
-    const unsubscribe = listenToPosts(setPosts);
+    const unsubscribe = listenToPosts((fetchedPosts) => {
+      setPosts(fetchedPosts);
+      setLoading(false);
+    });
     return () => unsubscribe();
   }, []);
   
@@ -137,6 +148,7 @@ const Dashboard = () => {
       }
       resetAndCloseModal();
     } catch (error) {
+      setLoading(false);
       console.error("Error saving document: ", error);
       alert("Error saving post. Check the console for details.");
     } finally {
@@ -231,26 +243,33 @@ const Dashboard = () => {
             </div>
           </div>
         )}
-      
-        <div>
-          <div className="md-grid md:grid-cols-3 lg:grid lg:grid-cols-4 gap-4 mt-6">
-            {posts.map((post)=>(
-              <div key={post.id} className="border p-4 my-4 rounded-lg shadow-lg border-gray-300">
-                {post.fileUrl && post.fileType === 'image' && (
-                  <img src={post.fileUrl} alt={post.title} className="w-full h-48 object-cover rounded-md mb-2" />
-                )}
-                {post.fileUrl && post.fileType === 'video' && (
-                  <video src={post.fileUrl} controls className="w-full h-48 object-cover rounded-md mb-2" />
-                )}
-                <h2 className="font-normal">{post.title}</h2>
-                <div>
-                  <button className="bg-amber-300 px-4 py-2 mt-2 rounded-lg cursor-pointer" onClick={()=> openModal(post)}>Edit </button>
-                  <button className="bg-red-500 px-4 py-2 mt-2 ml-2 rounded-lg cursor-pointer text-white" onClick={() => handleDelete(post.id)}>Delete</button>
-                </div>
-              </div>
-            ))}
+
+        {/* fetching the posts */}
+        {loading ? (
+          <div className="flex justify-center items-center h-64">
+            <Loader />
           </div>
-        </div>
+        ) : (
+          <div>
+            <div className="md:grid md:grid-cols-3 lg:grid lg:grid-cols-4 gap-4 mt-6">
+              {posts.map((post) => (
+                <div key={post.id} className="border p-4 my-4 rounded-lg shadow-lg border-gray-300">
+                  {post.fileUrl && post.fileType === 'image' && (
+                    <img src={post.fileUrl} alt={post.title} className="w-full h-48 object-cover rounded-md mb-2" />
+                  )}
+                  {post.fileUrl && post.fileType === 'video' && (
+                    <video src={post.fileUrl} controls className="w-full h-48 object-cover rounded-md mb-2" />
+                  )}
+                  <h2 className="font-normal">{post.title}</h2>
+                  <div>
+                    <button className="bg-amber-300 px-4 py-2 mt-2 rounded-lg cursor-pointer" onClick={()=> openModal(post)}>Edit </button>
+                    <button className="bg-red-500 px-4 py-2 mt-2 ml-2 rounded-lg cursor-pointer text-white" onClick={() => handleDelete(post.id)}>Delete</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
