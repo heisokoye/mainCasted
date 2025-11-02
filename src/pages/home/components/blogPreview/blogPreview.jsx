@@ -28,7 +28,7 @@ const BlogPreview = () => {
                     <div className = " grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
                     {
                         posts.slice(0, 4).map((post)=>(
-                            <div key={post.id} className=" border shadow-xl  flex flex-col h-[25rem] rounded-2xl border-gray-300">
+                            <div key={post.id} className=" border shadow-xl  flex flex-col h-100 rounded-2xl border-gray-300">
                                 <div>
                                     <img src={post.fileUrl} alt={post.title} className="w-full h-60 object-cover rounded-t-2xl mb-2"/>
                                     <h2> {post.title}</h2>
