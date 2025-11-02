@@ -53,7 +53,7 @@ const BlogPreview = () => {
           <motion.section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10" variants ={containerVariants}>
             {posts.slice(0, 4).map((post) => (
               <Link to= {`/post/${post.id}`}> 
-                <div key={post.id} className="flex py-8 flex-col h-80">
+                <div key={post.id} className="flex flex-col h-80">
                   <motion.div className= "transform px-4  transition-transform  duration-500 hover:scale-105 ease-in-out cursor-pointer" variants = {itemVariants}>
                       <Link to= {`/post/${post.id}`}>
                           <img
@@ -74,7 +74,7 @@ const BlogPreview = () => {
                           {post.title}
                       </Link>
                     </h2>
-                    <p className="pl-2 text-sm text-gray-700">
+                    <p className="pl-2 text-sm pb-8 text-gray-700">
                       {getPreviewText(post.content, 150)}
                     </p>
                   </motion.div>
