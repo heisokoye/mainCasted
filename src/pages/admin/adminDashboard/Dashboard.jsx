@@ -2,10 +2,9 @@ import React, {useState, useEffect} from "react"
 import ReactQuill from 'react-quill-new'; // rich text editor used for post content
 import 'react-quill-new/dist/quill.snow.css';
 import {addDoc, collection} from "firebase/firestore"; // used to add new documents
-import { db, storage } from "../../../Firebase"; // firebase exports (Firestore + Storage)
+import { db} from "../../../Firebase"; // firebase exports (Firestore + Storage)
 import {listenToPosts} from "./firestoreListen" // helper that listens to posts collection changes
 import {doc, updateDoc, deleteDoc} from "firebase/firestore"; // CRUD helpers for Firestore
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"; // storage upload helpers
 import Loader from "../../../components/loader/Loader"; // spinner component shown while loading data
 
 // Configuration for the ReactQuill editor's toolbar
@@ -18,11 +17,6 @@ const modules = {
     ['clean'] // remove formatting
   ],
 };
-
-
-
-
-
 
 // Allowed formats for the ReactQuill editor (keeps editor content predictable)
 const formats = [
@@ -113,34 +107,34 @@ const Dashboard = () => {
 
     // If user selected a new file, upload it to Firebase Storage
     if (file) {
-      // create a storage ref with a timestamp to avoid name collisions
-      const storageRef = ref(storage, `posts/${Date.now()}_${file.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET); 
+      formData.append("api_key", import.meta.env.VITE_CLOUDINARY_API_KEY);
 
-      // wait for upload to complete using a Promise that resolves in the 'complete' callback
-      await new Promise((resolve, reject) => {
-        uploadTask.on('state_changed',
-          (snapshot) => {
-            // update local progress state as upload proceeds
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            setUploadProgress(progress);
-          },
-          (error) => {
-            // upload error handling
-            console.error("Upload failed:", error);
-            alert("File upload failed. Please try again.");
-            setIsUploading(false);
-            reject(error);
-          },
-          async () => {
-            // upload successful -> get download URL and determine file type (image/video)
-            fileUrl = await getDownloadURL(uploadTask.snapshot.ref);
-            fileType = file.type.startsWith('image/') ? 'image' : 'video';
-            resolve();
+      // Detect if it's an image or video
+      const resourceType = file.type.startsWith("video") ? "video" : "image";
+
+      try {
+        const res = await fetch(
+          `https://api.cloudinary.com/v1_1/dvhgc8tyi/${resourceType}/upload`,
+          {
+            method: "POST",
+            body: formData,
           }
         );
-      });
+
+        const data = await res.json();
+        fileUrl = data.secure_url;
+        fileType = resourceType;
+      } catch (error) {
+        console.error("Cloudinary upload failed:", error);
+        alert("Upload to Cloudinary failed. Check your network or preset settings.");
+        setIsUploading(false);
+        return;
+      }
     }
+
 
     // Build the post object that will be saved to Firestore
     const postData = {
@@ -215,7 +209,7 @@ const Dashboard = () => {
         {/* Modal for adding/editing posts - conditionally rendered */}
         {isOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg w-[80%] md:w-[50%] lg:w-[40%] max-h-[80vh] overflow-y-auto">
+            <div className="bg-white p-6 rounded-lg w-[80%] md:w-[50%] lg:w-[40%] max-h-[60vh] overflow-y-auto">
               {/* Modal title changes depending on add vs edit mode */}
               <h2 className="text-xl mb-4">{editingPost ? 'Edit Post' : 'Add New Post'}</h2>
               <form onSubmit={handleFormSubmit}>
@@ -290,7 +284,7 @@ const Dashboard = () => {
           <div>
             <div className="md:grid md:grid-cols-3 lg:grid lg:grid-cols-4 gap-4 mt-6">
               {posts.map((post) => (
-                <div key={post.id} className="border p-4 my-4 rounded-lg shadow-lg border-gray-300">
+                <div key={post.id} className="border p-4 my-4 rounded-lg shadow-lg border-gray-300" >
                   {/* Conditionally render image or video if fileUrl exists */}
                   {post.fileUrl && post.fileType === 'image' && (
                     <img src={post.fileUrl} alt={post.title} className="w-full h-48 object-cover rounded-md mb-2" />

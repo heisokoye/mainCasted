@@ -50,7 +50,7 @@ const Cta = () => {
   ]
 
   return (
-    <div className='bg-white relative z-10 border-b-gray-200 border-b'>
+    <div className='bg-white relative z-10'>
       <motion.section 
         className='mx-auto w-[80%]  text-black max-w-full py-[4rem] lg:flex'
         initial="hidden"

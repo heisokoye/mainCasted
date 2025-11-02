@@ -78,7 +78,7 @@ const Navbar = ({children}) => {
            </div>
         </nav>
 
-        <div> {children}</div>
+        <div className='pt-10'> {children}</div>
 
     </div>
   )

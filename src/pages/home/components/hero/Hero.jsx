@@ -22,15 +22,26 @@ const Hero = () => {
     // },
     const preview = [
         {
-            pictures: "/2.jpeg ",
-            titles: "Blog Post 2",
-            excerpt: "This is a short excerpt from blog post 2.",
+            pictures: "/slider1.jpg ",
+            titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
+            excerpt: "VC with ....",
         },
         {
-            pictures: "/3.jpg ",
-            titles: "Blog Post 3",
+            pictures: "/slider2.jpg ",
+            titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
+            excerpt: "This is a short excerpt from blog post 3.",
+        },
+         {
+            pictures: "/slider3.jpg ",
+            titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
+            excerpt: "This is a short excerpt from blog post 3.",
+        },
+        {
+            pictures: "/slider4.jpg ",
+            titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
             excerpt: "This is a short excerpt from blog post 3.",
         }
+    
     ];
     
     // Function to go to the previous slide
@@ -99,12 +110,12 @@ const Hero = () => {
         const slideInterval = setInterval(nextSlide, 8000); 
         // Cleanup function to clear the interval when the component unmounts or currentSlide changes
         return () => clearInterval(slideInterval); 
-    }, [currentSlide]); // Dependency array ensures the effect is re-run if currentSlide changes
+    }, [currentSlide, nextSlide]); // Dependency array ensures the effect is re-run if currentSlide changes
 
   return (
     // Main container for the hero section
     <div className="w-full border-b border-gray-300">
-        <section className='bg-white bg-cover w-full h-[50vh] md:h-[70vh] lg:h-[70vh] '>
+        <section className='bg-white bg-cover w-full h-[50vh] md:h-[60vh] lg:h-[70vh] '>
             <div ref={heroRef} className='flex lg:justify-between  md:justify-center md:items-center items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
                 {/* Left side: Hero Text and Subscribe Button */}
                 <div>
