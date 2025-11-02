@@ -1,5 +1,5 @@
 // Import necessary libraries and components
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { BsArrowRight, BsArrowLeft } from 'react-icons/bs'; // Icons for slider navigation
 import { motion, AnimatePresence } from 'framer-motion'; // For animations
 
@@ -53,27 +53,30 @@ const Hero = () => {
     };
     
     // Function to go to the next slide
-    const nextSlide = () => {
-        setDirection(1); // Set direction to right
+   const nextSlide = useCallback(() => {
+        setDirection(1);
         const isLastSlide = currentSlide === preview.length - 1;
         const newIndex = isLastSlide ? 0 : currentSlide + 1;
         setCurrentSlide(newIndex);
-    };
+    }, [currentSlide, preview.length]);
     
     // Animation variants for the slide transitions
     const slideVariants = {
         hidden: (direction) => ({
             x: direction > 0 ? '100%' : '-100%', // Enters from right or left
             opacity: 0,
+            translateZ: 0,
         }),
         visible: {
             x: '0%', // Moves to the center
             opacity: 1,
+            translateZ: 0,
             transition: { duration: 0.5, ease: 'easeInOut' },
         },
         exit: (direction) => ({
             x: direction < 0 ? '100%' : '-100%', // Exits to right or left
             opacity: 0,
+            translateZ: 0,
             transition: { duration: 0.5, ease: 'easeInOut' },
         }),
     };
@@ -106,21 +109,19 @@ const Hero = () => {
 
     // useEffect hook for automatic sliding
     useEffect(() => {
-        // Set an interval to call nextSlide every 8 seconds
-        const slideInterval = setInterval(nextSlide, 8000); 
-        // Cleanup function to clear the interval when the component unmounts or currentSlide changes
-        return () => clearInterval(slideInterval); 
-    }, [currentSlide, nextSlide]); // Dependency array ensures the effect is re-run if currentSlide changes
+        const slideInterval = setInterval(nextSlide, 5000);
+        return () => clearInterval(slideInterval);
+    }, [nextSlide]);
 
   return (
     // Main container for the hero section
     <div className="w-full border-b border-gray-300">
-        <section className='bg-white bg-cover w-full h-[50vh] md:h-[60vh] lg:h-[70vh] '>
+        <section className='bg-white bg-cover w-full h-[50vh] md:h-[60vh] lg:h-[60vh] '>
             <div ref={heroRef} className='flex lg:justify-between  md:justify-center md:items-center items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
                 {/* Left side: Hero Text and Subscribe Button */}
                 <div>
                     {/* Animated heading */}
-                    <motion.h1 className='hero-text   text-3xl md:text-4xl md:w-full lg:text-5xl lg:w-[35rem] text-orange-400 font-medium  '
+                    <motion.h1 className='hero-text   text-3xl md:text-4xl md:w-full lg:text-5xl lg:w-140 text-orange-400 font-medium  '
                     initial={{ opacity: 0, y: -50 }} // Initial state
                     animate={{ opacity: 1, y: 0 }} // Animate to this state
                     transition={{ duration: 1.5, ease: 'easeInOut' }}>
@@ -145,7 +146,7 @@ const Hero = () => {
 
                 {/* Right side: Image and blog preview slider (hidden on small screens) */}
                 <div className='hidden  md:flex lg:flex items-center justify-center'>
-                    <div ref={sliderRef} className="relative xl:w-[50rem] h-[30rem] rounded-lg shadow-2xl overflow-hidden">
+                    <div ref={sliderRef} className="relative xl:w-200 h-120 rounded-lg shadow-2xl overflow-hidden">
                         {/* AnimatePresence handles the mounting and unmounting of slides */}
                         <AnimatePresence initial={false} custom={direction}>
                             {/* The motion.div represents a single slide */}
@@ -162,7 +163,7 @@ const Hero = () => {
                                 <img src={preview[currentSlide].pictures} alt={preview[currentSlide].titles} className="w-full h-full object-cover"/>
                                 {/* Overlay with text content */}
                                 <motion.div 
-                                    className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/70 to-transparent rounded-b-lg"
+                                    className="absolute bottom-0 left-0 w-full p-4 `bg-gradient-to-t` from-black/70 to-transparent rounded-b-lg"
                                     variants={textContainerVariants}
                                     initial="hidden"
                                     animate="visible"

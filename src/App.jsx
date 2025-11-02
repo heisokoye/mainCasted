@@ -7,6 +7,7 @@ import Navbar from "./components/navbar/Navbar"
 import Footer from "./components/footer/Footer"
 import About from "./pages/about/About"
 import Dashboard from "./pages/admin/adminDashboard/Dashboard"
+import SinglePost from "./pages/blog/SinglePost"
 
 
 const App=()=>{
@@ -22,6 +23,7 @@ const App=()=>{
               <Route path="/about" element={<About/>} />
               <Route path="/admin" element={<Admin/>} />
               <Route path="/dashboard" element={<Dashboard/>} />
+              <Route path="/post/:id" element={<SinglePost />} />
           </Routes>
         </div>
       </Navbar>

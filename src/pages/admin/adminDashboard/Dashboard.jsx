@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
 import ReactQuill from 'react-quill-new'; // rich text editor used for post content
 import 'react-quill-new/dist/quill.snow.css';
-import {addDoc, collection} from "firebase/firestore"; // used to add new documents
+import {addDoc, collection, serverTimestamp} from "firebase/firestore"; // used to add new documents
 import { db} from "../../../Firebase"; // firebase exports (Firestore + Storage)
 import {listenToPosts} from "./firestoreListen" // helper that listens to posts collection changes
 import {doc, updateDoc, deleteDoc} from "firebase/firestore"; // CRUD helpers for Firestore
@@ -154,7 +154,7 @@ const Dashboard = () => {
         // Add a new document to the "posts" collection with createdAt timestamp
         await addDoc(collection(db, "posts"), {
           ...postData,
-          createdAt: new Date()
+          createdAt: serverTimestamp(),
         });
         alert("Post added successfully!");
       }
@@ -194,7 +194,7 @@ const Dashboard = () => {
   // Render the dashboard UI
   return (
     // Main container for the dashboard page
-    <div className="pt-16  h-[100vh] w-full ">
+    <div className="pt-16  h-screen w-full ">
       <div className='mx-auto w-[80%]'>
         <h1 className="text-2xl mt-10"> Admin Dashboard</h1>
 
