@@ -52,32 +52,34 @@ const BlogPreview = () => {
         ) : (
           <motion.section className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10" variants ={containerVariants}>
             {posts.slice(0, 4).map((post) => (
-              <div key={post.id} className="flex flex-col h-80">
-                <motion.div className= "transform transition-transform  duration-500 hover:scale-105 ease-in-out cursor-pointer" variants = {itemVariants}>
-                    <Link to= {`/post/${post.id}`}>
-                        <img
-                            src={post.fileUrl}
-                            alt={post.title}
-                            className="w-full h-50 object-cover  rounded-2xl mb-2"
-                        />
-                    </Link>
-                  <p className="font-medium text-sm text-gray-600 pl-2">
-                    {post.createdAt?.toDate().toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                  <h2 className="py-4 font-medium pl-2 text-black text-xl">
-                    <Link to= {`/post/${post.id}`} className="hover:text-orange-500 duration ease-in-out cursor-pointer" >
-                        {post.title}
-                    </Link>
-                  </h2>
-                  <p className="pl-2 text-sm text-gray-700">
-                    {getPreviewText(post.content, 150)}
-                  </p>
-                </motion.div>
-              </div>
+              <Link to= {`/post/${post.id}`}> 
+                <div key={post.id} className="flex flex-col h-80">
+                  <motion.div className= "transform px-4 py-8 transition-transform  duration-500 hover:scale-105 ease-in-out cursor-pointer" variants = {itemVariants}>
+                      <Link to= {`/post/${post.id}`}>
+                          <img
+                              src={post.fileUrl}
+                              alt={post.title}
+                              className="w-full h-50 object-cover  rounded-2xl mb-2"
+                          />
+                      </Link>
+                    <p className="font-medium text-sm text-gray-600 pl-2">
+                      {post.createdAt?.toDate().toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </p>
+                    <h2 className="py-4 font-medium pl-2 text-black text-xl">
+                      <Link to= {`/post/${post.id}`} className="hover:text-orange-500 duration ease-in-out cursor-pointer" >
+                          {post.title}
+                      </Link>
+                    </h2>
+                    <p className="pl-2 text-sm text-gray-700">
+                      {getPreviewText(post.content, 150)}
+                    </p>
+                  </motion.div>
+                </div>
+              </Link>
             ))}
           </motion.section>
         )}
