@@ -26,7 +26,7 @@ const SinglePost = () => {
   if (!post) return <p className="text-center py-10">Post not found</p>;
 
   return (
-    <div className="py-20 mx-auto w-[80%] h-screen">
+    <div className="py-20 mx-auto w-[80%] lg:h-screen md:h-screen">
       <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
       <p className="text-gray-600 mb-6">
         {post.createdAt?.toDate().toLocaleDateString("en-US", {

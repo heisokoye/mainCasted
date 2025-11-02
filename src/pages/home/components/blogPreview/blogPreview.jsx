@@ -3,6 +3,7 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../../../Firebase";
 import Loader from "../../../../components/loader/Loader";
 import { Link } from "react-router-dom";
+import {motion} from "framer-motion"
 
 
 const BlogPreview = () => {
@@ -30,16 +31,29 @@ const BlogPreview = () => {
     return text.length > limit ? text.slice(0, limit) + "..." : text;
   };
 
+  const containerVariants = {
+    hidden: {opacity: 0},
+    visible:{
+        opacity:1,
+        transition: {staggerChildren: 0.3, delayChildren: 0.2}
+    },
+  }
+
+  const itemVariants ={
+    hidden: {y:20, opacity:0},
+    visible: {y:0, opacity:1, transition: {type: "spring", stiffness: 100}}, 
+  }
+
   return (
     <div className="py-20">
       <div className="mx-auto w-[80%]">
         {isLoading ? (
           <Loader />
         ) : (
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+          <motion.section className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10" variants ={containerVariants}>
             {posts.slice(0, 4).map((post) => (
               <div key={post.id} className="flex flex-col h-80">
-                <div className= "transform transition-transform  duration-500 hover:scale-105 ease-in-out cursor-pointer">
+                <motion.div className= "transform transition-transform  duration-500 hover:scale-105 ease-in-out cursor-pointer" variants = {itemVariants}>
                     <Link to= {`/post/${post.id}`}>
                         <img
                             src={post.fileUrl}
@@ -62,10 +76,10 @@ const BlogPreview = () => {
                   <p className="pl-2 text-sm text-gray-700">
                     {getPreviewText(post.content, 150)}
                   </p>
-                </div>
+                </motion.div>
               </div>
             ))}
-          </div>
+          </motion.section>
         )}
       </div>
     </div>

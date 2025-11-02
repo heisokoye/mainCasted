@@ -52,7 +52,7 @@ const Cta = () => {
   return (
     <div className='bg-white relative z-10'>
       <motion.section 
-        className='mx-auto w-[80%]  text-black max-w-full py-[4rem] lg:flex'
+        className='mx-auto w-[80%]  text-black max-w-full py-16 lg:flex'
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
