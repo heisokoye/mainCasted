@@ -30,15 +30,15 @@ const Blog = () => {
   };
 
   return (
-    <div className="py-20 h-screen lg:h-screen md:h-screen">
+    <div className="py-20  lg:h-screen md:h-screen">
       <div className="mx-auto w-[80%]">
         {isLoading ? (
           <Loader />
         ) : (
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+          <div className="grid  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
             {posts.slice(0, 4).map((post) => (  
               <Link to={`/post/${post.id}`}>
-                <div key={post.id} className="flex flex-col h-80">
+                <div key={post.id} className="flex mb-12 flex-col h-80">
                   <div>
                     <img
                       src={post.fileUrl}

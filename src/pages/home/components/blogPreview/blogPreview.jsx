@@ -54,12 +54,12 @@ const BlogPreview = () => {
             {posts.slice(0, 4).map((post) => (
               <Link to= {`/post/${post.id}`}> 
                 <div key={post.id} className="flex mb-12 flex-col h-80">
-                  <motion.div className= "transform px-4  transition-transform  duration-500 hover:scale-102 ease-in cursor-pointer" variants = {itemVariants}>
+                  <motion.div className= "transform transition-transform  duration-500 hover:scale-102 ease-in cursor-pointer" variants = {itemVariants}>
                       <Link to= {`/post/${post.id}`}>
                           <img
                               src={post.fileUrl}
                               alt={post.title}
-                              className="w-full h-50 object-center  rounded-2xl mb-2"
+                              className="w-full h-50 object-cover  rounded-2xl mb-2"
                           />
                       </Link>
                     <p className="font-medium text-sm text-gray-600 pl-2">

@@ -28,7 +28,7 @@ const SinglePost = () => {
   }
 
   return (
-    <div className="py-20 ">
+    <div className="py-20">
       <div className="mx-auto w-[80%] lg:[60%]">
         {isLoading ? (
           <Loader />
