@@ -5,6 +5,7 @@ import Team from "./components/team/Team"
 import { motion } from "framer-motion"
 import BlogPreview from "./components/blogPreview/blogPreview"
 import Partners from "./components/partners/Partners"
+import YouTubeSection from "./components/youtube/Youtube"
 
 
 
@@ -30,7 +31,25 @@ const Home = () => {
                     <Hero className="flex justify-center items-center"/>
                 </motion.div>
 
+                {/* YouTube section that fades in and slides up as it enters the viewport */}
+                <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                    <YouTubeSection/>
+                </motion.div>
+
+                 {/* BlogPreview section with scroll-based animation */}
+                <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                >
                 <BlogPreview/>
+                </motion.div>
 
                 {/* Cta section that slides in from the left as it enters the viewport */}
                 <div>
