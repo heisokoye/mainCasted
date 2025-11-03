@@ -1,22 +1,8 @@
-/* @font-face {
-    font-family: 'SpriteGraffiti';
-    src: url('./fonts/Sprite Graffiti.otf') format('opentype');
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-  
-  }
-  .sprite-graffiti-font {
-    font-family: 'SpriteGraffiti', sans-serif;
-  }
-   */
-
-   
-.playfair-display-navfont {
-  font-family: "Playfair Display", serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
+.post-content img{
+  width: 20rem;
+}
+.post-content{
+  width: 50rem;
 }
 .link-underline {
   position: relative;

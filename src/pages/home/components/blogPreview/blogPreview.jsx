@@ -59,7 +59,7 @@ const BlogPreview = () => {
                           <img
                               src={post.fileUrl}
                               alt={post.title}
-                              className="w-full h-50 object-cover  rounded-2xl mb-2"
+                              className="w-full h-50 object-center  rounded-2xl mb-2"
                           />
                       </Link>
                     <p className="font-medium text-sm text-gray-600 pl-2">
