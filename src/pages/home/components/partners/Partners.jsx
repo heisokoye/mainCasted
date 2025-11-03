@@ -20,7 +20,7 @@ const Partners = () => {
                         x: ['0%', '-100%'],
                         transition: {
                             ease: 'linear',
-                            duration: 15,
+                            duration: 5,
                             repeat: Infinity,
                         }
                     }}
