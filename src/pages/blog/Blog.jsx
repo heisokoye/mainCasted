@@ -53,7 +53,7 @@ const Blog = () => {
                       })}
                     </p>
                     <h2 className="py-4 font-medium pl-2 text-black text-xl">
-                      {post.title}
+                      {post.title.slice(0, 20) + ""}
                     </h2>
                     <p className="pl-2 text-sm text-gray-700">
                       {getPreviewText(post.content, 150)}
