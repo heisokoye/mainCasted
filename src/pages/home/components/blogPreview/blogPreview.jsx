@@ -71,7 +71,7 @@ const BlogPreview = () => {
                     </p>
                     <h2 className="py-4 font-medium pl-2 text-black text-xl">
                       <Link to= {`/post/${post.id}`} className="hover:text-orange-500 duration ease-in-out cursor-pointer" >
-                          {post.title}
+                          {post.title.slice(0, 20) + "..."}
                       </Link>
                     </h2>
                     <p className="pl-2 text-sm pb-8 text-gray-700">
