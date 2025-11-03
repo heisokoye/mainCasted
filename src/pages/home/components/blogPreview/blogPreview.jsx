@@ -73,7 +73,7 @@ const BlogPreview = () => {
   return (
     <div className="py-20">
       <div className="mx-auto w-[80%]">
-        <h2 className="text-2xl font-medium mb-6 flex justify-center">From The <span className="text-orange-500">Blog</span></h2>
+        <div className="justify-center flex gap-2 text-2xl font-medium py-8"> <p>From the</p> <p className="text-orange-500"> Blog</p> </div>
         {/* Display a loader while posts are being fetched */}
         {isLoading ? (
           <Loader />

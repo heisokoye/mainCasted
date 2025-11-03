@@ -17,6 +17,11 @@ const YouTubeSection = () => {
         id: "a89nFPK2uPE",
         title: "Bells University Engineering Induction",
         description: "Best moments from last week"
+    },
+    {
+        id: "vteKS91ne9U",
+        title: "🎉 Bells Sports Fest",
+        description: "The Ultimate Inter-school showdown 🏀⚽🏐🔥"
     }
   ];
 
@@ -37,7 +42,7 @@ const YouTubeSection = () => {
 
   return (
     <section className="py-20 mx-auto w-[80%]">
-      <h2 className="text-2xl font-medium mb-6 flex justify-center">Campus in <span className="text-orange-500">Motion</span></h2>
+      <h2 className="text-2xl font-medium mb-6 flex  justify-center gap-2"> <div> Campus in </div> <div className="text-orange-500">Motion</div> </h2>
 
       <motion.div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-12"
         variants={containerVariants}

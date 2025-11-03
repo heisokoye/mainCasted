@@ -24,22 +24,18 @@ const Hero = () => {
         {
             pictures: "/slider1.jpg ",
             titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
-            excerpt: "VC with ....",
         },
         {
             pictures: "/slider2.jpg ",
             titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
-            excerpt: "This is a short excerpt from blog post 3.",
         },
          {
             pictures: "/slider3.jpg ",
             titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
-            excerpt: "This is a short excerpt from blog post 3.",
         },
         {
             pictures: "/slider4.jpg ",
             titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
-            excerpt: "This is a short excerpt from blog post 3.",
         }
     
     ];
