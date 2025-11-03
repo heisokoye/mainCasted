@@ -1,9 +1,7 @@
 .post-content img{
   width: 20rem;
 }
-.post-content{
-  width: 50rem;
-}
+
 .link-underline {
   position: relative;
   display: inline-block;
