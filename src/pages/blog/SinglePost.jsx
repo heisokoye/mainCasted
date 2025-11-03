@@ -33,7 +33,7 @@ const SinglePost = () => {
         {isLoading ? (
           <Loader />
         ) : (
-          <div >
+          <div>
             <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
             <p className="text-gray-600 mb-6">
               {post.createdAt?.toDate().toLocaleDateString("en-US", {
@@ -48,7 +48,7 @@ const SinglePost = () => {
               className="w-100 max-h-[400px] object-cover rounded-2xl mb-6"
             />
             <div
-              className="prose post-content  prose-lg prose-img:w-100 text-gray-800"
+              className="prose post-content lg:w-160 prose-lg prose-img:w-100 text-gray-800"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </div>
