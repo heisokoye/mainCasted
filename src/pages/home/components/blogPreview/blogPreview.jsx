@@ -54,7 +54,7 @@ const BlogPreview = () => {
             {posts.slice(0, 4).map((post) => (
               <Link to= {`/post/${post.id}`}> 
                 <div key={post.id} className="flex flex-col h-80">
-                  <motion.div className= "transform px-4  transition-transform  duration-500 hover:scale-105 ease-in-out cursor-pointer" variants = {itemVariants}>
+                  <motion.div className= "transform px-4  transition-transform  duration-500 hover:scale-102 ease-in cursor-pointer" variants = {itemVariants}>
                       <Link to= {`/post/${post.id}`}>
                           <img
                               src={post.fileUrl}

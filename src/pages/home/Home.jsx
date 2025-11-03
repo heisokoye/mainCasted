@@ -4,6 +4,7 @@ import Cta from "./components/cta/Cta"
 import Team from "./components/team/Team"
 import { motion } from "framer-motion"
 import BlogPreview from "./components/blogPreview/blogPreview"
+import Partners from "./components/partners/Partners"
 
 
 
@@ -45,6 +46,8 @@ const Home = () => {
                 >
                     <Team/>
                 </motion.div>
+
+                <Partners/>
             </motion.div>
         </>
     )
