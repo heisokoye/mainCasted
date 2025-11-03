@@ -194,7 +194,7 @@ const Dashboard = () => {
   // Render the dashboard UI
   return (
     // Main container for the dashboard page
-    <div className="pt-16  h-screen w-full ">
+    <div className="pt-16  w-full md:h-screen lg:h-screen ">
       <div className='mx-auto w-[80%]'>
         <h1 className="text-2xl mt-10"> Admin Dashboard</h1>
 
