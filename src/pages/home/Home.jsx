@@ -29,14 +29,7 @@ const Home = () => {
                     <Hero className="flex justify-center items-center"/>
                 </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                    <BlogPreview/>
-                </motion.div>
+                <BlogPreview/>
 
                 {/* Cta section that slides in from the left as it enters the viewport */}
                 <div>
