@@ -115,6 +115,7 @@ const Admin = () => {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="text-gray-400 hover:text-gray-500"
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
                   >
                     {showPassword ? (
                       <BsEyeSlash className="h-5 w-5 cursor-pointer" />

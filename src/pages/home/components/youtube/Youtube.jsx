@@ -42,7 +42,7 @@ const YouTubeSection = () => {
 
   return (
     <section className="py-20 mx-auto w-[80%]">
-      <h2 className="text-2xl font-medium mb-6 flex  justify-center gap-2"> <div> Campus in </div> <div className="text-orange-500">Motion</div> </h2>
+      <h2 className="text-2xl font-medium mb-6 flex  justify-center gap-2"> <div> Campus in </div> <div className="text-orange-600">Motion</div> </h2>
 
       <motion.div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-12"
         variants={containerVariants}
@@ -55,8 +55,10 @@ const YouTubeSection = () => {
               <iframe
                 src={`https://www.youtube.com/embed/${video.id}`}
                 title={video.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
+                credentialless
+                sandbox="allow-same-origin allow-scripts allow-popups allow-presentation"
                 className="w-full h-full rounded-t-2xl"
               />
             </div>

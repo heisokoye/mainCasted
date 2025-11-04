@@ -175,13 +175,13 @@ const Hero = () => {
                         </AnimatePresence>
                         {/* Slider navigation arrows */}
                         {/* Left Arrow */}
-                        <div onClick={prevSlide} className='absolute top-[50%] -translate-y-1/2 left-2 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer z-20'>
+                        <button onClick={prevSlide} aria-label="Previous slide" className='absolute top-[50%] -translate-y-1/2 left-2 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer z-20'>
                             <BsArrowLeft size={20} />
-                        </div>
+                        </button>
                         {/* Right Arrow */}
-                        <div onClick={nextSlide} className='absolute top-[50%] -translate-y-1/2 right-2 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer z-20'>
+                        <button onClick={nextSlide} aria-label="Next slide" className='absolute top-[50%] -translate-y-1/2 right-2 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer z-20'>
                             <BsArrowRight size={20}  />
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>
