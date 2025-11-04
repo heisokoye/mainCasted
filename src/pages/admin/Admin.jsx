@@ -2,30 +2,39 @@ import React, { useState } from 'react'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { app } from '../../Firebase'
 import { useNavigate } from 'react-router-dom'
-import { BsArrowRight, BsEnvelope, BsLock, BsShieldLock } from 'react-icons/bs' 
+import { BsArrowRight, BsEnvelope, BsLock, BsShieldLock, BsEye, BsEyeSlash } from 'react-icons/bs' 
 import { motion } from 'framer-motion' // Add this import
 import Loader from '../../components/loader/Loader'
 
 const Admin = () => {
+  // State for email, password, and error messages
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Firebase auth and navigation
   const auth = getAuth(app);
   const navigate = useNavigate();
 
+  // Handle login form submission
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMsg("");
     setLoading(true);
 
     try{
+      // Sign in with email and password
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+      // Save auth token to local storage
       localStorage.setItem('authToken', await user.getIdToken());
+      // Navigate to the dashboard
       navigate("/dashboard");
     } catch(error){
       setLoading(false);
+      // Handle login errors
       switch(error.code){
         case "auth/invalid-email":
           setErrorMsg("Invalid Email");
@@ -61,6 +70,7 @@ const Admin = () => {
             <p className="text-gray-500 mt-2">Enter your credentials to access the dashboard</p>
           </div>
 
+          {/* Login Form */}
           <form onSubmit={handleLogin} className="space-y-6">
             {/* Email Input */}
             <div className="relative">
@@ -92,13 +102,27 @@ const Admin = () => {
                   <BsLock className="h-5 w-5 text-gray-400" />
                 </div>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'} // Toggle password visibility
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition duration-150 ease-in-out"
+                  className="block w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition duration-150 ease-in-out"
                   placeholder="••••••••"
                 />
+                {/* Password visibility toggle */}
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="text-gray-400 hover:text-gray-500"
+                  >
+                    {showPassword ? (
+                      <BsEyeSlash className="h-5 w-5 cursor-pointer" />
+                    ) : (
+                      <BsEye className="h-5 w-5 cursor-pointer" />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
 
