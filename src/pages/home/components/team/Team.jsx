@@ -5,7 +5,7 @@ const Team = () => {
 
   const team = [
       {
-          avatar: "/iskeel.png",
+          avatar: "/iskeel.webp",
           name: "Iskeel Atolagbe",
           title: "Executive Director",
           linkedin: "javascript:void(0)",
@@ -19,7 +19,7 @@ const Team = () => {
         twitter: "javascript:void(0)",
       },
         {
-            avatar: "/seyi.png",
+            avatar: "/seyi.webp",
             name: "Oluwaseyifunmi Dosunmu",
             title: "Director Emeritus",
             linkedin: "javascript:void(0)",

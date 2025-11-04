@@ -22,19 +22,19 @@ const Hero = () => {
     // },
     const preview = [
         {
-            pictures: "/slider1.jpg ",
+            pictures: "/slider1.webp ",
             titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
         },
         {
-            pictures: "/slider2.jpg ",
+            pictures: "/slider2.webp ",
             titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
         },
          {
-            pictures: "/slider3.jpg ",
+            pictures: "/slider3.webp ",
             titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
         },
         {
-            pictures: "/slider4.jpg ",
+            pictures: "/slider4.webp ",
             titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
         }
     
@@ -111,11 +111,11 @@ const Hero = () => {
 
   return (
     // Main container for the hero section
-    <div className="w-full border-b border-gray-300">
+    <div className="w-full border-b fo border-gray-300">
         <section className='bg-white bg-cover w-full h-[50vh] md:h-[60vh] lg:h-[70vh] '>
             <div ref={heroRef} className='flex lg:justify-between  md:justify-center md:items-center items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
                 {/* Left side: Hero Text and Subscribe Button */}
-                <div>
+                <div fetchpriority="high">
                     {/* Animated heading */}
                     <motion.h1 className='hero-text   text-3xl md:text-4xl md:w-full lg:text-5xl lg:w-140 text-orange-400 font-medium  '
                     initial={{ opacity: 0, y: -50 }} // Initial state
@@ -141,7 +141,7 @@ const Hero = () => {
                 </div>
 
                 {/* Right side: Image and blog preview slider (hidden on small screens) */}
-                <div className='hidden  md:flex lg:flex items-center justify-center'>
+                <div className='hidden  md:flex lg:flex items-center justify-center' fetchpriority="high">
                     <div ref={sliderRef} className="relative xl:w-200 h-120 rounded-lg shadow-2xl overflow-hidden">
                         {/* AnimatePresence handles the mounting and unmounting of slides */}
                         <AnimatePresence initial={false} custom={direction}>

@@ -49,7 +49,7 @@ const YouTubeSection = () => {
       >
         {videos.map((video) => (
           <motion.div key={video.id} variants={itemVariants}
-            className="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden"
+            className="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden" fetchpriority="high"
           >
             <div className="relative w-full aspect-video">
               <iframe
