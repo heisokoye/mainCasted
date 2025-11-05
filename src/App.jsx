@@ -8,8 +8,8 @@ import Footer from "./components/footer/Footer";
 import ProtectedRoute from "./pages/admin/ProtectedRoute";
 import Loader from "./components/loader/Loader";
 
-// Lazy-load page components for better performance (code splitting)
-const Home = lazy(() => import("./pages/home/Home"));
+// Eager-load Home for faster FCP/LCP on the landing route; keep others lazy
+import Home from "./pages/home/Home";
 const Blog = lazy(() => import("./pages/blog/Blog"));
 const Admin = lazy(() => import("./pages/admin/Admin"));
 const About = lazy(() => import("./pages/about/About"));

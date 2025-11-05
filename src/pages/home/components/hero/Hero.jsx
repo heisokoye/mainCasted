@@ -21,23 +21,10 @@ const Hero = () => {
     //     excerpt: "Casted! Publications began in the most unexpected way — a debate over a sex film sparked its creation. ",
     // },
     const preview = [
-        {
-            pictures: "/slider1.webp ",
-            titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
-        },
-        {
-            pictures: "/slider2.webp ",
-            titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
-        },
-         {
-            pictures: "/slider3.webp ",
-            titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
-        },
-        {
-            pictures: "/slider4.webp ",
-            titles: "NACOS & ENGINEERING INDUCTION CEREMONY",
-        }
-    
+        { pictures: "/slider1.webp", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
+        { pictures: "/slider2.webp", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
+        { pictures: "/slider3.webp", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
+        { pictures: "/slider4.webp", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" }
     ];
     
     // Function to go to the previous slide
@@ -58,16 +45,18 @@ const Hero = () => {
     
     // Animation variants for the slide transitions
     const slideVariants = {
-        hidden: (direction) => ({
-            x: direction > 0 ? '100%' : '-100%', // Enters from right or left
-            opacity: 0,
-            translateZ: 0,
-        }),
-        visible: {
-            x: '0%', // Moves to the center
-            opacity: 1,
-            translateZ: 0,
-            transition: { duration: 0.5, ease: 'easeInOut' },
+        hidden: (direction) => {
+            // Do not fade/slide on first render to avoid delaying LCP
+            if (direction === 0) {
+                return { x: '0%', opacity: 1, translateZ: 0 };
+            }
+            return { x: direction > 0 ? '100%' : '-100%', opacity: 0, translateZ: 0 };
+        },
+        visible: (direction) => {
+            if (direction === 0) {
+                return { x: '0%', opacity: 1, translateZ: 0 };
+            }
+            return { x: '0%', opacity: 1, translateZ: 0, transition: { duration: 0.5, ease: 'easeInOut' } };
         },
         exit: (direction) => ({
             x: direction < 0 ? '100%' : '-100%', // Exits to right or left
@@ -118,9 +107,9 @@ const Hero = () => {
                 <div fetchpriority="high">
                     {/* Animated heading */}
                     <motion.h1 className='hero-text   text-3xl md:text-4xl md:w-full lg:text-5xl lg:w-140 text-orange-400 font-medium  '
-                    initial={{ opacity: 0, y: -50 }} // Initial state
-                    animate={{ opacity: 1, y: 0 }} // Animate to this state
-                    transition={{ duration: 1.5, ease: 'easeInOut' }}>
+                    initial={{ y: -10 }}
+                    animate={{ y: 0 }}
+                    transition={{ duration: 0.3, ease: 'easeOut' }}>
                         Discover the latest social events, gossip and more.
                     </motion.h1>
                     {/* Animated subscribe button */}
@@ -156,7 +145,16 @@ const Hero = () => {
                                 className="absolute w-full h-full"
                             >
                                 {/* Slide image */}
-                                <img src={preview[currentSlide].pictures} alt={preview[currentSlide].titles} className="w-full h-full object-cover"/>
+                                <img
+                                    src={preview[currentSlide].pictures}
+                                    alt={preview[currentSlide].titles}
+                                    className="w-full h-full object-cover"
+                                    loading={currentSlide === 0 ? 'eager' : 'lazy'}
+                                    fetchPriority={currentSlide === 0 ? 'high' : 'auto'}
+                                    decoding="async"
+                                    width={1280}
+                                    height={720}
+                                />
                                 {/* Overlay with text content */}
                                 <motion.div 
                                     className="absolute bottom-0 left-0 w-full p-4 `bg-gradient-to-t` from-black/70 to-transparent rounded-b-lg"
