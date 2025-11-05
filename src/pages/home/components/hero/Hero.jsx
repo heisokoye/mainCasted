@@ -45,18 +45,16 @@ const Hero = () => {
     
     // Animation variants for the slide transitions
     const slideVariants = {
-        hidden: (direction) => {
-            // Do not fade/slide on first render to avoid delaying LCP
-            if (direction === 0) {
-                return { x: '0%', opacity: 1, translateZ: 0 };
-            }
-            return { x: direction > 0 ? '100%' : '-100%', opacity: 0, translateZ: 0 };
-        },
-        visible: (direction) => {
-            if (direction === 0) {
-                return { x: '0%', opacity: 1, translateZ: 0 };
-            }
-            return { x: '0%', opacity: 1, translateZ: 0, transition: { duration: 0.5, ease: 'easeInOut' } };
+        hidden: (direction) => ({
+            x: direction > 0 ? '100%' : '-100%', // Enters from right or left
+            opacity: 0,
+            translateZ: 0,
+        }),
+        visible: {
+            x: '0%', // Moves to the center
+            opacity: 1,
+            translateZ: 0,
+            transition: { duration: 0.5, ease: 'easeInOut' },
         },
         exit: (direction) => ({
             x: direction < 0 ? '100%' : '-100%', // Exits to right or left
