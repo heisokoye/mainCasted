@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
+/**
+ * Team component displays a list of team members, with a grid view for desktop
+ * and a carousel/slider view for mobile, featuring navigation and auto-slide.
+ */
 const Team = () => {
 
+  // Array of team member objects, each containing avatar, name, title, and social links.
   const team = [
       {
           avatar: "/iskeel.webp",
@@ -48,27 +53,33 @@ const Team = () => {
         },
     ]
 
+    // State to keep track of the currently displayed team member in the mobile slider.
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    // Callback function to move to the next slide, memoized to prevent unnecessary re-renders.
     const nextSlide = useCallback(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % team.length);
-    }, [team.length]);
+    }, [team.length]); // Dependency on team.length to ensure it's up-to-date.
 
+    // Function to move to the previous slide.
     const prevSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex - 1 + team.length) % team.length);
     };
 
+    // useEffect hook to handle auto-sliding for mobile view.
     useEffect(() => {
         const interval = setInterval(() => {
-            // Only auto-slide on smaller screens
+            // Only auto-slide on smaller screens (e.g., less than 640px width).
             if (window.innerWidth < 640) {
                 nextSlide();
             }
-        }, 5000); // Change slide every 5 seconds
+        }, 5000); // Change slide every 5 seconds.
 
+        // Cleanup function to clear the interval when the component unmounts or dependencies change.
         return () => clearInterval(interval);
-    }, [nextSlide]);
+    }, [nextSlide]); // Dependency on nextSlide to ensure the latest function is used.
 
+    // Get the current team member to display in the mobile slider.
     const currentTeamMember = team[currentIndex];
 
 
@@ -82,7 +93,7 @@ const Team = () => {
             </h3>
           </div>
           <div className="mt-12 relative">
-            {/* Desktop Grid View */}
+            {/* Desktop Grid View: Displays all team members in a responsive grid. Hidden on small screens. */}
             <ul className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
               {
                 team.map((item, idx) => (
@@ -102,7 +113,7 @@ const Team = () => {
                 ))
               }
             </ul>
-            {/* Mobile Slider View */}
+            {/* Mobile Slider View: Displays one team member at a time with navigation buttons. Hidden on larger screens. */}
             <div className="sm:hidden relative">
                 <div className="w-32 h-32 mx-auto">
                     <img
@@ -116,9 +127,11 @@ const Team = () => {
                     <h4 className="text-gray-700 font-semibold sm:text-lg">{currentTeamMember.name}</h4>
                     <p className="text-orange-600">{currentTeamMember.title}</p>
                 </div>
+                {/* Previous slide button */}
                 <button onClick={prevSlide} className="absolute cursor-pointer top-1/2 -translate-y-1/2 left-0 p-2 bg-gray-200 rounded-full">
                     <FaChevronLeft />
                 </button>
+                {/* Next slide button */}
                 <button onClick={nextSlide} className="absolute cursor-pointer top-1/2 -translate-y-1/2 right-0 p-2 bg-gray-200 rounded-full">
                     <FaChevronRight />
                 </button>

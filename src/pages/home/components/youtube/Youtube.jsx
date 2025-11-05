@@ -1,7 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+/**
+ * YouTubeSection component displays a grid of YouTube videos with Framer Motion animations.
+ * Each video is embedded using an iframe and includes a title and description.
+ */
 const YouTubeSection = () => {
+  // Array of video objects, each containing an ID, title, and description.
   const videos = [
     {
       id: "DYr2L-CAFpw",
@@ -25,7 +30,7 @@ const YouTubeSection = () => {
     }
   ];
 
-  // Animation variants for the container to stagger children animations
+  // Animation variants for the container to stagger children animations.
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -34,7 +39,7 @@ const YouTubeSection = () => {
     },
   };
 
-  // Animation variants for each video item
+  // Animation variants for each video item, defining its entry animation.
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 100 } },
@@ -44,14 +49,17 @@ const YouTubeSection = () => {
     <section className="py-20 mx-auto w-[80%]">
       <h2 className="text-2xl font-medium mb-6 flex  justify-center gap-2"> <div> Campus in </div> <div className="text-orange-600">Motion</div> </h2>
 
+      {/* Motion.div acts as the container for the animated video items. */}
       <motion.div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-12"
         variants={containerVariants}
       >
         {videos.map((video) => (
+          // Each video item is also a motion.div, applying individual item animations.
           <motion.div key={video.id} variants={itemVariants}
             className="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden" fetchpriority="high"
           >
             <div className="relative w-full aspect-video">
+              {/* Embedded YouTube iframe for each video. */}
               <iframe
                 src={`https://www.youtube.com/embed/${video.id}`}
                 title={video.title}
