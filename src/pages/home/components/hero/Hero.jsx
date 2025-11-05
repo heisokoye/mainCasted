@@ -140,8 +140,8 @@ const Hero = () => {
                     </motion.button>
                 </div>
 
-                {/* Right side: Image and blog preview slider (hidden on small screens) */}
-                <div className='hidden  md:flex lg:flex items-center justify-center' fetchpriority="high">
+                <div className='hidden  md:flex lg:flex items-center justify-center'>
+                    {/* Right side: Image and blog preview slider (hidden on small screens) */}
                     <div ref={sliderRef} className="relative xl:w-200 h-120 rounded-lg shadow-2xl overflow-hidden">
                         {/* AnimatePresence handles the mounting and unmounting of slides */}
                         <AnimatePresence initial={false} custom={direction}>
