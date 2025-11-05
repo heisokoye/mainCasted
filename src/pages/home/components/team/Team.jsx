@@ -45,9 +45,9 @@ const Team = () => {
             twitter: "javascript:void(0)",
         },
         {
-            avatar: "https://randomuser.me/api/portraits/men/46.jpg",
-            name: "Tolu",
-            title: "Product manager",
+            avatar: "/Tolu.webp",
+            name: "Tolulope Ogunbiyi",
+            title: "Lead Photographer",
             linkedin: "javascript:void(0)",
             twitter: "javascript:void(0)",
         },
