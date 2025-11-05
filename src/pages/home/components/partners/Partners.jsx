@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-
+import "./Partners.css"
 /**
  * Partners component displays a horizontally scrolling list of partner logos.
  * It uses Framer Motion for the continuous scroll animation.
@@ -13,9 +12,6 @@ const Partners = () => {
         "deggia.png"
     ];
 
-    // Duplicate the partners array to create a seamless, infinite scroll effect.
-    // When the first set of logos scrolls out, the duplicated set scrolls in.
-    const duplicatedPartners = [...partners, ...partners];
 
     return (
         <div className='overflow-hidden bg-black py-6'>
@@ -27,20 +23,9 @@ const Partners = () => {
                  * The 'transition' property defines a linear animation, with a duration of 5 seconds,
                  * and set to repeat infinitely to create a continuous loop.
                  */}
-                <motion.div
-                    className='flex space-x-5 md:space-x-50 lg:space-x-60'
-                    animate={{
-                        x: ['0%', '-100%'],
-                        transition: {
-                            ease: 'linear',
-                            duration: 5,
-                            repeat: Infinity,
-                        }
-                    }}
-                >
+                <div className='flex space-x-5 md:space-x-50  animate-scrollLeft lg:space-x-60'>
                     {
-                        // Map through the duplicatedPartners array to render each logo.
-                        duplicatedPartners.map((logo, index) => (
+                        partners.map((logo, index) => (
                             <img
                                 key={index} // Using index as key is acceptable here because the list is static and items do not change order.
                                 src={logo} // The image source, assuming images are in the public folder.
@@ -49,7 +34,17 @@ const Partners = () => {
                             />
                         ))
                     }
-                </motion.div>
+                    {
+                        partners.map((logo, index) => (
+                            <img
+                                key={index} // Using index as key is acceptable here because the list is static and items do not change order.
+                                src={logo} // The image source, assuming images are in the public folder.
+                                alt='partner logo'
+                                className="h-24 w-50 object-cover grayscale hover:grayscale-0 transition duration-300"
+                            />
+                        ))
+                    }
+                </div>
             </div>
         </div>
     );
