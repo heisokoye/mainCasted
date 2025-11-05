@@ -8,5 +8,5 @@
 }
 
 .animate-scrollLeft{
-    animation: scrollLeft 30s linear infinite;
+    animation: scrollLeft 10s linear infinite;
 }
