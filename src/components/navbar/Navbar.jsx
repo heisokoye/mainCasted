@@ -57,7 +57,7 @@ const Navbar = ({children}) => {
                 <div className='hidden md:flex lg:flex'>
                     {
                         // If on the dashboard, show a logout button; otherwise, show regular navigation links.
-                        isDashboard  ?( <button onClick={handleLogout} className='px-4 py-2 bg-orange-400 rounded-lg font-medium cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-105 text-white'> Logout </button>) :(
+                        isDashboard  ?( <button onClick={handleLogout} className='px-4 py-2 bg-orange-400 rounded-lg font-medium cursor-pointer transform transition-transform duration-300 ease-in-out  text-white'> Logout </button>) :(
                         <ul className= {`${isHome ? "text-orange-400" : "text-orange-400"} font-medium flex gap-4`}>
                             <li className='transform transition-transform link-underline duration-300 hover:scale-103'> <Link to={"/"}>Home</Link></li>
                             <li className='transform transition-transform link-underline duration-300 hover:scale-103'> <Link to={"/blog"}>Blog</Link> </li>
