@@ -10,14 +10,14 @@ const Team = () => {
   // Array of team member objects, each containing avatar, name, title, and social links.
   const team = [
       {
-          avatar: "/iskeel.webp",
+          avatar: "/iskeel.png",
           name: "Iskeel Atolagbe",
           title: "Executive Director",
           linkedin: "javascript:void(0)",
           twitter: "javascript:void(0)",
       },
       {
-        avatar: "https://randomuser.me/api/portraits/women/79.jpg",
+        avatar: "/Tolu.webp",
         name: "Khalid Adeboye",
         title: "Managing Director", 
         linkedin: "javascript:void(0)",
@@ -31,14 +31,14 @@ const Team = () => {
             twitter: "javascript:void(0)",
         },
         {
-            avatar: "https://randomuser.me/api/portraits/women/63.jpg",
+            avatar: "/iskeel.webp",
             name: "Adex",
             title: "Head of designers",
             linkedin: "javascript:void(0)",
             twitter: "javascript:void(0)",
         },
         {
-            avatar: "https://randomuser.me/api/portraits/men/86.jpg",
+            avatar: "/seyi.webp",
             name: "Daniel",
             title: "Product designer",
             linkedin: "javascript:void(0)",
@@ -102,7 +102,8 @@ const Team = () => {
                       <img
                         src={item.avatar}
                         className="w-full h-full rounded-full object-cover object-center"
-                        alt=""
+                        alt={item.name}
+                        loading="lazy"
                       />
                     </div>
                     <div className="mt-2">
@@ -120,6 +121,7 @@ const Team = () => {
                     src={currentTeamMember.avatar}
                     className="w-full h-full rounded-full object-cover object-center transition-transform duration-500 ease-in-out"
                     alt={currentTeamMember.name}
+                    loading="lazy"
                     key={currentIndex} // Re-trigger animations on change
                     />
                 </div>
