@@ -34,11 +34,11 @@ const EventCalendar = () => {
     },
     {
       id: 4,
-      title: "Tech Innovation Fair",
-      date: new Date(2025, 10, 17), // January 5, 2025
-      time: "9:00 AM",
-      location: "Tech Hub",
-      type: "academic"
+      title: "BUESA LEAGUE STARTS",
+      date: new Date(2025, 10, 8), // November 8, 2025
+      time: "4:00 PM",
+      location: "Bells Field",
+      type: "sports"
     },
   ]);
 
