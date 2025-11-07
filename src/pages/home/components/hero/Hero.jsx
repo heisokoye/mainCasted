@@ -131,7 +131,7 @@ const Hero = () => {
                                 key={currentSlide} // Key is crucial for AnimatePresence to track items
                                 custom={direction} // Pass direction to variants
                                 variants={slideVariants}
-                                initial="hidden"
+                                initial={currentSlide === 0 && direction === 0 ? "visible" : "hidden"}
                                 animate="visible"
                                 exit="exit"
                                 className="absolute w-full h-full"

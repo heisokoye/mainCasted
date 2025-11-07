@@ -82,6 +82,7 @@ const BlogPreview = () => {
           <motion.section
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10"
             variants={containerVariants}
+            initial="visible"
           >
             {/* Map over the first 4 posts and render a card for each */}
             {posts.slice(0, 4).map((post) => (
@@ -97,6 +98,8 @@ const BlogPreview = () => {
                       src={post.fileUrl}
                       alt={post.title}
                       className="w-full h-50 object-cover rounded-2xl mb-2"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <p className="font-medium text-sm text-gray-600 pl-2">
                       {/* Format and display the post creation date */}

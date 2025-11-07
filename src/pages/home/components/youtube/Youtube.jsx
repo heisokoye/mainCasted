@@ -52,6 +52,7 @@ const YouTubeSection = () => {
       {/* Motion.div acts as the container for the animated video items. */}
       <motion.div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-12"
         variants={containerVariants}
+        initial="visible"
       >
         {videos.map((video) => (
           // Each video item is also a motion.div, applying individual item animations.
@@ -65,6 +66,7 @@ const YouTubeSection = () => {
                 title={video.title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
+                loading="lazy"
                 credentialless
                 sandbox="allow-same-origin allow-scripts allow-popups allow-presentation"
                 className="w-full h-full rounded-t-2xl"

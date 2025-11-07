@@ -47,7 +47,7 @@ const Navbar = ({children}) => {
            <div className=' mx-auto pr-5  md:w-[90%] lg:w-[95%] p-2 justify-between flex items-center'>
                 <div> {/* Logo Section */}
                     <Link to={"/"}>
-                        <img src= "/orangeLogo.webp" alt="Casted! Publications Logo" fetchPriority='low' decoding='async'
+                        <img src= "/orangeLogo.webp" alt="Casted! Publications Logo" fetchPriority='high' loading='eager' decoding='async'
                         className=' h-10  w-25 md:w-35 lg:w-35 lg:h-auto md:h-15  '
                         />
                     </Link>

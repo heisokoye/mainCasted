@@ -31,7 +31,7 @@ const Team = () => {
             twitter: "javascript:void(0)",
         },
         {
-            avatar: "/iskeel.webp",
+            avatar: "/Adex.jpg",
             name: "Adex",
             title: "Head of designers",
             linkedin: "javascript:void(0)",
@@ -121,7 +121,8 @@ const Team = () => {
                     src={currentTeamMember.avatar}
                     className="w-full h-full rounded-full object-cover object-center transition-transform duration-500 ease-in-out"
                     alt={currentTeamMember.name}
-                    loading="lazy"
+                    loading={currentIndex === 0 ? "eager" : "lazy"}
+                    fetchPriority={currentIndex === 0 ? "high" : "auto"}
                     key={currentIndex} // Re-trigger animations on change
                     />
                 </div>
