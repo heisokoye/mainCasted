@@ -10,68 +10,57 @@ const EventCalendar = () => {
   const [events] = useState([
     {
       id: 1,
-      title: "Campus Sports Day",
-      date: new Date(2024, 11, 15), // December 15, 2024
-      time: "10:00 AM",
-      location: "Main Sports Complex",
-      type: "sports"
-    },
-    {
-      id: 2,
-      title: "Student Leadership Summit",
-      date: new Date(2024, 11, 20), // December 20, 2024
-      time: "2:00 PM",
-      location: "Auditorium",
-      type: "academic"
-    },
-    {
-      id: 3,
-      title: "Cultural Night",
-      date: new Date(2024, 11, 25), // December 25, 2024
-      time: "6:00 PM",
-      location: "Main Hall",
-      type: "cultural"
-    },
-    {
-      id: 4,
       title: "BUSA LEAGUE STARTS",
-      date: new Date(2025, 10, 8), // November 8, 2025
+      date: new Date(2025, 10, 8), // November 7, 2025
       time: "2:00 PM",
       location: "Bells Field",
-      type: "sports"
+      type: "sports",
     },
   ]);
 
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const today = new Date();
 
-  // Get the first day of the month and number of days
-  const firstDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
-  const lastDayOfMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+  // Get first and last day of the current month
+  const firstDayOfMonth = new Date(
+    currentMonth.getFullYear(),
+    currentMonth.getMonth(),
+    1
+  );
+  const lastDayOfMonth = new Date(
+    currentMonth.getFullYear(),
+    currentMonth.getMonth() + 1,
+    0
+  );
   const daysInMonth = lastDayOfMonth.getDate();
   const startingDayOfWeek = firstDayOfMonth.getDay();
 
-  // Navigate to previous month
+  // Navigate between months
   const goToPreviousMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
+    );
   };
 
-  // Navigate to next month
   const goToNextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
+    );
   };
 
   // Check if a date has an event
   const getEventsForDate = (day) => {
-    const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
-    return events.filter(event => {
-      const eventDate = event.date;
-      return eventDate.getDate() === date.getDate() &&
-             eventDate.getMonth() === date.getMonth() &&
-             eventDate.getFullYear() === date.getFullYear();
-    });
+    const date = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth(),
+      day
+    );
+    return events.filter(
+      (event) => event.date.toDateString() === date.toDateString()
+    );
   };
 
-  // Get event type color
+  // Event color based on type
   const getEventTypeColor = (type) => {
     switch (type) {
       case "sports":
@@ -86,15 +75,38 @@ const EventCalendar = () => {
   };
 
   const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  // Get upcoming events (next 3)
+  // ✅ FIXED: always include today's events properly (timezone-safe)
+  const normalizeDate = (date) => {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    return d.getTime();
+  };
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+
+  const todayNormalized = normalizeDate(today);
+
   const upcomingEvents = events
-    .filter(event => event.date >= new Date())
+    .filter((event) => normalizeDate(event.date) >= todayNormalized)
+    .filter((event) => {
+      return event.date >= startOfToday;
+    })
     .sort((a, b) => a.date - b.date)
     .slice(0, 3);
 
@@ -123,7 +135,8 @@ const EventCalendar = () => {
                 <FaChevronLeft className="text-orange-500" />
               </button>
               <h4 className="text-xl font-semibold text-gray-800">
-                {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+                {monthNames[currentMonth.getMonth()]}{" "}
+                {currentMonth.getFullYear()}
               </h4>
               <button
                 onClick={goToNextMonth}
@@ -136,7 +149,10 @@ const EventCalendar = () => {
             {/* Day Names */}
             <div className="grid grid-cols-7 gap-1 mb-2">
               {dayNames.map((day) => (
-                <div key={day} className="text-center text-xs font-semibold text-gray-600 py-2">
+                <div
+                  key={day}
+                  className="text-center text-xs font-semibold text-gray-600 py-2"
+                >
                   {day}
                 </div>
               ))}
@@ -144,19 +160,17 @@ const EventCalendar = () => {
 
             {/* Calendar Days */}
             <div className="grid grid-cols-7 gap-1">
-              {/* Empty cells for days before the first day of the month */}
               {Array.from({ length: startingDayOfWeek }).map((_, index) => (
                 <div key={`empty-${index}`} className="aspect-square" />
               ))}
 
-              {/* Days of the month */}
               {Array.from({ length: daysInMonth }).map((_, index) => {
                 const day = index + 1;
                 const dayEvents = getEventsForDate(day);
                 const isToday =
-                  day === new Date().getDate() &&
-                  currentMonth.getMonth() === new Date().getMonth() &&
-                  currentMonth.getFullYear() === new Date().getFullYear();
+                  day === today.getDate() &&
+                  currentMonth.getMonth() === today.getMonth() &&
+                  currentMonth.getFullYear() === today.getFullYear();
 
                 return (
                   <div
@@ -175,7 +189,9 @@ const EventCalendar = () => {
                         {dayEvents.slice(0, 3).map((event) => (
                           <div
                             key={event.id}
-                            className={`w-1 h-1 rounded-full ${getEventTypeColor(event.type)}`}
+                            className={`w-1 h-1 rounded-full ${getEventTypeColor(
+                              event.type
+                            )}`}
                           />
                         ))}
                       </div>
@@ -188,33 +204,47 @@ const EventCalendar = () => {
 
           {/* Upcoming Events List */}
           <div className="space-y-3">
-            <h4 className="text-xl font-semibold text-gray-800 text-left mb-4">Upcoming Events</h4>
-            {upcomingEvents.map((event) => (
-              <div
-                key={event.id}
-                className="bg-white rounded-lg shadow-md p-4 border-l-4 border-orange-500"
-              >
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <h5 className="font-semibold text-gray-800 mb-1">{event.title}</h5>
-                    <div className="flex flex-col gap-1 text-sm text-gray-600">
-                      <p className="flex items-center gap-2">
-                        <FaCalendarAlt className="text-orange-500" />
-                        {event.date.toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </p>
-                      <p>{event.time} • {event.location}</p>
+            <h4 className="text-xl font-semibold text-gray-800 text-left mb-4">
+              Upcoming Events
+            </h4>
+            {upcomingEvents.length > 0 ? (
+              upcomingEvents.map((event) => (
+                <div
+                  key={event.id}
+                  className="bg-white rounded-lg shadow-md p-4 border-l-4 border-orange-500"
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <h5 className="font-semibold text-gray-800 mb-1">
+                        {event.title}
+                      </h5>
+                      <div className="flex flex-col gap-1 text-sm text-gray-600">
+                        <p className="flex items-center gap-2">
+                          <FaCalendarAlt className="text-orange-500" />
+                          {event.date.toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </p>
+                        <p>
+                          {event.time} • {event.location}
+                        </p>
+                      </div>
                     </div>
+                    <div
+                      className={`w-3 h-3 rounded-full ${getEventTypeColor(
+                        event.type
+                      )}`}
+                    />
                   </div>
-                  <div
-                    className={`w-3 h-3 rounded-full ${getEventTypeColor(event.type)}`}
-                  />
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-gray-500 text-sm text-left">
+                No upcoming events.
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -223,4 +253,3 @@ const EventCalendar = () => {
 };
 
 export default EventCalendar;
-

@@ -9,8 +9,6 @@ const BlogPreview = lazy(() => import("./components/blogPreview/blogPreview"))
 const Partners = lazy(() => import("./components/partners/Partners"))
 const YouTubeSection = lazy(() => import("./components/youtube/Youtube"))
 const EventCalendar = lazy(() => import("./components/eventCalendar/EventCalendar"))
-const PhotoGallery = lazy(() => import("./components/photoGallery/PhotoGallery"))
-
 
 
 const Home = () => {
@@ -80,17 +78,6 @@ const Home = () => {
                     </motion.div>
                 </Suspense>
 
-                {/* Photo Gallery section - Mobile Only - lazy loaded */}
-                <Suspense fallback={<div className="py-14" />}>
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
-                        <PhotoGallery/>
-                    </motion.div>
-                </Suspense>
 
                 <Suspense fallback={null}>
                     <Partners/>
