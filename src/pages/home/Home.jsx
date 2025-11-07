@@ -17,19 +17,11 @@ const Home = () => {
             <meta name="keywords" content="students media publications, Bells University Media, Casted! Publications, castedpub" />
             <meta name="author" content="Bells University Media, Casted! Publications" />
             <link rel="canonical" href="https://castedpub.vercel.app/" />
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-            >
-                {/* Hero section with a gentle fade-in and slide-down effect on load */}
-                <motion.div
-                    initial={{ opacity: 0, y: -50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
-                >
+            <div>
+                {/* Hero section - no initial animation to improve FCP */}
+                <div>
                     <Hero className="flex justify-center items-center"/>
-                </motion.div>
+                </div>
 
                 {/* YouTube section that fades in and slides up as it enters the viewport */}
                 <motion.div
@@ -67,7 +59,7 @@ const Home = () => {
                 </motion.div>
 
                 <Partners/>
-            </motion.div>
+            </div>
         </>
     )
 }

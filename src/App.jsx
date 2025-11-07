@@ -1,6 +1,7 @@
 // Import necessary React modules and routing utilities
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 
 // Import shared components
 import Navbar from "./components/navbar/Navbar";
@@ -19,9 +20,10 @@ const SinglePost = lazy(() => import("./pages/blog/SinglePost"));
 const App = () => {
   return (
     // Enables routing throughout the app
-    <BrowserRouter>
-      {/* Navbar appears on all pages */}
-      <Navbar />
+    <HelmetProvider>
+      <BrowserRouter>
+        {/* Navbar appears on all pages */}
+        <Navbar />
 
       {/* Suspense shows a loader while lazy components are being fetched */}
       <Suspense
@@ -56,7 +58,8 @@ const App = () => {
 
       {/* Footer appears on all pages */}
       <Footer />
-    </BrowserRouter>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 };
 

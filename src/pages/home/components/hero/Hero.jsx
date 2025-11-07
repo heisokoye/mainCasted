@@ -70,7 +70,7 @@ const Hero = () => {
         visible: (direction) => ({
             opacity: 1,
             transition: {
-                delayChildren: direction === 0 ? 1.5 : 0.4, // Longer delay on initial load for dramatic effect
+                delayChildren: direction === 0 ? 0 : 0.4, // No delay on initial load for better FCP
                 staggerChildren: 0.1, // Stagger the animation of child elements
             },
         }),
@@ -102,20 +102,14 @@ const Hero = () => {
         <section className='bg-white bg-cover w-full h-[50vh] md:h-[60vh] lg:h-[70vh] '>
             <div ref={heroRef} className='flex lg:justify-between  md:justify-center md:items-center items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
                 {/* Left side: Hero Text and Subscribe Button */}
-                <div fetchpriority="high">
-                    {/* Animated heading */}
-                    <motion.h1 className='hero-text   text-3xl md:text-4xl md:w-full lg:text-5xl lg:w-140 text-orange-400 font-medium  '
-                    initial={{ y: -10 }}
-                    animate={{ y: 0 }}
-                    transition={{ duration: 0.3, ease: 'easeOut' }}>
+                <div>
+                    {/* Heading - no initial animation for better FCP */}
+                    <h1 className='hero-text   text-3xl md:text-4xl md:w-full lg:text-5xl lg:w-140 text-orange-400 font-medium  '>
                         Discover the latest social events, gossip and more.
-                    </motion.h1>
-                    {/* Animated subscribe button */}
+                    </h1>
+                    {/* Subscribe button - no initial animation for better FCP */}
                     <motion.button
                         className='hero-text mt-4 bg-white border text-amber-600 px-4 py-2 cursor-pointer rounded-lg shadow-lg flex items-center gap-2'
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1.5, ease: 'easeInOut' }}
                         whileHover="hover" // Trigger 'hover' variant on mouse over
                         variants={{
                             hover: { scale: 1.05, transition: { type: 'spring', stiffness: 400, damping: 15 } }
@@ -147,7 +141,8 @@ const Hero = () => {
                                     src={preview[currentSlide].pictures}
                                     alt={preview[currentSlide].titles}
                                     className="w-full h-full object-cover"
-                                    loading={'lazy'}
+                                    loading={currentSlide === 0 ? 'eager' : 'lazy'}
+                                    fetchPriority={currentSlide === 0 ? 'high' : 'auto'}
                                     decoding="async"
                                     width={1280}
                                     height={720}
@@ -156,15 +151,23 @@ const Hero = () => {
                                 <motion.div 
                                     className="absolute bottom-0 left-0 w-full p-4 `bg-gradient-to-t` from-black/70 to-transparent rounded-b-lg"
                                     variants={textContainerVariants}
-                                    initial="hidden"
+                                    initial={currentSlide === 0 && direction === 0 ? "visible" : "hidden"}
                                     animate="visible"
                                     exit="exit"
                                     custom={direction}
                                 >
-                                    {/* Animated slide title */}
-                                    <motion.h3 variants={textItemVariants} className="text-white text-xl font-semibold mb-2">{preview[currentSlide].titles}</motion.h3>
-                                    {/* Animated slide excerpt */}
-                                    <motion.p variants={textItemVariants} className="text-gray-200">{preview[currentSlide].excerpt}</motion.p>
+                                    {/* Slide title */}
+                                    {currentSlide === 0 && direction === 0 ? (
+                                        <h3 className="text-white text-xl font-semibold mb-2">{preview[currentSlide].titles}</h3>
+                                    ) : (
+                                        <motion.h3 variants={textItemVariants} className="text-white text-xl font-semibold mb-2">{preview[currentSlide].titles}</motion.h3>
+                                    )}
+                                    {/* Slide excerpt */}
+                                    {currentSlide === 0 && direction === 0 && preview[currentSlide].excerpt ? (
+                                        <p className="text-gray-200">{preview[currentSlide].excerpt}</p>
+                                    ) : preview[currentSlide].excerpt ? (
+                                        <motion.p variants={textItemVariants} className="text-gray-200">{preview[currentSlide].excerpt}</motion.p>
+                                    ) : null}
                                 </motion.div>
                             </motion.div>
                         </AnimatePresence>
