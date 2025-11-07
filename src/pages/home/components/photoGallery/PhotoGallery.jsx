@@ -125,7 +125,7 @@ const PhotoGallery = () => {
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
                     <p className="text-sm font-semibold truncate">{photo.event}</p>
                     <p className="text-xs text-gray-200">{photo.date}</p>
@@ -192,7 +192,7 @@ const PhotoGallery = () => {
               className="max-w-full max-h-[90vh] object-contain rounded-lg"
             />
             {/* Photo Info */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 rounded-b-lg">
+            <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4 rounded-b-lg">
               <p className="text-white font-semibold text-lg mb-1">{selectedPhoto.event}</p>
               <p className="text-gray-300 text-sm">{selectedPhoto.date}</p>
               <p className="text-gray-400 text-xs mt-2">
