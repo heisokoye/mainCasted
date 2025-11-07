@@ -1,11 +1,15 @@
-import React from "react"
-import Hero from "./components/hero/Hero" // default export
-import Cta from "./components/cta/Cta"
-import Team from "./components/team/Team"
+import React, { lazy, Suspense } from "react"
+import Hero from "./components/hero/Hero" // default export - critical, load immediately
 import { motion } from "framer-motion"
-import BlogPreview from "./components/blogPreview/blogPreview"
-import Partners from "./components/partners/Partners"
-import YouTubeSection from "./components/youtube/Youtube"
+
+// Lazy load non-critical components to reduce initial TBT
+const Cta = lazy(() => import("./components/cta/Cta"))
+const Team = lazy(() => import("./components/team/Team"))
+const BlogPreview = lazy(() => import("./components/blogPreview/blogPreview"))
+const Partners = lazy(() => import("./components/partners/Partners"))
+const YouTubeSection = lazy(() => import("./components/youtube/Youtube"))
+const EventCalendar = lazy(() => import("./components/eventCalendar/EventCalendar"))
+const PhotoGallery = lazy(() => import("./components/photoGallery/PhotoGallery"))
 
 
 
@@ -23,42 +27,74 @@ const Home = () => {
                     <Hero className="flex justify-center items-center"/>
                 </div>
 
-                {/* YouTube section that fades in and slides up as it enters the viewport */}
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                    <YouTubeSection/>
-                </motion.div>
+                {/* YouTube section - lazy loaded to reduce TBT */}
+                <Suspense fallback={<div className="py-20" />}>
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
+                        <YouTubeSection/>
+                    </motion.div>
+                </Suspense>
 
-                 {/* BlogPreview section with scroll-based animation */}
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                <BlogPreview/>
-                </motion.div>
+                 {/* BlogPreview section - lazy loaded to reduce TBT */}
+                <Suspense fallback={<div className="py-20" />}>
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
+                        <BlogPreview/>
+                    </motion.div>
+                </Suspense>
 
-                {/* Cta section that slides in from the left as it enters the viewport */}
-                <div>
+                {/* Cta section - lazy loaded */}
+                <Suspense fallback={<div className="py-16" />}>
                     <Cta className=""/>
-                </div>
+                </Suspense>
 
-                {/* Team section that fades in as it enters the viewport */}
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                    <Team/>
-                </motion.div>
+                {/* Team section - lazy loaded */}
+                <Suspense fallback={<div className="py-14" />}>
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
+                        <Team/>
+                    </motion.div>
+                </Suspense>
 
-                <Partners/>
+                {/* Event Calendar section - Mobile Only - lazy loaded */}
+                <Suspense fallback={<div className="py-14" />}>
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
+                        <EventCalendar/>
+                    </motion.div>
+                </Suspense>
+
+                {/* Photo Gallery section - Mobile Only - lazy loaded */}
+                <Suspense fallback={<div className="py-14" />}>
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
+                        <PhotoGallery/>
+                    </motion.div>
+                </Suspense>
+
+                <Suspense fallback={null}>
+                    <Partners/>
+                </Suspense>
             </div>
         </>
     )

@@ -22,36 +22,61 @@ const BlogPreview = () => {
 
   /**
    * useEffect hook to fetch posts from Firestore in real-time.
+   * Deferred using requestIdleCallback to reduce TBT - only starts after main thread is idle.
    * It sets up a listener that updates the posts state whenever the 'posts' collection changes.
    * The listener is cleaned up when the component unmounts.
    */
   useEffect(() => {
     setIsLoading(true);
-    // Subscribe to real-time updates from the 'posts' collection in Firestore
-    const unsubscribe = onSnapshot(collection(db, "posts"), (snapshot) => {
-      // Map the documents to an array of post objects, including the document ID
-      const postsList = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setPosts(postsList);
-      setIsLoading(false);
-    });
-    // Cleanup function to unsubscribe from the listener when the component unmounts
-    return () => unsubscribe();
+    
+    // Defer Firebase listener initialization to reduce blocking time
+    const initListener = () => {
+      // Subscribe to real-time updates from the 'posts' collection in Firestore
+      const unsubscribe = onSnapshot(collection(db, "posts"), (snapshot) => {
+        // Map the documents to an array of post objects, including the document ID
+        const postsList = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setPosts(postsList);
+        setIsLoading(false);
+      });
+      return unsubscribe;
+    };
+
+    // Use requestIdleCallback if available, otherwise use setTimeout as fallback
+    let unsubscribe;
+    if ('requestIdleCallback' in window) {
+      const idleCallbackId = requestIdleCallback(() => {
+        unsubscribe = initListener();
+      }, { timeout: 2000 });
+      return () => {
+        cancelIdleCallback(idleCallbackId);
+        if (unsubscribe) unsubscribe();
+      };
+    } else {
+      // Fallback for browsers without requestIdleCallback
+      const timeoutId = setTimeout(() => {
+        unsubscribe = initListener();
+      }, 100);
+      return () => {
+        clearTimeout(timeoutId);
+        if (unsubscribe) unsubscribe();
+      };
+    }
   }, []);
 
   /**
    * Helper function to create a plain text preview from HTML content.
-   * It strips HTML tags and truncates the text to a specified limit.
+   * Optimized to avoid blocking DOM operations - uses regex instead of creating DOM elements.
    * @param {string} html - The HTML content string.
    * @param {number} [limit=150] - The character limit for the preview text.
    * @returns {string} The truncated plain text preview.
    */
   const getPreviewText = (html, limit = 150) => {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    const text = div.textContent || div.innerText || "";
+    if (!html) return "";
+    // Use regex to strip HTML tags instead of creating DOM elements (non-blocking)
+    const text = html.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
     return text.length > limit ? text.slice(0, limit) + "..." : text;
   };
 

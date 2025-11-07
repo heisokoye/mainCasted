@@ -11,13 +11,19 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom']
+          // Split vendor chunks to reduce initial bundle size and TBT
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'firebase': ['firebase'],
+          'animation': ['framer-motion', 'gsap'],
+          'ui': ['react-icons', 'swiper']
         }
       }
     }
   },
   // Optimize dependencies for faster initial load
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom']
+    include: ['react', 'react-dom', 'react-router-dom'],
+    // Exclude heavy libraries from pre-bundling to reduce TBT
+    exclude: ['framer-motion', 'gsap']
   }
 })

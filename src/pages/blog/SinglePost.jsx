@@ -5,6 +5,7 @@ import { db } from "../../Firebase"; // adjust path if needed
 import Loader from "../../components/loader/Loader";
 import "../../App.css"
 import { BsArrowLeft } from "react-icons/bs";
+import { FaTwitter, FaFacebook, FaLinkedin, FaWhatsapp, FaShareAlt } from "react-icons/fa";
 
 /**
  * SinglePost component fetches and displays a single blog post based on the ID from the URL.
@@ -34,6 +35,45 @@ const SinglePost = () => {
     };
     fetchPost();
   }, [id]); // Dependency array includes 'id' to re-run effect if ID changes.
+
+  // Function to handle social sharing
+  const handleShare = (platform) => {
+    const postUrl = window.location.href;
+    const postTitle = post?.title || "Check out this post from Casted! Publications";
+    const shareText = `${postTitle} - ${postUrl}`;
+
+    let shareUrl = "";
+    
+    switch (platform) {
+      case "twitter":
+        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(postTitle)}&url=${encodeURIComponent(postUrl)}`;
+        break;
+      case "facebook":
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`;
+        break;
+      case "linkedin":
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`;
+        break;
+      case "whatsapp":
+        shareUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+        break;
+      case "native":
+        if (navigator.share) {
+          navigator.share({
+            title: postTitle,
+            text: post?.content?.substring(0, 100) || "",
+            url: postUrl,
+          }).catch(() => {});
+        }
+        return;
+      default:
+        return;
+    }
+    
+    if (shareUrl) {
+      window.open(shareUrl, "_blank", "width=600,height=400");
+    }
+  };
 
   // Display a message if no post is found and loading has finished.
   if (!post && !isLoading) {
@@ -82,6 +122,52 @@ const SinglePost = () => {
               className="prose post-content lg:prose-xl max-w-none text-gray-800"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
+            
+            {/* Social Sharing Buttons - Mobile Only */}
+            <div className="md:hidden lg:hidden mt-8 pt-6 border-t border-gray-200">
+              <div className="flex flex-col items-center">
+                <h3 className="text-lg font-semibold text-gray-700 mb-4">Share this post</h3>
+                <div className="flex gap-4 justify-center items-center">
+                  <button
+                    onClick={() => handleShare("twitter")}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-400 text-white hover:bg-blue-500 transition-colors duration-300 shadow-md"
+                    aria-label="Share on Twitter"
+                  >
+                    <FaTwitter size={20} />
+                  </button>
+                  <button
+                    onClick={() => handleShare("facebook")}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300 shadow-md"
+                    aria-label="Share on Facebook"
+                  >
+                    <FaFacebook size={20} />
+                  </button>
+                  <button
+                    onClick={() => handleShare("linkedin")}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-700 text-white hover:bg-blue-800 transition-colors duration-300 shadow-md"
+                    aria-label="Share on LinkedIn"
+                  >
+                    <FaLinkedin size={20} />
+                  </button>
+                  <button
+                    onClick={() => handleShare("whatsapp")}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 text-white hover:bg-green-600 transition-colors duration-300 shadow-md"
+                    aria-label="Share on WhatsApp"
+                  >
+                    <FaWhatsapp size={20} />
+                  </button>
+                  {navigator.share && (
+                    <button
+                      onClick={() => handleShare("native")}
+                      className="flex items-center justify-center w-12 h-12 rounded-full bg-orange-500 text-white hover:bg-orange-600 transition-colors duration-300 shadow-md"
+                      aria-label="Share via native share"
+                    >
+                      <FaShareAlt size={20} />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
           </article>
         )}
       </div>
