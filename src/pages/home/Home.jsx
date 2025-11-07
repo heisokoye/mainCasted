@@ -1,5 +1,8 @@
+// Import React, lazy, and Suspense for lazy loading components
 import React, { lazy, Suspense } from "react"
+// Import Hero component
 import Hero from "./components/hero/Hero" // default export - critical, load immediately
+// Import motion from framer-motion for animations
 import { motion } from "framer-motion"
 
 // Lazy load non-critical components to reduce initial TBT
@@ -10,10 +13,11 @@ const Partners = lazy(() => import("./components/partners/Partners"))
 const YouTubeSection = lazy(() => import("./components/youtube/Youtube"))
 const EventCalendar = lazy(() => import("./components/eventCalendar/EventCalendar"))
 
-
+// Define the Home component
 const Home = () => {
     return (
         <>
+            {/* SEO Meta Tags */}
             <title>Casted! Publications - Student Media, News, and Stories</title>
             <meta name="description" content="The official source for student stories, campus news, and social events from Casted! Publications. Discover the latest articles and amplify your voice." />
             <meta name="keywords" content="students media publications, Bells University Media, Casted! Publications, castedpub" />
@@ -81,6 +85,7 @@ const Home = () => {
                 
 
 
+                {/* Partners section - lazy loaded */}
                 <Suspense fallback={null}>
                     <Partners/>
                 </Suspense>
@@ -89,4 +94,5 @@ const Home = () => {
     )
 }
 
+// Export the Home component as the default export
 export default Home

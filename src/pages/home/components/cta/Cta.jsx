@@ -1,7 +1,10 @@
+// Import React and necessary icons from react-icons
 import React from 'react'
 import { FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
+// Import motion from framer-motion for animations
 import { motion } from "framer-motion";
 
+// Animation variants for the container
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -10,12 +13,15 @@ const containerVariants = {
   },
 };
 
+// Animation variants for the items
 const itemVariants = {
   hidden: { y: 20, opacity: 0 },
   visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 100 } },
 };
 
+// Define the Cta component
 const Cta = () => {
+  // Array of contact methods
   const contactMethods = [
     {
       icon: <FaWhatsapp className="w-6 h-6" />,
@@ -49,6 +55,7 @@ const Cta = () => {
     }
   ]
 
+  // Render the Cta component
   return (
     <div className='bg-white relative z-10'>
       <motion.section 
@@ -98,4 +105,5 @@ const Cta = () => {
   )
 }
 
+// Export the Cta component as the default export
 export default Cta

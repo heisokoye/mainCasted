@@ -1,16 +1,22 @@
+// Import React and Link from react-router-dom
 import React from 'react'
 import { Link } from 'react-router-dom'
+// Import social media icons from react-icons
 import { FaInstagram, FaWhatsapp, FaYoutube } from "react-icons/fa";
 
+// Define the Footer component
 const Footer = () => {
+  // Get the current year
   const currentYear = new Date().getFullYear();
 
+  // Array of social media links
   const socialLinks = [
     { name: 'WhatsApp', icon: <FaWhatsapp />, href: 'https://whatsapp.com/channel/0029Vb56767I1rckrGeYrs1E' },
     { name: 'Instagram', icon: <FaInstagram />, href: 'https://www.instagram.com/casted_publications?igsh=NHVjMWl2aWZ5MW1h' },
     { name: 'YouTube', icon: <FaYoutube />, href: 'https://youtube.com/@castedpublications' },
   ];
 
+  // Render the Footer component
   return (
     <footer className="bg-black text-white">
       <div className="mx-auto w-full max-w-screen-2xl p-4 py-6 lg:py-8">
@@ -30,4 +36,5 @@ const Footer = () => {
   )
 }
 
+// Export the Footer component as the default export
 export default Footer
