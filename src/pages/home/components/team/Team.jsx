@@ -32,8 +32,8 @@ const Team = () => {
         },
         {
             avatar: "/Adex.jpg",
-            name: "Adex",
-            title: "Head of designers",
+            name: "Adeniyi Ademide",
+            title: "Social Media Director",
             linkedin: "javascript:void(0)",
             twitter: "javascript:void(0)",
         },
