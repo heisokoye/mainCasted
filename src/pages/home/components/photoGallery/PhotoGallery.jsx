@@ -10,45 +10,38 @@ const PhotoGallery = () => {
   const [photos] = useState([
     {
       id: 1,
-      src: "/slider1.jpg",
-      alt: "Campus Event 1",
-      event: "Campus Sports Day",
-      date: "December 2024"
+      src: "/slider1.webp",
+      alt: "NACOS & ENGINEERING INDUCTION CEREMONY",
+      event: "NACOS & ENGINEERING INDUCTION CEREMONY",
+      date: "October 2025"
     },
     {
       id: 2,
-      src: "/Tolu.webp",
-      alt: "Campus Event 2",
-      event: "Student Leadership Summit",
-      date: "November 2024"
+      src: "/slider2.webp",
+      alt: "NACOS & ENGINEERING INDUCTION CEREMONY",
+      event: "NACOS & ENGINEERING INDUCTION CEREMONY",
+      date: "October 2025"
     },
     {
       id: 3,
-      src: "/seyi.webp",
-      alt: "Campus Event 3",
-      event: "Cultural Night",
-      date: "October 2024"
+      src: "/slider3.webp",
+      alt: "NACOS & ENGINEERING INDUCTION CEREMONY",
+      event: "NACOS & ENGINEERING INDUCTION CEREMONY",
+      date: "October 2025"
     },
     {
       id: 4,
-      src: "/Adex.jpg",
-      alt: "Campus Event 4",
-      event: "Tech Innovation Fair",
-      date: "September 2024"
+      src: "/slider4.webp",
+      alt: "NACOS & ENGINEERING INDUCTION CEREMONY",
+      event: "NACOS & ENGINEERING INDUCTION CEREMONY",
+      date: "October 2025"
     },
     {
       id: 5,
-      src: "/orangeLogo.webp",
+      src: "/Pirates.jpg",
       alt: "Campus Event 5",
-      event: "Welcome Week",
-      date: "August 2024"
-    },
-    {
-      id: 6,
-      src: "/iskeel.png",
-      alt: "Campus Event 6",
-      event: "Graduation Ceremony",
-      date: "July 2024"
+      event: "Pirates Media Team Day",
+      date: "November 2025"
     },
   ]);
 

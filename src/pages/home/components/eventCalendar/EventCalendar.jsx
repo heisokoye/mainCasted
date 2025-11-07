@@ -34,9 +34,9 @@ const EventCalendar = () => {
     },
     {
       id: 4,
-      title: "BUESA LEAGUE STARTS",
+      title: "BUSA LEAGUE STARTS",
       date: new Date(2025, 10, 8), // November 8, 2025
-      time: "4:00 PM",
+      time: "2:00 PM",
       location: "Bells Field",
       type: "sports"
     },
