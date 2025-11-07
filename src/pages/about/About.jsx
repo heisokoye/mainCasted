@@ -48,7 +48,7 @@ const About = () => {
             </p>
           </div>
           <div className="hidden md:block">
-            <img src="/slider1.jpg" alt="Campus event" className="rounded-lg shadow-xl object-cover w-full h-96" />
+            <img src="/slider1.webp" alt="Campus event" className="rounded-lg shadow-xl object-cover w-full h-96" />
           </div>
         </motion.section>
 
