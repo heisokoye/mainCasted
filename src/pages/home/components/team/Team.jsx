@@ -31,7 +31,7 @@ const Team = () => {
             twitter: "javascript:void(0)",
         },
         {
-            avatar: "/Adex.jpg",
+            avatar: "/Adex.webp",
             name: "Adeniyi Ademide",
             title: "Social Media Director",
             linkedin: "javascript:void(0)",

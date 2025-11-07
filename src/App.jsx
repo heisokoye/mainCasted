@@ -17,6 +17,8 @@ const About = lazy(() => import("./pages/about/About"));
 const Dashboard = lazy(() => import("./pages/admin/adminDashboard/Dashboard"));
 const SinglePost = lazy(() => import("./pages/blog/SinglePost"));
 
+
+
 const App = () => {
   return (
     // Enables routing throughout the app
