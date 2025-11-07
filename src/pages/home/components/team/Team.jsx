@@ -38,9 +38,9 @@ const Team = () => {
             twitter: "javascript:void(0)",
         },
         {
-            avatar: "/seyi.webp",
-            name: "Daniel",
-            title: "Product designer",
+            avatar: "/daniel.webp",
+            name: " Adekoya Daniel ",
+            title: "Lead Videographer",
             linkedin: "javascript:void(0)",
             twitter: "javascript:void(0)",
         },
