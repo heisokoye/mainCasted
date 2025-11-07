@@ -6,22 +6,25 @@ import { FaCalendarAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
  * This component is only visible on mobile devices.
  */
 const EventCalendar = () => {
-  // Sample events data - in production, this would come from Firebase
+  // State for storing the list of events. In a production app, this would be fetched from a backend (e.g., Firebase).
   const [events] = useState([
     {
       id: 1,
       title: "BUSA LEAGUE STARTS",
-      date: new Date(2025, 10, 8), // November 7, 2025
+      date: new Date(2025, 10, 7), // November 7, 2025
       time: "2:00 PM",
       location: "Bells Field",
       type: "sports",
     },
   ]);
 
+  // State to keep track of the currently displayed month in the calendar.
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  // A constant to hold the current date, used for highlighting "today" in the calendar.
   const today = new Date();
 
-  // Get first and last day of the current month
+  // --- Calendar Logic ---
+  // Calculate necessary dates for rendering the current month's grid.
   const firstDayOfMonth = new Date(
     currentMonth.getFullYear(),
     currentMonth.getMonth(),
@@ -32,10 +35,12 @@ const EventCalendar = () => {
     currentMonth.getMonth() + 1,
     0
   );
+  // Total number of days in the currently viewed month.
   const daysInMonth = lastDayOfMonth.getDate();
+  // The day of the week (0=Sun, 1=Mon, ...) for the first day of the month. Used to position the start of the calendar grid.
   const startingDayOfWeek = firstDayOfMonth.getDay();
 
-  // Navigate between months
+  // --- Navigation Functions ---
   const goToPreviousMonth = () => {
     setCurrentMonth(
       new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
@@ -48,7 +53,7 @@ const EventCalendar = () => {
     );
   };
 
-  // Check if a date has an event
+  // --- Helper Functions ---
   const getEventsForDate = (day) => {
     const date = new Date(
       currentMonth.getFullYear(),
@@ -56,11 +61,12 @@ const EventCalendar = () => {
       day
     );
     return events.filter(
+      // Compare date strings to ignore time differences.
       (event) => event.date.toDateString() === date.toDateString()
     );
   };
 
-  // Event color based on type
+  // Returns a Tailwind CSS background color class based on the event's type.
   const getEventTypeColor = (type) => {
     switch (type) {
       case "sports":
@@ -74,6 +80,7 @@ const EventCalendar = () => {
     }
   };
 
+  // --- Constants for UI ---
   const monthNames = [
     "January",
     "February",
@@ -91,26 +98,19 @@ const EventCalendar = () => {
 
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  // ✅ FIXED: always include today's events properly (timezone-safe)
-  const normalizeDate = (date) => {
-    const d = new Date(date);
-    d.setHours(0, 0, 0, 0);
-    return d.getTime();
-  };
+  // --- Upcoming Events Logic ---
+  // Get the start of today (midnight) to ensure all of today's events are included.
   const startOfToday = new Date();
   startOfToday.setHours(0, 0, 0, 0);
 
-  const todayNormalized = normalizeDate(today);
-
+  // Filter events to get upcoming ones.
   const upcomingEvents = events
-    .filter((event) => normalizeDate(event.date) >= todayNormalized)
-    .filter((event) => {
-      return event.date >= startOfToday;
-    })
-    .sort((a, b) => a.date - b.date)
-    .slice(0, 3);
+    .filter((event) => new Date(event.date) >= startOfToday) // Keep events that are on or after the start of today.
+    .sort((a, b) => new Date(a.date) - new Date(b.date)) // Sort events chronologically.
+    .slice(0, 3); // Get the next 3 upcoming events.
 
   return (
+    // Main container for the component. Hidden on medium and larger screens.
     <section className="py-14 border-b border-gray-200 md:hidden lg:hidden">
       <div className="mx-auto w-[90%]">
         <div className="px-4 text-center md:px-8">
@@ -124,7 +124,7 @@ const EventCalendar = () => {
             <p className="text-gray-600 mt-2">Stay updated with campus events</p>
           </div>
 
-          {/* Calendar */}
+          {/* Calendar Grid Section */}
           <div className="bg-white rounded-2xl shadow-lg p-4 mb-6">
             {/* Month Navigation */}
             <div className="flex items-center justify-between mb-4">
@@ -146,7 +146,7 @@ const EventCalendar = () => {
               </button>
             </div>
 
-            {/* Day Names */}
+            {/* Header row with names of the days of the week */}
             <div className="grid grid-cols-7 gap-1 mb-2">
               {dayNames.map((day) => (
                 <div
@@ -158,16 +158,20 @@ const EventCalendar = () => {
               ))}
             </div>
 
-            {/* Calendar Days */}
+            {/* Grid container for all the days in the month */}
             <div className="grid grid-cols-7 gap-1">
+              {/* Render empty divs to offset the start of the month to the correct day of the week */}
               {Array.from({ length: startingDayOfWeek }).map((_, index) => (
                 <div key={`empty-${index}`} className="aspect-square" />
               ))}
 
+              {/* Render each day of the month */}
               {Array.from({ length: daysInMonth }).map((_, index) => {
                 const day = index + 1;
+                // Get any events scheduled for this specific day.
                 const dayEvents = getEventsForDate(day);
-                const isToday =
+                // Check if the current day in the loop is today's date.
+                const isToday = //
                   day === today.getDate() &&
                   currentMonth.getMonth() === today.getMonth() &&
                   currentMonth.getFullYear() === today.getFullYear();
@@ -176,6 +180,7 @@ const EventCalendar = () => {
                   <div
                     key={day}
                     className={`aspect-square flex flex-col items-center justify-center text-sm rounded-lg ${
+                      // Apply conditional styling:
                       isToday
                         ? "bg-orange-500 text-white font-bold"
                         : dayEvents.length > 0
@@ -184,8 +189,10 @@ const EventCalendar = () => {
                     }`}
                   >
                     <span>{day}</span>
+                    {/* If there are events on this day, show indicator dots */}
                     {dayEvents.length > 0 && (
                       <div className="flex gap-0.5 mt-0.5">
+                        {/* Show up to 3 dots for events */}
                         {dayEvents.slice(0, 3).map((event) => (
                           <div
                             key={event.id}
@@ -202,12 +209,14 @@ const EventCalendar = () => {
             </div>
           </div>
 
-          {/* Upcoming Events List */}
+          {/* Upcoming Events List Section */}
           <div className="space-y-3">
             <h4 className="text-xl font-semibold text-gray-800 text-left mb-4">
               Upcoming Events
             </h4>
+            {/* Conditionally render the list of events or a "no events" message */}
             {upcomingEvents.length > 0 ? (
+              // Map through the upcoming events and render a card for each one.
               upcomingEvents.map((event) => (
                 <div
                   key={event.id}
@@ -221,6 +230,7 @@ const EventCalendar = () => {
                       <div className="flex flex-col gap-1 text-sm text-gray-600">
                         <p className="flex items-center gap-2">
                           <FaCalendarAlt className="text-orange-500" />
+                          {/* Format the date for display */}
                           {event.date.toLocaleDateString("en-US", {
                             month: "short",
                             day: "numeric",
@@ -232,6 +242,7 @@ const EventCalendar = () => {
                         </p>
                       </div>
                     </div>
+                    {/* Event type indicator dot */}
                     <div
                       className={`w-3 h-3 rounded-full ${getEventTypeColor(
                         event.type
@@ -241,6 +252,7 @@ const EventCalendar = () => {
                 </div>
               ))
             ) : (
+              // Message to show when there are no upcoming events.
               <p className="text-gray-500 text-sm text-left">
                 No upcoming events.
               </p>
