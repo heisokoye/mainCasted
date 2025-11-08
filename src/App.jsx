@@ -8,6 +8,7 @@ import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 import ProtectedRoute from "./pages/admin/ProtectedRoute";
 import Loader from "./components/loader/Loader";
+import AnalyticsTracker from "./components/analytics/AnalyticsTracker";
 
 // Eager-load Home for faster FCP/LCP on the landing route; keep others lazy
 import Home from "./pages/home/Home";
@@ -24,6 +25,7 @@ const App = () => {
     // Enables routing throughout the app
     <HelmetProvider>
       <BrowserRouter>
+        <AnalyticsTracker />
         {/* Navbar appears on all pages */}
         <Navbar />
 
