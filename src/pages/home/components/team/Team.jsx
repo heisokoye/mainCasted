@@ -17,9 +17,9 @@ const Team = () => {
           twitter: "javascript:void(0)",
       },
       {
-        avatar: "/Tolu.webp",
-        name: "Khalid Adeboye",
-        title: "Managing Director", 
+        avatar: "/nifemi.webp",
+        name: "Nifemi",
+        title: "Lead Designer", 
         linkedin: "javascript:void(0)",
         twitter: "javascript:void(0)",
       },
