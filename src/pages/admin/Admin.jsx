@@ -51,9 +51,9 @@ const Admin = () => {
       }
     }
   };
-
+  // className="bg-[url('/bg.png')] bg-no-repeat bg-cover bg-fixed
   return (
-    <div className='min-h-screen bg-linear-to-br flex items-center justify-center px-4'>
+    <div className='min-h-screen bg-[url("/bg.png")] bg-no-repeat bg-cover bg-fixed linear-to-br flex items-center justify-center px-4'>
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

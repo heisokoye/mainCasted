@@ -43,7 +43,7 @@ const Navbar = ({children}) => {
   return (
     <div >
         {/* Main navigation bar. The text color changes based on whether it's the home page. */}
-        <nav className={`${isHome? "text-orange-400": "" } w-full bg-white  z-50  h-14 md:h-18 lg:h-18 fixed  top-0 left-0`}>
+        <nav className={`${isHome? "text-orange-400": "" } w-full  backdrop-blur-3xl z-50  h-14 md:h-18 lg:h-18 fixed  top-0 left-0`}>
            <div className=' mx-auto pr-5  md:w-[90%] lg:w-[95%] p-2 justify-between flex items-center'>
                 <div> {/* Logo Section */}
                     <Link to={"/"}>

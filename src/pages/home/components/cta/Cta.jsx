@@ -57,7 +57,7 @@ const Cta = () => {
 
   // Render the Cta component
   return (
-    <div className='bg-white relative z-10'>
+    <div className=' relative z-10'>
       <motion.section 
         className='mx-auto w-[80%]  text-black max-w-full py-16 lg:flex'
         initial="hidden"

@@ -56,7 +56,7 @@ const YouTubeSection = () => {
         {videos.map((video) => (
           // Each video item is also a motion.div, applying individual item animations.
           <motion.div key={video.id} variants={itemVariants}
-            className="bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden" fetchpriority="high"
+            className="backdrop-blur-lg rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden" fetchpriority="high"
           >
             <div className="relative w-full aspect-video">
               {/* Embedded YouTube iframe for each video. */}

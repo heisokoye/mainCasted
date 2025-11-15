@@ -99,7 +99,7 @@ const Hero = () => {
   return (
     // Main container for the hero section
     <div className="w-full border-b fo border-gray-300">
-        <section className='bg-white bg-cover w-full h-[50vh] md:h-[60vh] lg:h-[70vh]' style={{ minHeight: '400px' }}>
+        <section className=' bg-cover w-full h-[50vh] md:h-[60vh] lg:h-[70vh]' style={{ minHeight: '400px' }}>
             <div ref={heroRef} className='flex lg:justify-between  md:justify-center md:items-center items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
                 {/* Left side: Hero Text and Subscribe Button */}
                 <div>
