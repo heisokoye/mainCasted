@@ -1,5 +1,6 @@
 // Import React, lazy, and Suspense for lazy loading components
 import React, { lazy, Suspense } from "react"
+import { Helmet } from "react-helmet-async"
 // Import Hero component
 import Hero from "./components/hero/Hero" // default export - critical, load immediately
 // Import motion from framer-motion for animations
@@ -8,7 +9,7 @@ import { motion } from "framer-motion"
 // Lazy load non-critical components to reduce initial TBT
 const Cta = lazy(() => import("./components/cta/Cta"))
 const Team = lazy(() => import("./components/team/Team"))
-const BlogPreview = lazy(() => import("./components/blogPreview/blogPreview"))
+const BlogPreview = lazy(() => import("./components/blogPreview/BlogPreview"))
 const Partners = lazy(() => import("./components/partners/Partners"))
 const YouTubeSection = lazy(() => import("./components/youtube/Youtube"))
 const EventCalendar = lazy(() => import("./components/eventCalendar/EventCalendar"))
@@ -18,11 +19,13 @@ const Home = () => {
     return (
         < >
             {/* SEO Meta Tags */}
-            <title>Casted! Publications - Student Media, News, and Stories</title>
-            <meta name="description" content="The official source for student stories, campus news, and social events from Casted! Publications. Discover the latest articles and amplify your voice." />
-            <meta name="keywords" content="students media publications, Bells University Media, Casted! Publications, castedpub" />
-            <meta name="author" content="Bells University Media, Casted! Publications" />
-            <link rel="canonical" href="https://castedpub.vercel.app/" />
+            <Helmet>
+                <title>Casted! Publications - Student Media, News, and Stories</title>
+                <meta name="description" content="The official source for student stories, campus news, and social events from Casted! Publications. Discover the latest articles and amplify your voice." />
+                <meta name="keywords" content="students media publications, Bells University Media, Casted! Publications, castedpub" />
+                <meta name="author" content="Bells University Media, Casted! Publications" />
+                <link rel="canonical" href="https://castedpub.vercel.app/" />
+            </Helmet>
             <div className="bg-[url('/bg.webp')] bg-no-repeat bg-cover bg-fixed"> 
                 {/* Hero section - no initial animation to improve FCP */}
                 <div>
