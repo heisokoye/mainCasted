@@ -20,7 +20,7 @@ const About = () => {
   // Render the About page
   return (
 
-    <div className=" bg-[url('/bg.png')] bg-no-repeat bg-cover bg-fixed ">
+    <div className=" bg-[url('/bg.webp')] bg-no-repeat bg-cover bg-fixed ">
       {/*  Main container with padding and text styling */}
       <div className="py-24  md:py-32 mx-auto w-[80%] text-gray-800">
         {/* Inner container with max-width */}

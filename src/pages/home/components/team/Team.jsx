@@ -17,7 +17,7 @@ const Team = () => {
           twitter: "javascript:void(0)",
       },
       {
-        avatar: "/nifemi.jpg",
+        avatar: "/nifemi.webp",
         name: "Adesanya Olorunnifemi",
         title: "Lead Designer", 
         linkedin: "javascript:void(0)",
