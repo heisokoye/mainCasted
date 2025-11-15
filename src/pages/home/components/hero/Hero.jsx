@@ -142,7 +142,7 @@ const Hero = () => {
                                     alt={preview[currentSlide].titles}
                                     className="w-full h-full object-cover"
                                     loading={currentSlide === 0 ? 'eager' : 'lazy'}
-                                    fetchPriority={currentSlide === 0 ? 'high' : 'auto'}
+                                    fetchpriority={currentSlide === 0 ? 'high' : 'auto'}
                                     decoding={currentSlide === 0 ? 'sync' : 'async'}
                                     width={1280}
                                     height={720}
