@@ -55,7 +55,7 @@ const Blog = () => {
 
   // className="bg-[url('/bg.png')] bg-no-repeat bg-cover bg-fixed
   return (
-    <div className="py-20 bg-[url('/bg.png')] lg:h-screen md:h-screen">
+    <div className="py-20 bg-[url('/bg.png')] bg-no-repeat bg-cover bg-fixed h-screen lg:h-screen md:h-screen">
       {/* Main container for the blog posts grid */}
       <div className="mx-auto w-[80%]">
         {/* Display a loader while posts are being fetched */}

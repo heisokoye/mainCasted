@@ -10,8 +10,8 @@ const EventCalendar = () => {
   const [events] = useState([
     {
       id: 1,
-      title: "BUSA LEAGUE STARTS",
-      date: new Date(2025, 10, 7), // November 7, 2025
+      title: "PIRATES FC Vs UNDERRATED FC",
+      date: new Date(2025, 10, 23), 
       time: "2:00 PM",
       location: "Bells Field",
       type: "sports",
