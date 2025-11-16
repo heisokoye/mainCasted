@@ -98,9 +98,9 @@ const Hero = () => {
 
   return (
     // Main container for the hero section
-    <div className="w-full border-b fo border-gray-300">
+    <div className="w-full border-b  border-gray-300">
         <section className=' bg-cover w-full h-[50vh] md:h-[60vh] lg:h-[70vh]' style={{ minHeight: '400px' }}>
-            <div ref={heroRef} className='flex lg:justify-between  md:justify-center md:items-center items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
+            <div ref={heroRef} className='flex lg:justify-between  items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
                 {/* Left side: Hero Text and Subscribe Button */}
                 <div>
                     {/* Heading - no initial animation for better FCP/LCP */}
@@ -121,7 +121,7 @@ const Hero = () => {
                     </motion.button>
                 </div>
 
-                <div className='hidden  md:flex lg:flex items-center justify-center'>
+                <div className='hidden feature-above-1500 items-center justify-center'>
                     {/* Right side: Image and blog preview slider (hidden on small screens) */}
                     <div ref={sliderRef} className="relative xl:w-200 h-120 rounded-lg shadow-2xl overflow-hidden">
                         {/* AnimatePresence handles the mounting and unmounting of slides */}

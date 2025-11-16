@@ -25,7 +25,7 @@ const Home = () => {
                 <meta name="keywords" content="students media publications, Bells University Media, Casted! Publications, castedpub" />
                 <meta name="author" content="Bells University Media, Casted! Publications" />
                 <link rel="canonical" href="https://castedpub.vercel.app/" />
-                <link rel="preload" href="/bg.webp" as="image" fetchpriority="high" />
+                <link rel="preload" href="/bg.webp" as="image" />
             </Helmet>
             <div className="bg-[url('/bg.webp')] bg-no-repeat bg-cover bg-fixed"> 
                 {/* Hero section - no initial animation to improve FCP */}

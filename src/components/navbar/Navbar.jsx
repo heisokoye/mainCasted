@@ -101,7 +101,7 @@ const Navbar = ({children}) => {
         </nav>
 
         {/* Renders children components, typically the main content of the page, with top padding. */}
-        <div className='pt-10'> {children}</div>
+        <div className=''> {children}</div>
 
     </div>
   )

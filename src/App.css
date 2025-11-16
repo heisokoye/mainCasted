@@ -25,3 +25,10 @@
 .link-underline:hover::after {
   transform: scaleX(1);
 }
+
+
+.feature-above-1500{
+  @media (min-width: 1501px) {
+    display: flex;
+  } 
+}
