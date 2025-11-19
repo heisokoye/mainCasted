@@ -9,7 +9,7 @@ import { motion } from "framer-motion"
 // Lazy load non-critical components to reduce initial TBT
 const Cta = lazy(() => import("./components/cta/Cta.jsx"))
 const Team = lazy(() => import("./components/team/Team.jsx"))
-const BlogPreview = lazy(() => import("./components/blogPreview/BlogPreview.jsx"))
+const PostsPreview = lazy(() => import("./components/blogPreview/BlogPreview.jsx"))
 const Partners = lazy(() => import("./components/partners/Partners.jsx"))
 const YouTubeSection = lazy(() => import("./components/youtube/Youtube.jsx"))
 const EventCalendar = lazy(() => import("./components/eventCalendar/EventCalendar.jsx"))
@@ -53,7 +53,7 @@ const Home = () => {
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
                     >
-                        <BlogPreview/>
+                        <PostsPreview/>
                     </motion.div>
                 </Suspense>
                 
