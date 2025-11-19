@@ -13,9 +13,7 @@ ReactGA.initialize("G-P7LPS5CSLP");
 // Create a root element and render the App component into it
 createRoot(document.getElementById('root')).render(
   <App />
-<<<<<<< HEAD
-)
-=======
+
 )
 
 // Add this code to handle the PWA install prompt
@@ -63,4 +61,4 @@ window.addEventListener('beforeinstallprompt', (event) => {
     document.body.removeChild(installPopup);
   });
 });
->>>>>>> seyi-emeka-pwa-version
+
