@@ -64,6 +64,7 @@ const App = () => {
 
       {/* Footer appears on all pages */}
       <Footer />
+      <Notifications/>
       </BrowserRouter>
     </HelmetProvider>
   );

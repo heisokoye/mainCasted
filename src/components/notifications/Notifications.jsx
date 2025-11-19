@@ -15,7 +15,7 @@ const Notifications = () => {
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
           // If permission is granted, retrieve the FCM token.
-          const token = await getToken(messaging, { vapidKey: 'BD6SbBGtRR7mcFlY3Mtii9yB5Uwx6WItxBZ1Hv5ICv_5VNBe2EybOkhMA-jhSICSnJuWPixevY1zxl7hiVrr5PU' });
+          const token = await getToken(messaging, { vapidKey: 'BD6SbBGtRR7mcFlY3Mtii9yB5Uwx6WItxBZ1Hv5ICv_5VNBe2EybOkhMA-jhSICSnJuWPixevY1zxl7hiVrr5PU' }); //the Vapid Key from firebase
           console.log('Token:', token);
           // You would typically send this token to your server to store it.
           // This allows you to send notifications to this specific device.
