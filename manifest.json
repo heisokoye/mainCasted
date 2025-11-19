@@ -8,12 +8,12 @@
   "description": "CASTED! Publications blog",
   "icons": [
     {
-      "src": "/public/icons/casted192.webp",
+      "src": "/icons/casted192.webp",
       "sizes": "192x192",
       "type": "image/webp"
     },
     {
-      "src": "/public/icons/casted512.webp",
+      "src": "/icons/casted512.webp",
       "sizes": "512x512",
       "type": "image/webp"
     }
