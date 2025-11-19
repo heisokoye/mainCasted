@@ -13,9 +13,9 @@
       "type": "image/webp"
     },
     {
-      "src": "/icons/casted512.png",
-      "sizes": "1024x1024",
-      "type": "image/png"
+      "src": "/icons/casted512.webp",
+      "sizes": "512x512",
+      "type": "image/webp"
     }
   ]
 }

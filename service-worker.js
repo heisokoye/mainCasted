@@ -9,7 +9,7 @@ const FILES_TO_CACHE = [
   '/manifest.json',
   '/src/main.jsx',
   '/public/icons/casted192.webp',
-  '/public/icons/casted512.webp'
+  '/public/icons/casted512.png'
 ];
 
 // Install event: cache files
