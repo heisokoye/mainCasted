@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P7LPS5CSLP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-P7LPS5CSLP');
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="CASTED! Publications is a student media publication that aims to tell the stories of students on campus. We platform experiences, amplify voices, and capture stories that matter." />
+    <meta name="google-site-verification" content="zlD15qlE6WtpV34pT9QFRJU7E_2kLTxU-0tfE8v-U4g" />
+    <title>CASTED!</title>
+    <link rel="icon" href="/castedicon.png" type="image">
+    <!-- Preload critical LCP image with highest priority -->
+    <link rel="preload" as="image" href="/slider1.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="/orangeLogo.webp" fetchpriority="high">
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://whatsapp.com">
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://firebaseapp.com">
+    <link rel="preconnect" href="https://firebasestorage.app">
+    <link rel="dns-prefetch" href="https://whatsapp.com">
+    <link rel="dns-prefetch" href="https://www.youtube.com">
+    <link rel="dns-prefetch" href="https://firebaseapp.com">
+    <link rel="dns-prefetch" href="https://firebasestorage.app">
+    <!-- Google tag (gtag.js) -->
+    <!-- Link to the manifest file -->
+    <link rel="manifest" href="/manifest.json">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <!-- Prevent layout shift by reserving space for hero section -->
+    <style>
+      /* Critical CSS to prevent layout shift */
+      #root { min-height: 100vh; }
+      body { margin: 0; padding: 0; }
+    </style>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(() => console.log('Service Worker registered!'))
+          .catch(err => console.error('Service Worker registration failed:', err));
+      }
+    </script>
+  </body>
+</html>
