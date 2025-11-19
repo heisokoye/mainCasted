@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-P7LPS5CSLP"></script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#brown">
+
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -38,5 +41,15 @@
       #root { min-height: 100vh; }
       body { margin: 0; padding: 0; }
     </style>
+<<<<<<< HEAD
+=======
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(() => console.log('Service Worker registered!'))
+          .catch(err => console.error('Service Worker registration failed:', err));
+    }
+  </script>
+>>>>>>> 37a451d836eb4bc69fca049126dd2cefa40998ef
   </body>
 </html>

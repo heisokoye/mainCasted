@@ -20,6 +20,9 @@ const Home = () => {
             {/* SEO Meta Tags */}
             <Helmet>
                 <title>Casted! Publications - Student Media, News, and Stories</title>
+
+                <title>CASTED! Publications</title>
+
                 <meta name="description" content="The official source for student stories, campus news, and social events from Casted! Publications. Discover the latest articles and amplify your voice." />
                 <meta name="keywords" content="students media publications, Bells University Media, Casted! Publications, castedpub" />
                 <meta name="author" content="Bells University Media, Casted! Publications" />
