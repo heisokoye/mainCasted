@@ -7,12 +7,12 @@ import Hero from "./components/hero/Hero" // default export - critical, load imm
 import { motion } from "framer-motion"
 
 // Lazy load non-critical components to reduce initial TBT
-const Cta = lazy(() => import("./components/cta/Cta"))
-const Team = lazy(() => import("./components/team/Team"))
-const BlogPreview = lazy(() => import("./components/blogPreview/BlogPreview"))
-const Partners = lazy(() => import("./components/partners/Partners"))
-const YouTubeSection = lazy(() => import("./components/youtube/Youtube"))
-const EventCalendar = lazy(() => import("./components/eventCalendar/EventCalendar"))
+const Cta = lazy(() => import("./components/cta/Cta.jsx"))
+const Team = lazy(() => import("./components/team/Team.jsx"))
+const BlogPreview = lazy(() => import("./components/blogPreview/BlogPreview.jsx"))
+const Partners = lazy(() => import("./components/partners/Partners.jsx"))
+const YouTubeSection = lazy(() => import("./components/youtube/Youtube.jsx"))
+const EventCalendar = lazy(() => import("./components/eventCalendar/EventCalendar.jsx"))
 
 // Define the Home component
 const Home = () => {
