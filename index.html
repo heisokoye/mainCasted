@@ -48,14 +48,5 @@
           .catch(err => console.error('Service Worker registration failed:', err));
     }
   </script>
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-  <script>
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function(OneSignal) {
-      await OneSignal.init({
-        appId: "aa7e1e73-cbba-49d2-a2c8-2712bea0b9f5",
-      });
-   });
-</script>
   </body>
 </html>
