@@ -75,3 +75,31 @@ window.addEventListener('beforeinstallprompt', (event) => {
   });
 });
 
+// Safari detection for PWA installation instructions
+function isSafari() {
+  return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+}
+
+if (isSafari()) {
+  // Create a Safari instruction pop-up
+  const safariPopup = document.createElement('div');
+  safariPopup.style.position = 'fixed';
+  safariPopup.style.bottom = '20px';
+  safariPopup.style.right = '20px';
+  safariPopup.style.padding = '10px 20px';
+  safariPopup.style.backgroundColor = 'brown';
+  safariPopup.style.color = '#fff';
+  safariPopup.style.borderRadius = '5px';
+  safariPopup.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+  safariPopup.style.cursor = 'default';
+  safariPopup.textContent = 'To install this app, tap Share → Add to Home Screen';
+
+  // Append the pop-up to the body
+  document.body.appendChild(safariPopup);
+
+  // Optionally, remove it after 10 seconds
+  setTimeout(() => {
+    document.body.removeChild(safariPopup);
+  }, 10000);
+}
+
