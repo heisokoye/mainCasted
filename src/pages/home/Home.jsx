@@ -5,10 +5,10 @@ import { Helmet } from "react-helmet-async"
 import Hero from "./components/hero/Hero" // default export - critical, load immediately
 // Import motion from framer-motion for animations
 import { motion } from "framer-motion"
+import BlogPreview from "./components/preview/BlogPreview.jsx"
 // Lazy load non-critical components to reduce initial TBT
 const Cta = lazy(() => import("./components/cta/Cta.jsx"))
 const Team = lazy(() => import("./components/team/Team.jsx"))
-const BlogPreview = lazy(() => import("./components/blogPreview/BlogPreview.jsx"))
 const Partners = lazy(() => import("./components/partners/Partners.jsx"))
 const YouTubeSection = lazy(() => import("./components/youtube/Youtube.jsx"))
 const EventCalendar = lazy(() => import("./components/eventCalendar/EventCalendar.jsx"))
