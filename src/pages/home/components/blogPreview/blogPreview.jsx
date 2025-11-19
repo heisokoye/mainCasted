@@ -131,7 +131,7 @@ const PostCard = ({ post }) => {
  * A component that displays a preview of the first 4 blog posts.
  * @returns {JSX.Element} The rendered blog preview section.
  */
-const PostsPreview = () => {
+const BlogPreview = () => {
   // State to store the list of blog posts
   const [posts, setPosts] = useState([]);
   // State to manage the loading status while fetching posts
@@ -187,4 +187,4 @@ const PostsPreview = () => {
   );
 };
 
-export default PostsPreview;
+export default BlogPreview;
