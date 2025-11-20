@@ -81,25 +81,47 @@ function isSafari() {
 }
 
 if (isSafari()) {
-  // Create a Safari instruction pop-up
   const safariPopup = document.createElement('div');
+
   safariPopup.style.position = 'fixed';
   safariPopup.style.bottom = '20px';
   safariPopup.style.right = '20px';
-  safariPopup.style.padding = '10px 20px';
+  safariPopup.style.width = '220px';             // set a fixed width to control line wrap
+  safariPopup.style.padding = '10px 15px';
   safariPopup.style.backgroundColor = 'brown';
   safariPopup.style.color = '#fff';
   safariPopup.style.borderRadius = '5px';
   safariPopup.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
   safariPopup.style.cursor = 'default';
-  safariPopup.textContent = 'To install this app, tap Share → Add to Home Screen';
+  safariPopup.style.fontSize = '14px';
+  safariPopup.style.lineHeight = '1.4';          // good spacing between lines
+  safariPopup.style.textAlign = 'left';
+  safariPopup.style.whiteSpace = 'normal';      // allow wrapping
+  safariPopup.style.wordWrap = 'break-word';    // break long words if needed
 
-  // Append the pop-up to the body
+  safariPopup.textContent = 'To install this app, tap Share → More → Add to Home Screen';
+
   document.body.appendChild(safariPopup);
 
-  // Optionally, remove it after 10 seconds
+  // Optional: remove after 10 seconds
   setTimeout(() => {
     document.body.removeChild(safariPopup);
-  }, 10000);
+  }, 12000);
+}
+
+const isInStandaloneMode = () =>
+  window.matchMedia('(display-mode: standalone)').matches ||
+  window.navigator.standalone === true;
+
+if (isSafari() && !isInStandaloneMode()) {
+  const safariPopup = document.createElement('div');
+  safariPopup.textContent = 'To install this app, tap Share → More → Add to Home Screen';
+  safariPopup.style = /* your styling for 2-line box */;
+  
+  safariPopup.addEventListener('click', () => {
+    document.body.removeChild(safariPopup);
+  });
+
+  document.body.appendChild(safariPopup);
 }
 
