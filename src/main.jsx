@@ -29,15 +29,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-window.OneSignal = window.OneSignal || [];
- 
-window.OneSignal.push(function() {
-  window.OneSignal.init({
-    appId: "aa7e1e73-cbba-49d2-a2c8-2712bea0b9f5", // replace with your OneSignal App ID
-    serviceWorkerPath: '/service-worker.js', // path to your SW
-    notifyButton: { enable: true } // optional UI button
-  });
-});
 
 // Add this code to handle the PWA install prompt
 window.addEventListener('beforeinstallprompt', (event) => {
