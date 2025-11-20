@@ -59,6 +59,7 @@ window.addEventListener('beforeinstallprompt', (event) => {
   installPopup.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
   installPopup.style.cursor = 'pointer';
   installPopup.textContent = 'Install this app';
+  installPopup.style.zIndex = '9999';
 
   // Append the pop-up to the body
   document.body.appendChild(installPopup);
@@ -101,7 +102,6 @@ const isInStandaloneMode = () =>
 if (isSafari() && !isInStandaloneMode() && !localStorage.getItem('safariInstalled')) {
   const safariPopup = document.createElement('div');
 
-  // Styling
   safariPopup.style.position = 'fixed';
   safariPopup.style.bottom = '20px';
   safariPopup.style.right = '20px';
@@ -110,21 +110,27 @@ if (isSafari() && !isInStandaloneMode() && !localStorage.getItem('safariInstalle
   safariPopup.style.backgroundColor = 'brown';
   safariPopup.style.color = '#fff';
   safariPopup.style.borderRadius = '5px';
-  safariPopup.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+  safariPopup.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.2)';
   safariPopup.style.cursor = 'pointer';
   safariPopup.style.fontSize = '14px';
   safariPopup.style.lineHeight = '1.4';
   safariPopup.style.textAlign = 'left';
   safariPopup.style.whiteSpace = 'normal';
   safariPopup.style.wordWrap = 'break-word';
+  safariPopup.style.zIndex = '9999'; // <- ensures it stays on top
 
   safariPopup.textContent = 'To install this app, tap Share → More → Add to Home Screen';
 
-  // Remove on click and remember dismissal
   safariPopup.addEventListener('click', () => {
     document.body.removeChild(safariPopup);
     localStorage.setItem('safariInstalled', 'true');
   });
 
   document.body.appendChild(safariPopup);
+
+  setTimeout(() => {
+    if (document.body.contains(safariPopup)) {
+      document.body.removeChild(safariPopup);
+    }
+  }, 8000);
 }
