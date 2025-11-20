@@ -116,7 +116,6 @@ const isInStandaloneMode = () =>
 if (isSafari() && !isInStandaloneMode()) {
   const safariPopup = document.createElement('div');
   safariPopup.textContent = 'To install this app, tap Share → More → Add to Home Screen';
-  safariPopup.style = /* your styling for 2-line box */;
   
   safariPopup.addEventListener('click', () => {
     document.body.removeChild(safariPopup);
