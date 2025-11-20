@@ -1,3 +1,5 @@
+/* global importScripts */ importScripts('https://cdn.onesignal.com/sdks/OneSignalSDKWorker.js'); //for onesignal
+
 // Define a cache version and name
 const CACHE_VERSION = 'v2'; // Increment this version when you deploy new changes
 const CACHE_NAME = `cache-${CACHE_VERSION}`;
@@ -9,7 +11,7 @@ const FILES_TO_CACHE = [
   '/manifest.json',
   '/src/main.jsx',
   '/public/icons/casted192.webp',
-  '/public/icons/casted512.png'
+  '/public/icons/casted512.webp'
 ];
 
 // Install event: cache files
