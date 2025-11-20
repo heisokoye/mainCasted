@@ -29,6 +29,16 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+window.OneSignal = window.OneSignal || [];
+ 
+window.OneSignal.push(function() {
+  window.OneSignal.init({
+    appId: "aa7e1e73-cbba-49d2-a2c8-2712bea0b9f5", // replace with your OneSignal App ID
+    serviceWorkerPath: '/service-worker.js', // path to your SW
+    notifyButton: { enable: true } // optional UI button
+  });
+});
+
 // Add this code to handle the PWA install prompt
 window.addEventListener('beforeinstallprompt', (event) => {
   // Prevent the default mini-infobar from appearing
@@ -80,47 +90,41 @@ function isSafari() {
   return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 }
 
-if (isSafari()) {
+const isInStandaloneMode = () =>
+  window.matchMedia('(display-mode: standalone)').matches ||
+  window.navigator.standalone === true;
+
+// Only show Safari popup if:
+// 1. Browser is Safari
+// 2. App is not in standalone mode
+// 3. User hasn’t dismissed it before
+if (isSafari() && !isInStandaloneMode() && !localStorage.getItem('safariInstalled')) {
   const safariPopup = document.createElement('div');
 
+  // Styling
   safariPopup.style.position = 'fixed';
   safariPopup.style.bottom = '20px';
   safariPopup.style.right = '20px';
-  safariPopup.style.width = '220px';             // set a fixed width to control line wrap
+  safariPopup.style.width = '220px';
   safariPopup.style.padding = '10px 15px';
   safariPopup.style.backgroundColor = 'brown';
   safariPopup.style.color = '#fff';
   safariPopup.style.borderRadius = '5px';
   safariPopup.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-  safariPopup.style.cursor = 'default';
+  safariPopup.style.cursor = 'pointer';
   safariPopup.style.fontSize = '14px';
-  safariPopup.style.lineHeight = '1.4';          // good spacing between lines
+  safariPopup.style.lineHeight = '1.4';
   safariPopup.style.textAlign = 'left';
-  safariPopup.style.whiteSpace = 'normal';      // allow wrapping
-  safariPopup.style.wordWrap = 'break-word';    // break long words if needed
+  safariPopup.style.whiteSpace = 'normal';
+  safariPopup.style.wordWrap = 'break-word';
 
   safariPopup.textContent = 'To install this app, tap Share → More → Add to Home Screen';
 
-  document.body.appendChild(safariPopup);
-
-  // Optional: remove after 10 seconds
-  setTimeout(() => {
-    document.body.removeChild(safariPopup);
-  }, 12000);
-}
-
-const isInStandaloneMode = () =>
-  window.matchMedia('(display-mode: standalone)').matches ||
-  window.navigator.standalone === true;
-
-if (isSafari() && !isInStandaloneMode()) {
-  const safariPopup = document.createElement('div');
-  safariPopup.textContent = 'To install this app, tap Share → More → Add to Home Screen';
-  
+  // Remove on click and remember dismissal
   safariPopup.addEventListener('click', () => {
     document.body.removeChild(safariPopup);
+    localStorage.setItem('safariInstalled', 'true');
   });
 
   document.body.appendChild(safariPopup);
 }
-
