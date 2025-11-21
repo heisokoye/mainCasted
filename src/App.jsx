@@ -33,15 +33,14 @@ const generateTokenAndSendToServer = async () => {
       
       // *** SEND TOKEN TO YOUR BACKEND ***
       // You'd also send the current user's ID
-      const serverUrl = import.meta.env.VITE_FCM_SERVER_URL || 'http://localhost:3001';
-      await fetch(`${serverUrl}/store-token`, { // Your backend URL
+      await fetch("https://fcm-server-sigma.vercel.app/store-token", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           token: currentToken
-        }),
+        })
       });
 
     } else {
@@ -70,6 +69,7 @@ const App = () => {
        
         {/* Navbar appears on all pages */}
         <Navbar />
+
         
 
       {/* Suspense shows a loader while lazy components are being fetched */}
