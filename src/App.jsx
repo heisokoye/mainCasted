@@ -3,7 +3,7 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import {useEffect} from "react";
-import toast, { Toaster } from 'react-hot-toast';
+
 
 // Import shared components
 import Navbar from "./components/navbar/Navbar";
@@ -14,7 +14,7 @@ import AnalyticsTracker from "./components/analytics/AnalyticsTracker";
 
 // Eager-load Home for faster FCP/LCP on the landing route; keep others lazy
 import Home from "./pages/home/Home";
-import { generateToken, messaging } from "./Firebase";
+import { messaging } from "./Firebase";
 import { onMessage, getToken } from "firebase/messaging";
 
 const Blog = lazy(() => import("./pages/blog/Blog"));
@@ -59,7 +59,7 @@ const App = () => {
     generateTokenAndSendToServer();
     onMessage(messaging, (payload) => {
       console.log('Message received. ', payload);
-      toast(payload.notification.body)
+      payload.notification.body
     });
   }, []);
   return (
@@ -70,7 +70,7 @@ const App = () => {
        
         {/* Navbar appears on all pages */}
         <Navbar />
-        <Toaster position="top-right" reverseOrder={false} />
+        
 
       {/* Suspense shows a loader while lazy components are being fetched */}
       <Suspense
