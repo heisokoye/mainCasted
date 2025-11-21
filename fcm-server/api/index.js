@@ -1,15 +1,19 @@
 import express from 'express';
 import admin from 'firebase-admin';
 import cors from 'cors';
-import { loadJSON } from './load-json.js'; // Import the helper
+import { loadJSON } from './load-json.js';
 
 const app = express();
+
+// Enable JSON parsing
 app.use(express.json());
+
+// CORS — only allow your website
 app.use(cors({
   origin: "https://castedpub.vercel.app"
 }));
 
-// Load Firebase service account credentials
+// Load Firebase service account
 let serviceAccount;
 if (process.env.FIREBASE_SERVICE_ACCOUNT) {
   serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
@@ -24,10 +28,12 @@ admin.initializeApp({
 const db = admin.firestore();
 const tokensCollection = db.collection('fcmTokens');
 
+// GET endpoint for testing
 app.get('/', (req, res) => {
-  res.send('FCM Server is running! Ready to receive tokens and send notifications.');
+  res.send('FCM Server is running!');
 });
 
+// STORE TOKEN endpoint
 app.post('/store-token', async (req, res) => {
   const { token } = req.body;
   if (!token) return res.status(400).send({ error: 'No token provided.' });
@@ -37,74 +43,57 @@ app.post('/store-token', async (req, res) => {
       token,
       createdAt: admin.firestore.FieldValue.serverTimestamp()
     });
-    console.log(`Token stored successfully: ${token}`);
+    console.log(`Token stored: ${token}`);
     res.status(200).send({ message: 'Token stored successfully' });
   } catch (error) {
-    console.error('Error storing token:', error);
+    console.error(error);
     res.status(500).send({ error: 'Failed to store token.' });
   }
 });
 
+// SEND TO ALL endpoint — fully server-driven
 app.post('/send-to-all', async (req, res) => {
-  const { title, body, image, url } = req.body || {};
-
-  if (!title || !body) {
-    return res.status(400).send({ error: 'Request must include `title` and `body` in JSON.' });
-  }
+  const { title, body, image, icon, badge, url } = req.body || {};
 
   const tokensSnapshot = await tokensCollection.get();
   const tokens = tokensSnapshot.docs.map(doc => doc.id);
 
-  if (tokens.length === 0) {
-    return res.status(400).send({ error: 'No registered tokens to send to.' });
-  }
+  if (!tokens.length) return res.status(400).send({ error: 'No registered tokens.' });
 
-  // DATA-ONLY PAYLOAD
-  const message = {
-    data: {
-      title,
-      body,
-      image: image || 'https://castedpub.vercel.app/slider1.webp',
-      url: url || '/'
-    },
-    tokens
-  };
+  const message = { data: {}, tokens };
+
+  if (title) message.data.title = title;
+  if (body) message.data.body = body;
+  if (image) message.data.image = image;
+  if (icon) message.data.icon = icon;
+  if (badge) message.data.badge = badge;
+  if (url) message.data.url = url;
 
   try {
     const response = await admin.messaging().sendEachForMulticast(message);
-    console.log(`${response.successCount} messages were sent successfully`);
+    console.log(`${response.successCount} messages sent successfully`);
 
-    if (response.failureCount > 0) {
-      const failed = response.responses
-        .map((r, i) => (r.success ? null : { token: tokens[i], error: r.error?.message }))
-        .filter(Boolean);
+    const failed = response.responses
+      .map((r, i) => (!r.success ? { token: tokens[i], error: r.error?.message } : null))
+      .filter(Boolean);
 
-      console.warn('Some messages failed to send:', failed);
-
-      // Remove invalid tokens
-      for (const failure of failed) {
-        const msg = (failure.error || '').toLowerCase();
-        if (msg.includes('not registered') || msg.includes('invalid-registration-token')) {
-          await tokensCollection.doc(failure.token).delete();
-          console.log('Removed invalid token:', failure.token);
-        }
+    // Remove invalid tokens
+    for (const failure of failed) {
+      const msg = (failure.error || '').toLowerCase();
+      if (msg.includes('not registered') || msg.includes('invalid-registration-token')) {
+        await tokensCollection.doc(failure.token).delete();
+        console.log('Removed invalid token:', failure.token);
       }
-
-      return res.status(207).send({
-        message: 'Some notifications failed',
-        summary: { successCount: response.successCount, failureCount: response.failureCount },
-        failed
-      });
     }
 
-    res.status(200).send({
-      message: 'Notifications sent to all tokens',
-      summary: { successCount: response.successCount, failureCount: response.failureCount }
+    res.status(207).send({
+      message: failed.length ? 'Some notifications failed' : 'Notifications sent successfully',
+      summary: { successCount: response.successCount, failureCount: response.failureCount },
+      failed
     });
   } catch (error) {
-    console.error('--- DETAILED FCM ERROR ---');
     console.error(error);
-    res.status(500).send({ error: 'Failed to send notifications.', details: error.message || String(error) });
+    res.status(500).send({ error: 'Failed to send notifications', details: error.message || String(error) });
   }
 });
 
