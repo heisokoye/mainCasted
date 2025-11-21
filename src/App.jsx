@@ -33,7 +33,8 @@ const generateTokenAndSendToServer = async () => {
       
       // *** SEND TOKEN TO YOUR BACKEND ***
       // You'd also send the current user's ID
-      await fetch('http://localhost:3001/store-token', { // Your backend URL
+      const serverUrl = import.meta.env.VITE_FCM_SERVER_URL || 'http://localhost:3001';
+      await fetch(`${serverUrl}/store-token`, { // Your backend URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

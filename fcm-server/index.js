@@ -7,9 +7,16 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// --- FIX IS HERE ---
-// Use the helper to load your service account key
-const serviceAccount = loadJSON('./castedwebsite-firebase-adminsdk-fbsvc-40f0a44b9a.json');
+// Load Firebase service account credentials
+// In production, use environment variable; fallback to JSON file for local dev
+let serviceAccount;
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  // If service account is provided as environment variable (JSON string)
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+} else {
+  // Fallback to JSON file (for local development)
+  serviceAccount = loadJSON('./castedwebsite-firebase-adminsdk-fbsvc-18163fe0f1.json');
+}
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -80,7 +87,7 @@ app.post('/send-to-all', async (req, res) => {
     }
 });
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`FCM server running on http://localhost:${PORT}`);
+  console.log(`FCM server running on port ${PORT}`);
 });

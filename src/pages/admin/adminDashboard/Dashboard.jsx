@@ -30,6 +30,12 @@ const formats = [
 const Dashboard = () => {
   // Controls whether the "Add / Edit Post" modal is visible
   const [isOpen, setIsOpen] = useState(false);
+  
+  // Notification sending state
+  const [isNotificationModalOpen, setIsNotificationModalOpen] = useState(false);
+  const [notificationTitle, setNotificationTitle] = useState('');
+  const [notificationBody, setNotificationBody] = useState('');
+  const [isSendingNotification, setIsSendingNotification] = useState(false);
 
   // loading state: true while we fetch posts from Firestore
   const [loading, setLoading] = useState(true);
@@ -191,6 +197,48 @@ const Dashboard = () => {
     }
   }
 
+  // Send notification to all registered devices
+  const handleSendNotification = async (e) => {
+    e.preventDefault();
+    
+    if (!notificationTitle.trim() || !notificationBody.trim()) {
+      alert("Title and body are required.");
+      return;
+    }
+
+    setIsSendingNotification(true);
+    
+    try {
+      const serverUrl = import.meta.env.VITE_FCM_SERVER_URL || 'http://localhost:3001';
+      const response = await fetch(`${serverUrl}/send-to-all`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: notificationTitle,
+          body: notificationBody,
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (response.ok || response.status === 207) {
+        alert(`Notification sent! ${data.summary?.successCount || 0} successful, ${data.summary?.failureCount || 0} failed.`);
+        setNotificationTitle('');
+        setNotificationBody('');
+        setIsNotificationModalOpen(false);
+      } else {
+        alert(`Error: ${data.error || 'Failed to send notification'}`);
+      }
+    } catch (error) {
+      console.error("Error sending notification:", error);
+      alert("Failed to send notification. Check console for details.");
+    } finally {
+      setIsSendingNotification(false);
+    }
+  };
+
   // Render the dashboard UI
   return (
     // Main container for the dashboard page
@@ -198,13 +246,83 @@ const Dashboard = () => {
       <div className='mx-auto w-[80%]'>
         <h1 className="text-2xl mt-10"> Admin Dashboard</h1>
 
-        {/* Button to open the modal for adding a new post */}
-        <button
-          className="mt-4 p-2 bg-blue-500 text-white rounded-lg cursor-pointer "
-          onClick={() => openModal()}
-        >
-          Add Posts
-        </button>
+        <div className="flex gap-4 mt-4 bg-white">
+          {/* Button to open the modal for adding a new post */}
+          <button
+            className="p-2 bg-blue-500 text-white rounded-lg cursor-pointer "
+            onClick={() => openModal()}
+          >
+            Add Posts
+          </button>
+          
+          {/* Button to open the notification sending modal */}
+          <button
+            className="p-2 bg-green-500 text-white rounded-lg cursor-pointer "
+            onClick={() => setIsNotificationModalOpen(true)}
+          >
+            Send Notification
+          </button>
+        </div>
+
+        {/* Modal for sending notifications */}
+        {isNotificationModalOpen && (
+          <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-50 z-50">
+            <div className="bg-white p-6 rounded-lg w-[80%] md:w-[50%] lg:w-[40%]">
+              <h2 className="text-xl mb-4">Send Push Notification</h2>
+              <form onSubmit={handleSendNotification}>
+                <div className="mb-4">
+                  <label htmlFor="notification-title" className="block text-sm font-medium text-gray-700 mb-1">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    id="notification-title"
+                    value={notificationTitle}
+                    onChange={(e) => setNotificationTitle(e.target.value)}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    required
+                    disabled={isSendingNotification}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="notification-body" className="block text-sm font-medium text-gray-700 mb-1">
+                    Message
+                  </label>
+                  <textarea
+                    id="notification-body"
+                    value={notificationBody}
+                    onChange={(e) => setNotificationBody(e.target.value)}
+                    rows={4}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    required
+                    disabled={isSendingNotification}
+                  />
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsNotificationModalOpen(false);
+                      setNotificationTitle('');
+                      setNotificationBody('');
+                    }}
+                    disabled={isSendingNotification}
+                    className="mr-2 px-4 py-2 bg-gray-300 text-black rounded-lg disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSendingNotification}
+                    className="px-4 py-2 bg-green-500 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed"
+                  >
+                    {isSendingNotification ? 'Sending...' : 'Send Notification'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
 
         {/* Modal for adding/editing posts - conditionally rendered */}
         {isOpen && (
