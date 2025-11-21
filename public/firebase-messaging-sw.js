@@ -1,10 +1,10 @@
 // Scripts for firebase and firebase messaging
-importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js");
-importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js");
+self.importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js");
+self.importScripts("https://www.gstatic.com/firebasejs/8.2.0/firebase-messaging.js");
 
 // Initialize the Firebase app in the service worker
 // "Default" Firebase app (important for initialization)
-firebase.initializeApp({
+self.firebase.initializeApp({
     apiKey: "AIzaSyBBNDnlZZqR9Nnv9EqKCTtKWAX6U079eME",
     authDomain: "castedwebsite.firebaseapp.com",
     projectId: "castedwebsite",
@@ -16,7 +16,7 @@ firebase.initializeApp({
 
 // Retrieve an instance of Firebase Messaging so that it can handle background
 // messages.
-const messaging = firebase.messaging();
+const messaging = self.firebase.messaging();
 
 messaging.onBackgroundMessage(function(payload) {
   console.log('Received background message ', payload);
