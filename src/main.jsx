@@ -16,20 +16,6 @@ createRoot(document.getElementById('root')).render(
 
 )
 
-// Register the service worker for PWA support
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(registration => {
-        console.log('Service Worker registered with scope:', registration.scope);
-      })
-      .catch(error => {
-        console.error('Service Worker registration failed:', error);
-      });
-  });
-}
-
-
 // Add this code to handle the PWA install prompt
 window.addEventListener('beforeinstallprompt', (event) => {
   // Prevent the default mini-infobar from appearing
