@@ -1,7 +1,7 @@
 import express from 'express';
 import admin from 'firebase-admin';
 import cors from 'cors';
-import { loadJSON } from './load-json.js';
+import { loadJSON } from '../load-json.js';
 
 const app = express();
 
