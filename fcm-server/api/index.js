@@ -1,7 +1,7 @@
 import express from 'express';
 import admin from 'firebase-admin';
 import cors from 'cors';
-import { loadJSON } from './load-json.js';
+import localServiceAccount from '../castedwebsite-firebase-adminsdk-fbsvc-18163fe0f1.json' assert { type: 'json' };
 
 const app = express();
 app.use(express.json());
@@ -12,7 +12,7 @@ let serviceAccount;
 if (process.env.FIREBASE_SERVICE_ACCOUNT) {
   serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 } else {
-  serviceAccount = loadJSON('./castedwebsite-firebase-adminsdk-fbsvc-18163fe0f1.json');
+  serviceAccount = localServiceAccount;
 }
 
 admin.initializeApp({
