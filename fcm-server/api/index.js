@@ -60,5 +60,7 @@ app.post('/send-to-all', async (req, res) => {
   }
 });
 
-// **Export the app for Vercel**
-export default app;
+// **Export a handler compatible with Vercel Serverless Functions**
+// Vercel expects a (req, res) handler function as the default export.
+// We delegate to the Express app so all routes above continue to work.
+export default (req, res) => app(req, res);
