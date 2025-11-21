@@ -27,7 +27,8 @@ messaging.onBackgroundMessage(function(payload) {
     icon: data.icon || '/castedicon.png',
     badge: data.badge || '/castedicon.png',
     image: data.image || 'https://castedpub.vercel.app/slider1.webp',
-    data: { url: data.url || '/' }
+    data: { url: data.url || '/' },
+    tag: 'casted-update' // Add this tag to prevent duplicate notifications
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);
