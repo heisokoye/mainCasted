@@ -29,6 +29,7 @@ messaging.onBackgroundMessage(function(payload) {
     body: notification.body || data.body || 'Open the app to learn more.',
     icon: notification.icon || data.icon || '/castedicon.png',
     badge: notification.badge || data.badge || '/castedicon.png',
+    image: notification.image || data.image || 'https://castedpub.vercel.app/slider1.webp',
     data: {
       url: data.url || '/',
       ...data,
