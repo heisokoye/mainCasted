@@ -1,7 +1,7 @@
 import express from 'express';
 import admin from 'firebase-admin';
 import cors from 'cors';
-import localServiceAccount from '../castedwebsite-firebase-adminsdk-fbsvc-18163fe0f1.json' assert { type: 'json' };
+import { loadJSON } from '../load-json.js';
 
 const app = express();
 app.use(express.json());
@@ -12,12 +12,14 @@ let serviceAccount;
 if (process.env.FIREBASE_SERVICE_ACCOUNT) {
   serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 } else {
-  serviceAccount = localServiceAccount;
+  serviceAccount = loadJSON('./castedwebsite-firebase-adminsdk-fbsvc-18163fe0f1.json');
 }
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  });
+}
 
 // Routes
 app.get('/', (req, res) => {
@@ -30,8 +32,9 @@ app.post('/store-token', (req, res) => {
   const { token } = req.body;
   if (token) {
     registrationTokens.add(token);
-    console.log(`Token stored. Total tokens: ${registrationTokens.size}`);
-    res.status(200).send({ message: 'Token stored successfully' });
+    const total = registrationTokens.size;
+    console.log(`Token stored. Total tokens: ${total}`);
+    res.status(200).send({ message: 'Token stored successfully', count: total });
   } else {
     res.status(400).send({ error: 'No token provided.' });
   }

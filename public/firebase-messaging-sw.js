@@ -21,12 +21,38 @@ const messaging = self.firebase.messaging();
 messaging.onBackgroundMessage(function(payload) {
   console.log('Received background message ', payload);
 
-  const notificationTitle = payload.notification.title;
+  const data = payload.data || {};
+  const notification = payload.notification || {};
+
+  const notificationTitle = notification.title || data.title || 'Casted Update';
   const notificationOptions = {
-    body: payload.notification.body,
-    icon: '/castedicon.png'
+    body: notification.body || data.body || 'Open the app to learn more.',
+    icon: notification.icon || data.icon || '/castedicon.png',
+    badge: notification.badge || data.badge || '/castedicon.png',
+    data: {
+      url: data.url || '/',
+      ...data,
+    },
   };
 
-  self.registration.showNotification(notificationTitle,
-    notificationOptions);
+  self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const destinationUrl = event.notification?.data?.url || '/';
+
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url === destinationUrl && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      if (self.clients.openWindow) {
+        return self.clients.openWindow(destinationUrl);
+      }
+      return null;
+    })
+  );
 });

@@ -11,7 +11,9 @@ Firebase Cloud Messaging server for sending push notifications.
 3. Select your repository and set the **Root Directory** to `fcm-server`
 4. Add environment variable:
    - Go to Variables tab
-   - Add `FIREBASE_SERVICE_ACCOUNT` with the entire JSON content from `castedwebsite-firebase-adminsdk-fbsvc-18163fe0f1.json` (as a string)
+   - Add ONE of the following:
+     - `FIREBASE_SERVICE_ACCOUNT`: entire JSON content (string)
+     - `FIREBASE_SERVICE_ACCOUNT_PATH`: path to the JSON file (if you upload it as a secret file)
 5. Railway will auto-deploy. You'll get a URL like `https://your-app.railway.app`
 6. Copy that URL - that's your FCM Server URL!
 
@@ -25,7 +27,8 @@ Firebase Cloud Messaging server for sending push notifications.
    - **Build Command**: `npm install`
    - **Start Command**: `node index.js`
 5. Add environment variable:
-   - `FIREBASE_SERVICE_ACCOUNT`: Paste the entire JSON content from your Firebase service account file
+   - Either `FIREBASE_SERVICE_ACCOUNT` (raw JSON string) **or**
+   - `FIREBASE_SERVICE_ACCOUNT_PATH` / `GOOGLE_APPLICATION_CREDENTIALS` pointing to an uploaded JSON file
 6. Deploy. You'll get a URL like `https://your-app.onrender.com`
 
 ### Option 3: Heroku
