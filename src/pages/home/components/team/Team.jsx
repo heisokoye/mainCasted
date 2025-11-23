@@ -9,56 +9,63 @@ const Team = () => {
 
   // Array of team member objects, each containing avatar, name, title, and social links.
   const team = [
-      {
-          avatar: "/iskeel.png",
-          name: "Iskeel Atolagbe",
-          title: "Executive Director",
-          linkedin: "javascript:void(0)",
-          twitter: "javascript:void(0)",
-      },
-      {
+    {
+        id: 1,
+        avatar: "/iskeel.png",
+        name: "Iskeel Atolagbe",
+        title: "Executive Director",
+        linkedin: "javascript:void(0)",
+        twitter: "javascript:void(0)",
+    },
+    {
+        id: 2,
         avatar: "/khalid.webp",
         name: "Adeboye Khalid",
         title: "Managing director", 
         linkedin: "javascript:void(0)",
         twitter: "javascript:void(0)",
-      },
-      {
-          avatar: "/seyi.webp",
-          name: "Oluwaseyifunmi Dosunmu",
-          title: "Director Emeritus",
-          linkedin: "javascript:void(0)",
-          twitter: "javascript:void(0)",
-      },
-      {
+    },
+    {
+        id: 3,
+        avatar: "/seyi.webp",
+        name: "Oluwaseyifunmi Dosunmu",
+        title: "Director Emeritus",
+        linkedin: "javascript:void(0)",
+        twitter: "javascript:void(0)",
+    },
+    {
+        id: 4,
         avatar: "/nifemi.webp",
         name: "Adesanya Olorunnifemi",
         title: "Lead Designer", 
         linkedin: "javascript:void(0)",
         twitter: "javascript:void(0)",
-      },
-      {
-          avatar: "/Adex.webp",
-          name: "Adeniyi Ademide",
-          title: "Social Media Director",
-          linkedin: "javascript:void(0)",
-          twitter: "javascript:void(0)",
-      },
-      {
-          avatar: "/daniel.webp",
-          name: " Adekoya Daniel ",
-          title: "Lead Videographer",
-          linkedin: "javascript:void(0)",
-          twitter: "javascript:void(0)",
-      },
-      {
-          avatar: "/Tolu.webp",
-          name: "Tolulope Ogunbiyi",
-          title: "Lead Photographer",
-          linkedin: "javascript:void(0)",
-          twitter: "javascript:void(0)",
-      },
-    ]
+    },
+    {
+        id: 5,
+        avatar: "/Adex.webp",
+        name: "Adeniyi Ademide",
+        title: "Social Media Director",
+        linkedin: "javascript:void(0)",
+        twitter: "javascript:void(0)",
+    },
+    {
+        id: 6,
+        avatar: "/daniel.webp",
+        name: "Adekoya Daniel",
+        title: "Lead Videographer",
+        linkedin: "javascript:void(0)",
+        twitter: "javascript:void(0)",
+    },
+    {
+        id: 7,
+        avatar: "/Tolu.webp",
+        name: "Tolulope Ogunbiyi",
+        title: "Lead Photographer",
+        linkedin: "javascript:void(0)",
+        twitter: "javascript:void(0)",
+    },
+  ];
 
     // State to keep track of the currently displayed team member in the mobile slider.
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -73,18 +80,27 @@ const Team = () => {
         setCurrentIndex((prevIndex) => (prevIndex - 1 + team.length) % team.length);
     };
 
+    // State to track if the view is mobile.
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Effect to check window size on mount and on resize.
+    useEffect(() => {
+        const checkIsMobile = () => setIsMobile(window.innerWidth < 640);
+        checkIsMobile(); // Check on initial render
+        window.addEventListener("resize", checkIsMobile);
+        return () => window.removeEventListener("resize", checkIsMobile);
+    }, []);
+
     // useEffect hook to handle auto-sliding for mobile view.
     useEffect(() => {
-        const interval = setInterval(() => {
-            // Only auto-slide on smaller screens (e.g., less than 640px width).
-            if (window.innerWidth < 640) {
+        if (isMobile) {
+            const interval = setInterval(() => {
                 nextSlide();
-            }
-        }, 5000); // Change slide every 5 seconds.
-
-        // Cleanup function to clear the interval when the component unmounts or dependencies change.
-        return () => clearInterval(interval);
-    }, [nextSlide]); // Dependency on nextSlide to ensure the latest function is used.
+            }, 5000); // Change slide every 5 seconds.
+            // Cleanup function to clear the interval.
+            return () => clearInterval(interval);
+        }
+    }, [isMobile, nextSlide]); // Reruns when isMobile or nextSlide changes.
 
     // Get the current team member to display in the mobile slider.
     const currentTeamMember = team[currentIndex];
@@ -104,7 +120,7 @@ const Team = () => {
             <ul className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
               {
                 team.map((item) => (
-                  <li key={item.name} className="hidden sm:block">
+                  <li key={item.id} className="hidden sm:block">
                     <div className="w-32 h-32 mx-auto">
                       <img
                         src={item.avatar}
@@ -140,11 +156,11 @@ const Team = () => {
                     <p className="text-orange-600">{currentTeamMember.title}</p>
                 </div>
                 {/* Previous slide button */}
-                <button onClick={prevSlide} className="absolute cursor-pointer top-1/2 -translate-y-1/2 left-0 p-2 bg-gray-200 rounded-full">
+                <button onClick={prevSlide} aria-label="Previous team member" className="absolute cursor-pointer top-1/2 -translate-y-1/2 left-0 p-2 bg-gray-200 rounded-full">
                     <FaChevronLeft />
                 </button>
                 {/* Next slide button */}
-                <button onClick={nextSlide} className="absolute cursor-pointer top-1/2 -translate-y-1/2 right-0 p-2 bg-gray-200 rounded-full">
+                <button onClick={nextSlide} aria-label="Next team member" className="absolute cursor-pointer top-1/2 -translate-y-1/2 right-0 p-2 bg-gray-200 rounded-full">
                     <FaChevronRight />
                 </button>
             </div>
