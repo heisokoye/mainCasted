@@ -18,8 +18,8 @@ const Team = () => {
       },
       {
         avatar: "/khalid.webp",
-        name: "Adesanya Olorunnifemi",
-        title: "Lead Designer", 
+        name: "Adeboye Khalid",
+        title: "Managing director", 
         linkedin: "javascript:void(0)",
         twitter: "javascript:void(0)",
       },
