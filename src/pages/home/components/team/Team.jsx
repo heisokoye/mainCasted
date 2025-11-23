@@ -24,40 +24,40 @@ const Team = () => {
         twitter: "javascript:void(0)",
       },
       {
+          avatar: "/seyi.webp",
+          name: "Oluwaseyifunmi Dosunmu",
+          title: "Director Emeritus",
+          linkedin: "javascript:void(0)",
+          twitter: "javascript:void(0)",
+      },
+      {
         avatar: "/nifemi.webp",
         name: "Adesanya Olorunnifemi",
         title: "Lead Designer", 
         linkedin: "javascript:void(0)",
         twitter: "javascript:void(0)",
       },
-        {
-            avatar: "/seyi.webp",
-            name: "Oluwaseyifunmi Dosunmu",
-            title: "Director Emeritus",
-            linkedin: "javascript:void(0)",
-            twitter: "javascript:void(0)",
-        },
-        {
-            avatar: "/Adex.webp",
-            name: "Adeniyi Ademide",
-            title: "Social Media Director",
-            linkedin: "javascript:void(0)",
-            twitter: "javascript:void(0)",
-        },
-        {
-            avatar: "/daniel.webp",
-            name: " Adekoya Daniel ",
-            title: "Lead Videographer",
-            linkedin: "javascript:void(0)",
-            twitter: "javascript:void(0)",
-        },
-        {
-            avatar: "/Tolu.webp",
-            name: "Tolulope Ogunbiyi",
-            title: "Lead Photographer",
-            linkedin: "javascript:void(0)",
-            twitter: "javascript:void(0)",
-        },
+      {
+          avatar: "/Adex.webp",
+          name: "Adeniyi Ademide",
+          title: "Social Media Director",
+          linkedin: "javascript:void(0)",
+          twitter: "javascript:void(0)",
+      },
+      {
+          avatar: "/daniel.webp",
+          name: " Adekoya Daniel ",
+          title: "Lead Videographer",
+          linkedin: "javascript:void(0)",
+          twitter: "javascript:void(0)",
+      },
+      {
+          avatar: "/Tolu.webp",
+          name: "Tolulope Ogunbiyi",
+          title: "Lead Photographer",
+          linkedin: "javascript:void(0)",
+          twitter: "javascript:void(0)",
+      },
     ]
 
     // State to keep track of the currently displayed team member in the mobile slider.
@@ -103,14 +103,15 @@ const Team = () => {
             {/* Desktop Grid View: Displays all team members in a responsive grid. Hidden on small screens. */}
             <ul className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
               {
-                team.map((item, idx) => (
-                  <li key={idx} className="hidden sm:block">
+                team.map((item) => (
+                  <li key={item.name} className="hidden sm:block">
                     <div className="w-32 h-32 mx-auto">
                       <img
                         src={item.avatar}
                         className="w-full h-full rounded-full object-cover object-center"
                         alt={item.name}
                         loading="lazy"
+                        decoding="async"
                       />
                     </div>
                     <div className="mt-2">
@@ -129,7 +130,8 @@ const Team = () => {
                     className="w-full h-full rounded-full object-cover object-center transition-transform duration-500 ease-in-out"
                     alt={currentTeamMember.name}
                     loading={currentIndex === 0 ? "eager" : "lazy"}
-                    fetchPriority={currentIndex === 0 ? "high" : "auto"}
+                    fetchpriority={currentIndex === 0 ? "high" : "auto"}
+                    decoding="async"
                     key={currentIndex} // Re-trigger animations on change
                     />
                 </div>

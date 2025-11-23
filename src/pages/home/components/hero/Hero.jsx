@@ -1,5 +1,6 @@
 // Import necessary libraries and components
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Helmet } from 'react-helmet-async'; // Import Helmet for managing the document head
 import { BsArrowRight, BsArrowLeft } from 'react-icons/bs'; // Icons for slider navigation
 import { motion, AnimatePresence } from 'framer-motion'; // For animations
 
@@ -21,10 +22,10 @@ const Hero = () => {
     //     excerpt: "Casted! Publications began in the most unexpected way — a debate over a sex film sparked its creation. ",
     // },
     const preview = [
-        { pictures: "/slider1.webp", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
-        { pictures: "/slider2.webp", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
-        { pictures: "/slider3.webp", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
-        { pictures: "/slider4.webp", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" }
+        { pictures: "/slider1.webp", loading: "lazy", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
+        { pictures: "/slider2.webp",loading: "lazy", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
+        { pictures: "/slider3.webp", loading: "lazy", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
+        { pictures: "/slider4.webp", loading: "lazy", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" }
     ];
     
     // Function to go to the previous slide
@@ -99,6 +100,10 @@ const Hero = () => {
   return (
     // Main container for the hero section
     <div className="w-full border-b  border-gray-300">
+        {/* Preload the LCP image for faster loading on large screens */}
+        <Helmet>
+            <link rel="preload" as="image" href={preview[0].pictures} />
+        </Helmet>
         <section className=' bg-cover w-full h-[50vh] md:h-[60vh] lg:h-[70vh]' style={{ minHeight: '400px' }}>
             <div ref={heroRef} className='flex lg:justify-between  items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
                 {/* Left side: Hero Text and Subscribe Button */}

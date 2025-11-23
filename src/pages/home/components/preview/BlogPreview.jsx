@@ -17,7 +17,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";  // Importing heart icons 
  * @param {{post: object}} props - The post object to display.
  * @returns {JSX.Element} The rendered post card.
  */
-const PostCard = ({ post }) => {
+const PostCard = ({ post, index }) => {
   const [isLiked, setIsLiked] = useState(false);  // State to track if the post is liked
   const [likeCount, setLikeCount] = useState(post.likes || 0);  // State to track the number of likes
 
@@ -96,8 +96,10 @@ const PostCard = ({ post }) => {
             src={post.fileUrl}
             alt={post.title}
             className="w-full h-50 object-cover rounded-2xl mb-2"
-            loading="lazy"
+            // Prioritize the first image, lazy-load the rest for better LCP.
+            loading={index === 0 ? "eager" : "lazy"}
             decoding="async"
+            fetchpriority={index === 0 ? "high" : "auto"}
           />
           <p className="font-medium text-sm text-gray-600 pl-2">
             {post.createdAt?.toDate().toLocaleDateString("en-US", {
@@ -177,8 +179,8 @@ const BlogPreview = () => {
             initial="visible"
           >
             {/* Map over the first 4 posts and render a card for each */}
-            {posts.slice(0, 4).map((post) => (
-              <PostCard post={post} key={post.id} />
+            {posts.slice(0, 4).map((post, index) => (
+              <PostCard post={post} key={post.id} index={index} />
             ))}
           </motion.section>
         )}

@@ -53,10 +53,10 @@ const YouTubeSection = () => {
       <motion.div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-12"
         variants={containerVariants}
       >
-        {videos.map((video) => (
+        {videos.map((video, index) => (
           // Each video item is also a motion.div, applying individual item animations.
           <motion.div key={video.id} variants={itemVariants}
-            className="backdrop-blur-lg rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden" fetchpriority="high"
+            className="backdrop-blur-lg rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden"
           >
             <div className="relative w-full aspect-video">
               {/* Embedded YouTube iframe for each video. */}
@@ -68,6 +68,9 @@ const YouTubeSection = () => {
                 credentialless
                 sandbox="allow-same-origin allow-scripts allow-popups allow-presentation"
                 className="w-full h-full rounded-t-2xl"
+                // Prioritize the first video, lazy-load the rest.
+                fetchpriority={index === 0 ? "high" : "auto"}
+                loading={index === 0 ? "eager" : "lazy"}
               />
             </div>
             <div className="p-4">

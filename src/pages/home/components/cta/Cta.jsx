@@ -77,9 +77,9 @@ const Cta = () => {
             <div>
               <ul className="mt-12 gap-y-6 gap-x-12 items-center md:flex lg:gap-x-0 lg:mt-0">
                 {
-                  contactMethods.map((item, idx) => (
-                    <motion.li key={idx} className="space-y-3  py-6 md:max-w-sm md:py-0  lg:px-12 lg:max-w-none" variants={itemVariants}>
-                      <div className="w-12 h-12 rounded-full border flex items-center justify-center text-gray-700">
+                  contactMethods.map((item) => (
+                    <motion.li key={item.title} className="space-y-3  py-6 md:max-w-sm md:py-0  lg:px-12 lg:max-w-none" variants={itemVariants}>
+                      <div className="w-12 h-12 rounded-full border flex items-center justify-center text-gray-700" aria-hidden="true">
                           {item.icon}
                       </div>
                       <h4 className="text-gray-800 text-lg font-medium xl:text-xl">
@@ -88,8 +88,9 @@ const Cta = () => {
                       <p>
                           {item.desc}
                       </p>
-                      <a href={item.link.href} target="_blank" rel="noopener noreferrer"className="flex items-center gap-1 text-sm text-amber-600 duration-150 hover:text-amber-400 font-medium">
+                      <a href={item.link.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-amber-600 duration-150 hover:text-amber-400 font-medium">
                           {item.link.name}
+                          <span className="sr-only">(opens in a new tab)</span>
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
                               <path fillRule="evenodd" d="M5 10a.75.75 0 01.75-.75h6.638L10.23 7.29a.75.75 0 111.04-1.08l3.5 3.25a.75.75 0 010 1.08l-3.5 3.25a.75.75 0 11-1.04-1.08l2.158-1.96H5.75A.75.75 0 015 10z" clipRule="evenodd" />
                           </svg>
@@ -106,4 +107,4 @@ const Cta = () => {
 }
 
 // Export the Cta component as the default export
-export default Cta
+export default Cta;
