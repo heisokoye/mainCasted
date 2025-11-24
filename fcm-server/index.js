@@ -79,8 +79,12 @@ app.post('/send-to-all', async (req, res) => {
 
     // Remove invalid tokens
     for (const failure of failed) {
-      const msg = (failure.error || '').toLowerCase();
-      if (msg.includes('not registered') || msg.includes('invalid-registration-token')) {
+      const msg = failure.error || '';
+      if (
+        /not registered/i.test(msg) ||
+        /invalid-registration-token/i.test(msg) ||
+        /requested entity was not found/i.test(msg)
+      ) {
         await tokensCollection.doc(failure.token).delete();
         console.log('Removed invalid token:', failure.token);
       }

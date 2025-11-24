@@ -5,6 +5,7 @@ self.importScripts(
 );
 
 // Initialize Firebase
+
 self.firebase.initializeApp({
   apiKey: "AIzaSyBBNDnlZZqR9Nnv9EqKCTtKWAX6U079eME",
   authDomain: "castedwebsite.firebaseapp.com",
