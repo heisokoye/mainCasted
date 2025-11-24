@@ -28,7 +28,7 @@ messaging.onBackgroundMessage((payload) => {
     body,
     icon: icon || "/castedicon.png",
     badge: badge || "/castedicon.png",
-    image: image || "https://castedpub.vercel.app/matchday.jpg",
+    image: image || "https://castedpub.vercel.app/Pirates.jpg",
     data: { url },
     tag: "casted-update", // prevents duplicate notifications
   };
