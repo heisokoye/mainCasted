@@ -10,7 +10,7 @@ app.use(express.json());
 
 // CORS — only allow your website
 app.use(cors({
-  origin: "https://casted.blog"
+  origin: ["https://casted.blog", "https://www.casted.blog"]
 }));
 
 // Load Firebase service account
