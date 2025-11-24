@@ -213,7 +213,7 @@ const Dashboard = () => {
 
         {/* Modal for adding/editing posts - conditionally rendered */}
         {isOpen && (
-          <div className="fixed inset-0 flex items-center justify-center bg-opacity-50">
+          <div className="fixed inset-0 flex items-center bg-white justify-center bg-opacity-50">
             <div className="bg-white p-6 rounded-lg w-[80%] md:w-[50%] lg:w-[40%] max-h-[60vh] overflow-y-auto">
               {/* Modal title changes depending on add vs edit mode */}
               <h2 className="text-xl mb-4">{editingPost ? 'Edit Post' : 'Add New Post'}</h2>

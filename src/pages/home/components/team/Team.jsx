@@ -21,7 +21,7 @@ const Team = () => {
         id: 2,
         avatar: "/khalid.webp",
         name: "Adeboye Khalid",
-        title: "Managing director", 
+        title: "Managing Director", 
         linkedin: "javascript:void(0)",
         twitter: "javascript:void(0)",
     },
