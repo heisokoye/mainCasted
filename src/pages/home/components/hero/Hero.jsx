@@ -22,7 +22,7 @@ const Hero = () => {
     //     excerpt: "Casted! Publications began in the most unexpected way — a debate over a sex film sparked its creation. ",
     // },
     const preview = [
-        { pictures: "/slider1.webp", loading: "lazy", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
+        { pictures: "/slider1.webp", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
         { pictures: "/slider2.webp",loading: "lazy", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
         { pictures: "/slider3.webp", loading: "lazy", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
         { pictures: "/slider4.webp", loading: "lazy", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" }
@@ -102,9 +102,9 @@ const Hero = () => {
     <div className="w-full border-b  border-gray-300">
         {/* Preload the LCP image for faster loading on large screens */}
         <Helmet>
-            <link rel="preload" as="image" href={preview[0].pictures} />
+            <link rel="preload" decoding="async" as="image" href={preview[0].pictures} />
         </Helmet>
-        <section className=' bg-cover w-full h-[50vh] md:h-[60vh] lg:h-[70vh]' style={{ minHeight: '400px' }}>
+        <section className=' bg-cover w-full h-[50vh] md:h-[60vh] lg:h-[80vh]' style={{ minHeight: '400px' }}>
             <div ref={heroRef} className='flex lg:justify-between  items-center justify-center h-full relative z-10 mx-auto w-[80%]'>
                 {/* Left side: Hero Text and Subscribe Button */}
                 <div>
@@ -147,8 +147,8 @@ const Hero = () => {
                                     alt={preview[currentSlide].titles}
                                     className="w-full h-full object-cover"
                                     loading={currentSlide === 0 ? 'eager' : 'lazy'}
-                                    fetchpriority={currentSlide === 0 ? 'high' : 'auto'}
-                                    decoding={currentSlide === 0 ? 'sync' : 'async'}
+                                    fetchpriority={currentSlide === 0 ? 'high' : 'low'}
+                                    decoding= "async"
                                     width={1280}
                                     height={720}
                                 />
