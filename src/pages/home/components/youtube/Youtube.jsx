@@ -11,12 +11,12 @@ const YouTubeSection = () => {
     {
       id: "GHlRPtH1XAQ",
       title: "Bells University NACOS Induction",
-      description: "Best moments from last week.",
+      description: "Best moments from last month.",
     },
     {
       id: "a89nFPK2uPE",
       title: "Bells University Engineering Induction",
-      description: "Best moments from last week",
+      description: "Best moments from last month",
     },
     {
       id: "vteKS91ne9U",
@@ -42,7 +42,7 @@ const YouTubeSection = () => {
     <section className="py-20 mx-auto w-[80%]">
       <h2 className="text-2xl font-medium mb-6 flex justify-center gap-2">
         <div> Campus in </div> 
-        <div className="text-orange-600">Motion</div>
+        <div className="text-orange-500">Motion</div>
       </h2>
 
       <motion.div 
