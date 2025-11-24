@@ -33,6 +33,18 @@ app.get('/', (req, res) => {
   res.send('FCM Server is running!');
 });
 
+// GET endpoint to retrieve all tokens
+app.get('/tokens', async (req, res) => {
+  try {
+    const tokensSnapshot = await tokensCollection.get();
+    const tokens = tokensSnapshot.docs.map(doc => doc.data());
+    res.status(200).send(tokens);
+  } catch (error) {
+    console.error('Failed to retrieve tokens:', error);
+    res.status(500).send({ error: 'Failed to retrieve tokens.' });
+  }
+});
+
 // STORE TOKEN endpoint
 app.post('/store-token', async (req, res) => {
   const { token } = req.body;

@@ -10,7 +10,7 @@ app.use(express.json());
 
 // CORS — only allow your website
 app.use(cors({
-  origin: "https://castedpub.vercel.app"
+  origin: "https://casted.blog"
 }));
 
 // Load Firebase service account
