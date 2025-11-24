@@ -11,7 +11,7 @@ const EventCalendar = () => {
     {
       id: 1,
       title: "PIRATES FC - UNDERRATED FC",
-      date: new Date(2025, 10, 23), 
+      date: new Date(2024, 10, 23), 
       time: "4:00 PM",
       location: "Bells Field",
       type: "sports",

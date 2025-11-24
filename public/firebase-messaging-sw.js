@@ -26,7 +26,7 @@ messaging.onBackgroundMessage(function(payload) {
     body: data.body || 'Open the app to learn more.',
     icon: data.icon || '/castedicon.png',
     badge: data.badge || '/castedicon.png',
-    image: data.image || 'https://castedpub.vercel.app/slider1.webp',
+    image: data.image || 'https://castedpub.vercel.app/matchday.jpg',
     data: { url: data.url || '/' },
     tag: 'casted-update' // Add this tag to prevent duplicate notifications
   };
