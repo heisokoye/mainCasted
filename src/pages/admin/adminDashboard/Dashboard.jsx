@@ -107,10 +107,15 @@ const Dashboard = () => {
 
     // If user selected a new file, upload it to Firebase Storage
     if (file) {
+      const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+      if (!uploadPreset) {
+        alert("Cloudinary upload preset is not configured. Please set VITE_CLOUDINARY_UPLOAD_PRESET in your .env file.");
+        setIsUploading(false);
+        return;
+      }
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET); 
-      formData.append("api_key", import.meta.env.VITE_CLOUDINARY_API_KEY);
+      formData.append("upload_preset", uploadPreset); 
 
       // Detect if it's an image or video
       const resourceType = file.type.startsWith("video") ? "video" : "image";
@@ -125,6 +130,9 @@ const Dashboard = () => {
         );
 
         const data = await res.json();
+        if (!res.ok || !data.secure_url) {
+          throw new Error(data.error?.message || "Cloudinary upload failed");
+        }
         fileUrl = data.secure_url;
         fileType = resourceType;
       } catch (error) {
