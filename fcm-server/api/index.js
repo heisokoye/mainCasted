@@ -65,21 +65,27 @@ app.post('/store-token', async (req, res) => {
 
 // SEND TO ALL endpoint — fully server-driven
 app.post('/send-to-all', async (req, res) => {
-  const { title, body, image, icon, badge, url } = req.body || {};
+  const { title, body, image, url } = req.body || {};
 
   const tokensSnapshot = await tokensCollection.get();
   const tokens = tokensSnapshot.docs.map(doc => doc.id);
 
   if (!tokens.length) return res.status(400).send({ error: 'No registered tokens.' });
 
-  const message = { data: {}, tokens };
+  const message = {
+    notification: {
+      title: title || "Casted Update",
+      body: body || "Open the app to learn more.",
+    },
+    data: {
+      url: url || "/"
+    },
+    tokens
+  };
 
-  if (title) message.data.title = title;
-  if (body) message.data.body = body;
-  if (image) message.data.image = image;
-  if (icon) message.data.icon = icon;
-  if (badge) message.data.badge = badge;
-  if (url) message.data.url = url;
+  if (image) {
+    message.notification.image = image;
+  }
 
   try {
     const response = await admin.messaging().sendEachForMulticast(message);

@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-import { getMessaging, getToken} from "firebase/messaging";
+import { getMessaging} from "firebase/messaging";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -27,27 +27,4 @@ const messaging = getMessaging(app);
 
 export { app, db, storage, messaging };
 
-export const generateToken = async()=>{
-  const permission = await Notification.requestPermission();
-  console.log('Notification permission status:', permission);
 
-  if(permission==='granted'){
-    try {
-      const token = await getToken(messaging, {vapidKey: 'BO6gTLciyTn4U3v9h5Z7RIcRcFjMjkMNZhSfMBRNhhps8_ELBbnzrug9rGaIbBVfbMDbmtN_0Ha5Bm5kcuR9Pfw'});
-      console.log('Token generated: ', token);
-    } catch (err) {
-      console.error('An error occurred while retrieving token. ', err);
-    }
-  } else {
-    console.log('Unable to get permission to show notifications.');
-  }
-}
-
-
-
-
-// Then in your App.jsx's useEffect, you'd call this new function
-// useEffect(() => {
-//   generateTokenAndSendToServer();
-//   // ... onMessage listener
-// }, []);
