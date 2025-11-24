@@ -22,7 +22,7 @@ const Team = () => {
     { id: 1, avatar: "/iskeel.png", name: "Iskeel Atolagbe", title: "Executive Director" },
     { id: 2, avatar: "/khalid.webp", name: "Adeboye Khalid", title: "Managing Director" },
     { id: 3, avatar: "/seyi.webp", name: "Oluwaseyifunmi Dosunmu", title: "Director Emeritus" },
-    { id: 8, avatar: "/Divine.webp", name: "Divine", title: "Lead Interviewer" },
+    { id: 8, avatar: "/Divine.webp", name: "Chigozie-Akano Divine", title: "Lead Interviewer" },
     { id: 4, avatar: "/nifemi.webp", name: "Adesanya Olorunnifemi", title: "Lead Designer" },
     { id: 5, avatar: "/Adex.webp", name: "Adeniyi Ademide", title: "Social Media Director" },
     { id: 6, avatar: "/daniel.webp", name: "Adekoya Daniel", title: "Lead Videographer" },
