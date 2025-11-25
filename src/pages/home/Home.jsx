@@ -75,14 +75,7 @@ const Home = () => {
 
                 {/* Team section - lazy loaded */}
                 <Suspense fallback={<div className="py-14" />}>
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
-                        <Team/>
-                    </motion.div>
+                    <Team/>
                 </Suspense>
 
                 
