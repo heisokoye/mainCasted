@@ -34,14 +34,7 @@ const Home = () => {
 
                 {/* YouTube section - lazy loaded to reduce TBT */}
                 <Suspense fallback={<div className="py-20" />}>
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
                         <YouTubeSection/>
-                    </motion.div>
                 </Suspense>
 
                  {/* BlogPreview section - lazy loaded to reduce TBT */}
