@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { collection, onSnapshot, doc, updateDoc, increment } from "firebase/firestore";
+import { collection, onSnapshot, doc, updateDoc, increment, query, orderBy } from "firebase/firestore";
 import { db } from "../../../../Firebase";
 import Loader from "../../../../components/loader/Loader";
 import { Link } from "react-router-dom";
@@ -112,7 +112,9 @@ const BlogPreview = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    const unsubscribe = onSnapshot(collection(db, "posts"), (snapshot) => {
+    const postsCollection = collection(db, "posts");
+    const q = query(postsCollection, orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       const postsList = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
