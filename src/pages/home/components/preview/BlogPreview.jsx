@@ -65,11 +65,11 @@ const PostCard = ({ post, index }) => {
         className="flex mb-12 rounded-2xl flex-col h-90 cursor-pointer transform transition-transform duration-500 hover:scale-102 ease-in"
         variants={itemVariants}
       >
-        <div className="relative w-full aspect-video">
+        <div className="relative w-full h-48">
           <img
             src={post.fileUrl}
             srcSet={`${post.fileUrl}?w=400 400w, ${post.fileUrl}?w=800 800w`}
-            sizes="(max-width: 640px) 100vw, 400px"
+            sizes="(max-width: 640px)  100vw, 400px, "
             alt={post.title}
             className="w-full h-full object-cover rounded-2xl mb-2"
             loading={index === 0 ? "eager" : "lazy"}
