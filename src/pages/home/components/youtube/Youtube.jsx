@@ -18,11 +18,7 @@ const YouTubeSection = () => {
       title: "Bells University Engineering Induction",
       description: "Best moments from last month",
     },
-    {
-      id: "vteKS91ne9U",
-      title: "🎉 Bells Sports Fest",
-      description: "The Ultimate Inter-school showdown 🏀⚽🏐🔥",
-    },
+
   ];
 
   const containerVariants = {
@@ -46,7 +42,7 @@ const YouTubeSection = () => {
       </h2>
 
       <motion.div 
-        className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-12"
+        className="grid sm:grid-cols-2 md:grid-cols-1  lg:grid-cols-3 gap-12"
         variants={containerVariants}
       >
         {videos.map((video, index) => (
