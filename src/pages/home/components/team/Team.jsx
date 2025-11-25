@@ -27,6 +27,7 @@ const Team = () => {
     { id: 5, avatar: "/Adex.webp", name: "Adeniyi Ademide", title: "Social Media Director" },
     { id: 6, avatar: "/daniel.webp", name: "Adekoya Daniel", title: "Lead Videographer" },
     { id: 7, avatar: "/Tolu.webp", name: "Tolulope Ogunbiyi", title: "Lead Photographer" },
+    { id: 9, avatar: "/Okoye.webp", name: "Okoye Emeka", title: "Developer" },
     
 
   ];
