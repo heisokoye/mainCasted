@@ -46,14 +46,7 @@ const Home = () => {
 
                  {/* BlogPreview section - lazy loaded to reduce TBT */}
                 <Suspense fallback={<div className="py-20" />}>
-                    <motion.div
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
                         <BlogPreview/>
-                    </motion.div>
                 </Suspense>
                 
                 {/* Event Calendar section - Mobile Only - lazy loaded */}
