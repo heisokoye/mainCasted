@@ -14,7 +14,7 @@ const EventCalendar = () => {
       date: new Date(2025, 10, 26), 
       time: "2:00 PM",
       location: "LT1",
-      type: "event",
+      type: "events",
     },
   ]);
 

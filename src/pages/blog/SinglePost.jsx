@@ -6,6 +6,7 @@ import Loader from "../../components/loader/Loader";
 import "../../App.css"
 import { BsArrowLeft } from "react-icons/bs";
 import { FaTwitter, FaFacebook, FaLinkedin, FaWhatsapp, FaShareAlt } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 /**
  * SinglePost component fetches and displays a single blog post based on the ID from the URL.
@@ -36,6 +37,11 @@ const SinglePost = () => {
     fetchPost();
   }, [id]); // Dependency array includes 'id' to re-run effect if ID changes.
 
+  const stripHtml = (html) => {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || "";
+  };
+
   // Function to handle social sharing
   const handleShare = (platform) => {
     const postUrl = window.location.href;
@@ -61,7 +67,7 @@ const SinglePost = () => {
         if (navigator.share) {
           navigator.share({
             title: postTitle,
-            text: post?.content?.substring(0, 100) || "",
+            text: post?.content ? stripHtml(post.content).substring(0, 100) : "",
             url: postUrl,
           }).catch(() => {});
         }
@@ -80,8 +86,30 @@ const SinglePost = () => {
     return <p className="text-center py-10">Post not found</p>;
   }
 
+  // Safely get the first 150 characters of the post content for the description
+  const postDescription = post?.content
+    ? stripHtml(post.content).substring(0, 150)
+    : "Read this interesting post from Casted! Publications.";
+
   return (
     <div className="py-20">
+      {post && (
+        <Helmet>
+          <title>{post.title} | Casted! Publications</title>
+          <meta name="description" content={postDescription} />
+          {/* Open Graph Tags */}
+          <meta property="og:title" content={post.title} />
+          <meta property="og:description" content={postDescription} />
+          <meta property="og:image" content={post.fileUrl} />
+          <meta property="og:url" content={window.location.href} />
+          <meta property="og:type" content="article" />
+          {/* Twitter Card Tags */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={post.title} />
+          <meta name="twitter:description" content={postDescription} />
+          <meta name="twitter:image" content={post.fileUrl} />
+        </Helmet>
+      )}
       <div className="mx-auto w-[80%] lg:w-[60%]">
         {/* Conditional rendering: show loader while fetching, otherwise show post content. */}
         {isLoading ? (
