@@ -26,7 +26,7 @@ const Home = () => {
                 <link rel="canonical" href="https://castedpub.vercel.app/" />
                 <link rel="preload" href="/bg.webp" as="image" />
             </Helmet>
-            <div className="bg-[url('/bg.webp')] bg-no-repeat bg-cover  bg-fixed" rel="preload" as="image"> 
+            <div className="bg-[url('/bg.webp')] bg-no-repeat bg-cover lg:bg-[url('/v4.png')] bg-fixed" rel="preload" as="image"> 
                 {/* Hero section - no initial animation to improve FCP */}
                 <div>
                     <Hero className="flex justify-center items-center"/>
@@ -34,7 +34,7 @@ const Home = () => {
 
                 {/* YouTube section - lazy loaded to reduce TBT */}
                 <Suspense fallback={<div className="py-20" />}>
-                        <YouTubeSection/>
+                        <YouTubeSection className="border-b border-gray-300"/>
                 </Suspense>
 
                  {/* BlogPreview section - lazy loaded to reduce TBT */}

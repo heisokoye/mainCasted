@@ -22,8 +22,8 @@ const Hero = () => {
     //     excerpt: "Casted! Publications began in the most unexpected way — a debate over a sex film sparked its creation. ",
     // },
     const preview = [
-        { pictures: "/slider1.webp", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
-        { pictures: "/slider2.webp",loading: "lazy", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
+        { pictures: "/debate.jpg", loading: "lazy"},
+        { pictures: "/prize.jpg",loading: "lazy"},
         { pictures: "/slider3.webp", loading: "lazy", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
         { pictures: "/slider4.webp", loading: "lazy", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" }
     ];
@@ -145,7 +145,7 @@ const Hero = () => {
                                 <img
                                     src={preview[currentSlide].pictures}
                                     alt={preview[currentSlide].titles}
-                                    className="w-full h-full object-cover"
+                                    className="w-full object-cover"
                                     loading={currentSlide === 0 ? 'eager' : 'lazy'}
                                     fetchpriority={currentSlide === 0 ? 'high' : 'low'}
                                     decoding= "async"
