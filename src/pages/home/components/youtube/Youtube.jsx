@@ -37,17 +37,17 @@ const YouTubeSection = () => {
     <div className="border-b border-gray-300 lg:h-[70vh]">
       <section className="py-20 mx-auto w-[80%]">
         <h2 className="text-2xl font-medium mb-6 flex justify-center gap-2">
-          <div> Campus in </div>
+          <div> Campus in </div> 
           <div className="text-orange-500">Motion</div>
         </h2>
 
-        <motion.div
+        <motion.div 
           className="grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 gap-12"
           variants={containerVariants}
         >
           {videos.map((video, index) => (
-            <motion.div
-              key={video.id}
+            <motion.div 
+              key={video.id} 
               variants={itemVariants}
               className="backdrop-blur-lg rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden"
             >
@@ -58,8 +58,8 @@ const YouTubeSection = () => {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                   className="w-full h-full rounded-t-2xl"
-                  loading={index === 0 ? "eager" : "lazy"}
                   fetchpriority={index === 0 ? "high" : "auto"}
+                  loading={index === 0 ? "eager" : "lazy"}
                 />
               </div>
               <div className="p-4">
