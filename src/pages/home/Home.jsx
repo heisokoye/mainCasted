@@ -34,7 +34,7 @@ const Home = () => {
 
                 {/* YouTube section - lazy loaded to reduce TBT */}
                 <Suspense fallback={<div className="py-20" />}>
-                        <YouTubeSection/>
+                        <YouTubeSection />
                 </Suspense>
 
                  {/* BlogPreview section - lazy loaded to reduce TBT */}
