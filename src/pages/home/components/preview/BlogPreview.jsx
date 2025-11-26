@@ -62,7 +62,7 @@ const PostCard = ({ post, index }) => {
   return (
     <Link to={`/post/${post.id}`} key={post.id}>
       <motion.div
-        className="flex mb-12 rounded-2xl flex-col h-90 cursor-pointer transform transition-transform duration-500 hover:scale-102 ease-in"
+        className="flex mb-12 rounded-2xl  flex-col h-90 cursor-pointer transform transition-transform duration-500 hover:scale-102 ease-in"
         variants={itemVariants}
       >
         <div className="relative w-full h-48">
@@ -131,7 +131,7 @@ const BlogPreview = () => {
   };
 
   return (
-    <div className="py-20">
+    <div className="py-20 border-b border-gray-300">
       <div className="mx-auto w-[80%]">
         <div className="justify-center flex gap-2 text-2xl font-medium py-8">
           <p>From the</p>

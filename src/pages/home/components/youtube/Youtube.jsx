@@ -35,6 +35,7 @@ const YouTubeSection = () => {
   };
 
   return (
+    <div className="border-b border-gray-300">
     <section className="py-20 mx-auto w-[80%]">
       <h2 className="text-2xl font-medium mb-6 flex justify-center gap-2">
         <div> Campus in </div> 
@@ -70,6 +71,7 @@ const YouTubeSection = () => {
         ))}
       </motion.div>
     </section>
+    </div>
   );
 };
 
