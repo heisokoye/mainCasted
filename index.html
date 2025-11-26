@@ -32,7 +32,25 @@
     <link rel="dns-prefetch" href="https://firebaseapp.com">
     <link rel="dns-prefetch" href="https://firebasestorage.app">
     <!-- Google tag (gtag.js) -->
+    <script>
+      const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          for (const node of mutation.addedNodes) {
+            if (node.tagName === 'LINK' && node.rel === 'stylesheet') {
+              // It's the CSS link!
+              node.rel = 'preload';
+              node.as = 'style';
+              node.onload = () => {
+                node.rel = 'stylesheet';
+              };
+              observer.disconnect(); // We're done
+            }
+          }
+        }
+      });
 
+      observer.observe(document.head, { childList: true });
+    </script>
   </head>
   <body>
     <div id="root"></div>
