@@ -114,7 +114,7 @@ const Hero = () => {
                     </h1>
                     {/* Subscribe button - no initial animation for better FCP */}
                     <motion.button
-                        className='hero-text mt-4 bg-white border text-amber-600 px-4 py-2 cursor-pointer rounded-lg shadow-lg flex items-center gap-2'
+                        className='hero-text mt-4 bg-white border text-amber-700 px-4 py-2 cursor-pointer rounded-lg shadow-lg flex items-center gap-2'
                         whileHover="hover" // Trigger 'hover' variant on mouse over
                         variants={{
                             hover: { scale: 1.05, transition: { type: 'spring', stiffness: 400, damping: 15 } }

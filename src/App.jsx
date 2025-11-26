@@ -56,38 +56,40 @@ const App = () => {
   }, [generateTokenAndSendToServer]);
 
   return (
-    <HelmetProvider>
-      <BrowserRouter>
-        <AnalyticsTracker />
-        <Navbar />
+    <main>
+      <HelmetProvider>
+        <BrowserRouter>
+          <AnalyticsTracker />
+          <Navbar />
 
-        <Suspense
-          fallback={
-            <div className="flex justify-center items-center h-screen">
-              <Loader />
-            </div>
-          }
-        >
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/post/:id" element={<SinglePost />} />
-          </Routes>
-        </Suspense>
+          <Suspense
+            fallback={
+              <div className="flex justify-center items-center h-screen">
+                <Loader />
+              </div>
+            }
+          >
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/post/:id" element={<SinglePost />} />
+            </Routes>
+          </Suspense>
 
-        <Footer />
-      </BrowserRouter>
-    </HelmetProvider>
+          <Footer />
+        </BrowserRouter>
+      </HelmetProvider>
+    </main>
   );
 };
 

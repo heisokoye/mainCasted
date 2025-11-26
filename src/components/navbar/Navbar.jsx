@@ -75,7 +75,7 @@ const Navbar = ({children}) => {
 
                 {/* Hamburger Menu icon for mobile view. */}
                 <div className='md:hidden lg:hidden relative z-50 '>
-                    <button  className="cursor-pointer" onClick ={()=> setIsOpen(!isOpen)}>
+                    <button  className="cursor-pointer" aria-label="Toggle Menu" onClick ={()=> setIsOpen(!isOpen)}>
                         {/* Toggles between FaTimes (X icon) and FaBars (hamburger icon) based on isOpen state. */}
                         {isOpen ? (
                             <FaTimes size={17} className={isHome ? 'text-orange-400' : 'text-orange-400'} />
