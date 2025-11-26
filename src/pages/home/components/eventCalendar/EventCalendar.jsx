@@ -10,7 +10,7 @@ const EventCalendar = () => {
   const [events] = useState([
     {
       id: 1,
-      title: "BUSA Intercollege Debate Tomorrow",
+      title: "BUSA Intercollege Debate",
       date: new Date(2025, 10, 26), 
       time: "2:00 PM",
       location: "LT1",
