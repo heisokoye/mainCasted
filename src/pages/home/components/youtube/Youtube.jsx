@@ -35,7 +35,7 @@ const YouTubeSection = () => {
   };
 
   return (
-    <div className="border-b border-gray-300">
+    <div className="border-b border-gray-300 lg:h-[70vh]">
     <section className="py-20 mx-auto w-[80%]">
       <h2 className="text-2xl font-medium mb-6 flex justify-center gap-2">
         <div> Campus in </div> 
