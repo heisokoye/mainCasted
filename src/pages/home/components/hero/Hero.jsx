@@ -22,8 +22,6 @@ const Hero = () => {
     //     excerpt: "Casted! Publications began in the most unexpected way — a debate over a sex film sparked its creation. ",
     // },
     const preview = [
-        { pictures: "/debate.webp", loading: "lazy"},
-        { pictures: "/prize.webp",loading: "lazy"},
         { pictures: "/slider3.webp", loading: "lazy", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" },
         { pictures: "/slider4.webp", loading: "lazy", titles: "NACOS & ENGINEERING INDUCTION CEREMONY" }
     ];
