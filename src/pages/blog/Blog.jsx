@@ -142,7 +142,7 @@ const Blog = () => {
           // Grid layout for the blog posts
           <div className="grid  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
             {/* Map over the first 4 posts and render a card for each */}
-            {posts.slice(0, 4).map((post) => (
+            {posts.map((post) => (
               <PostCard post={post} key={post.id} />
             ))}
           </div>
