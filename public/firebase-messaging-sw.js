@@ -28,7 +28,7 @@ messaging.onBackgroundMessage((payload) => {
     body,
     icon: icon || "/castedicon.png",
     badge: badge || "/castedicon.png",
-    image: image || "/1.png",
+    image: image || "/debate.webp",
     data: { url },
     tag: "casted-update", // prevents duplicate notifications
   };
