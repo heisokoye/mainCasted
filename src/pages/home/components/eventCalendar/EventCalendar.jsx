@@ -11,7 +11,7 @@ const EventCalendar = () => {
     {
       id: 1,
       title: "BUSA Intercollege Debate",
-      date: new Date(), 
+      date: new Date("2025-03-12"), 
       time: "2:00 PM",
       location: "LT1",
       type: "events",
