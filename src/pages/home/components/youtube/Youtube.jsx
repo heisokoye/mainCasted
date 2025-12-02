@@ -8,16 +8,6 @@ const YouTubeSection = () => {
       title: "CASTED! Team 2025/2026",
       description: "we are back 😁",
     },
-    {
-      id: "GHlRPtH1XAQ",
-      title: "Bells University NACOS Induction",
-      description: "Best moments from last month.",
-    },
-    {
-      id: "a89nFPK2uPE",
-      title: "Bells University Engineering Induction",
-      description: "Best moments from last month",
-    },
   ];
 
   const containerVariants = {
