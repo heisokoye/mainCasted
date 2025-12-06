@@ -10,11 +10,11 @@ const EventCalendar = () => {
   const [events] = useState([
     {
       id: 1,
-      title: "BUSA Intercollege Debate Final",
-      date: new Date(2025, 11, 3), 
-      time: "2:00 PM",
-      location: "LT1",
-      type: "events",
+      title: "BrickCity Block Party",
+      date: new Date(2025, 11, 6), 
+      time: "12:00 PM",
+      location: "Field",
+      type: "party",
     },
   ]);
 
