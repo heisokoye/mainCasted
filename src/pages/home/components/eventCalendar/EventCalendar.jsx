@@ -10,7 +10,7 @@ const EventCalendar = () => {
   const [events] = useState([
     {
       id: 1,
-      title: "AGENDA Vs HAMMERS ",
+      title: "PIRATES FC VS PRIME FC ",
       date: new Date(2025, 11, 12), 
       time: "4:00 PM",
       location: "Field",
