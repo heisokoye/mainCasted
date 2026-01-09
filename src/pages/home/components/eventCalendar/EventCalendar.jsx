@@ -10,11 +10,19 @@ const EventCalendar = () => {
   const [events] = useState([
     {
       id: 1,
-      title: "PIRATES FC VS PRIME FC ",
-      date: new Date(2025, 11, 12), 
+      title: "BUSA Basketball League Final - First of Three: TBK v Vikings",
+      date: new Date(2026, 0, 9), 
       time: "4:00 PM",
       location: "Field",
       type: "sports",
+    },
+    {
+    id: 2,
+    title: "BUSA Football League Semi-Final: Pirates v Kings FC",
+    date: new Date(2026, 0, 9), 
+    time: "4:00 PM",
+    location: "Field",
+    type: "sports",
     },
   ]);
 
