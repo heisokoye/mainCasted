@@ -4,6 +4,11 @@ import { motion } from "framer-motion";
 const YouTubeSection = () => {
   const videos = [
     {
+      id: "YBK9JnoX_2M",
+      title: "BELLS UNIVERSITY  CONVOCATION CEREMONY 2025"
+    }, 
+    
+    {
       id: "DYr2L-CAFpw",
       title: "CASTED! Team 2025/2026",
       description: "we are back 😁",
