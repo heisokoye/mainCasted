@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useCallback, useState } from "react";
+import React, { Suspense, lazy, useEffect, useCallback } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Shared components
@@ -7,7 +7,6 @@ import Footer from "./components/footer/Footer";
 import ProtectedRoute from "./pages/admin/ProtectedRoute";
 import Loader from "./components/loader/Loader";
 import AnalyticsTracker from "./components/analytics/AnalyticsTracker";
-import ElectionMarquee from "./components/announcement/ElectionMarquee";
 
 // Firebase
 import { messaging } from "./Firebase";
@@ -27,10 +26,6 @@ const SinglePost = lazy(() => import("./pages/blog/SinglePost"));
 const VAPID_KEY = "BO6gTLciyTn4U3v9h5Z7RIcRcFjMjkMNZhSfMBRNhhps8_ELBbnzrug9rGaIbBVfbMDbmtN_0Ha5Bm5kcuR9Pfw";
 
 const App = () => {
-  // Banner visibility state checking localStorage
-  const [showAnnounce, setShowAnnounce] = useState(() => {
-    return !localStorage.getItem("hideElectionAnnounce");
-  });
 
   // Generate FCM token and send to server
   const generateTokenAndSendToServer = useCallback(async () => {
@@ -64,13 +59,9 @@ const App = () => {
     <main>
       <BrowserRouter>
         <AnalyticsTracker />
-        {showAnnounce && (
-          <ElectionMarquee
-          />
-        )}
-        <Navbar hasBanner={showAnnounce} />
+        <Navbar />
 
-        <div style={{ paddingTop: showAnnounce ? '40px' : '0px', transition: 'padding-top 0.3s ease-in-out' }}>
+        <div>
           <Suspense
             fallback={
               <div className="flex justify-center items-center h-screen">
